@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 10% 4%;
+    --foreground: 250 100% 97%;
+    --card: 240 10% 7%;
+    --card-foreground: 250 100% 97%;
+    --popover: 240 10% 6%;
+    --popover-foreground: 250 100% 97%;
+    --primary: 270 80% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 8% 12%;
+    --secondary-foreground: 240 5% 70%;
+    --muted: 240 8% 12%;
+    --muted-foreground: 240 5% 55%;
+    --accent: 270 60% 20%;
+    --accent-foreground: 270 80% 75%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 8% 16%;
+    --input: 240 8% 12%;
+    --ring: 270 80% 55%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    background-color: #0a0a0f;
+    color: #f1f0ff;
+  }
+
+  body {
+    background-color: #0a0a0f;
+    color: #f1f0ff;
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #08080f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #7c3aed;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9333ea;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, #a855f7 0%, #c084fc 60%, #818cf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-purple {
+    background: rgba(147, 51, 234, 0.12);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(147, 51, 234, 0.25);
+  }
+
+  .purple-glow {
+    box-shadow: 0 0 40px rgba(147, 51, 234, 0.15);
+  }
+
+  .shadow-glass {
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  }
+
+  .shadow-purple-glow {
+    box-shadow: 0 0 30px rgba(147, 51, 234, 0.18);
+  }
+
+  .shadow-card {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.35s ease-out both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
