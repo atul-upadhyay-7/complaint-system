@@ -9,8 +9,18 @@ import SubmitComplaint from './pages/SubmitComplaint';
 import MyComplaints from './pages/MyComplaints';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminComplaints from './pages/AdminComplaints';
+import TechnicianDashboard from './pages/TechnicianDashboard';
+import WardenDashboard from './pages/WardenDashboard';
 
-// Route guards
+// Helper to get home path for a role
+const getHome = (role) => {
+    if (role === 'admin') return '/admin';
+    if (role === 'warden') return '/warden';
+    if (role === 'technician') return '/technician';
+    return '/dashboard';
+};
+
+// Require login
 function RequireAuth({ children }) {
     const { user, loading } = useAuth();
     if (loading) return (
@@ -21,18 +31,20 @@ function RequireAuth({ children }) {
     return user ? children : <Navigate to="/login" replace />;
 }
 
-function RequireAdmin({ children }) {
+// Require specific roles
+function RequireRole({ children, roles }) {
     const { user, loading } = useAuth();
     if (loading) return null;
     if (!user) return <Navigate to="/login" replace />;
-    if (user.role !== 'admin') return <Navigate to="/dashboard" replace />;
+    if (!roles.includes(user.role)) return <Navigate to={getHome(user.role)} replace />;
     return children;
 }
 
+// Redirect logged-in users away from guest pages
 function GuestOnly({ children }) {
     const { user, loading } = useAuth();
     if (loading) return null;
-    if (user) return <Navigate to={user.role === 'admin' ? '/admin' : '/dashboard'} replace />;
+    if (user) return <Navigate to={getHome(user.role)} replace />;
     return children;
 }
 
@@ -44,13 +56,21 @@ function AppRoutes() {
             <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
 
             {/* Student routes */}
-            <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
-            <Route path="/submit" element={<RequireAuth><SubmitComplaint /></RequireAuth>} />
-            <Route path="/my-complaints" element={<RequireAuth><MyComplaints /></RequireAuth>} />
+            <Route path="/dashboard" element={<RequireRole roles={['student']}><Dashboard /></RequireRole>} />
+            <Route path="/submit" element={<RequireRole roles={['student']}><SubmitComplaint /></RequireRole>} />
+            <Route path="/my-complaints" element={<RequireRole roles={['student']}><MyComplaints /></RequireRole>} />
 
             {/* Admin routes */}
-            <Route path="/admin" element={<RequireAdmin><AdminDashboard /></RequireAdmin>} />
-            <Route path="/admin/complaints" element={<RequireAdmin><AdminComplaints /></RequireAdmin>} />
+            <Route path="/admin" element={<RequireRole roles={['admin']}><AdminDashboard /></RequireRole>} />
+            <Route path="/admin/dashboard" element={<RequireRole roles={['admin']}><AdminDashboard /></RequireRole>} />
+            <Route path="/admin/complaints" element={<RequireRole roles={['admin']}><AdminComplaints /></RequireRole>} />
+
+            {/* Technician routes */}
+            <Route path="/technician" element={<RequireRole roles={['technician']}><TechnicianDashboard /></RequireRole>} />
+
+            {/* Warden routes */}
+            <Route path="/warden" element={<RequireRole roles={['warden']}><WardenDashboard /></RequireRole>} />
+            <Route path="/warden/complaints" element={<RequireRole roles={['warden']}><WardenDashboard /></RequireRole>} />
 
             {/* Fallback */}
             <Route path="*" element={<Navigate to="/login" replace />} />

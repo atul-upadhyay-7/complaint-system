@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { Eye, EyeOff, Loader2, GraduationCap, Lock, Mail, ShieldCheck, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, Loader2, GraduationCap, Lock, Mail, ShieldCheck, Sparkles, Wrench, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -21,7 +21,10 @@ export default function Login() {
         try {
             const user = await login(form.email, form.password);
             toast.success(`Welcome back, ${user.name}! 👋`);
-            navigate(user.role === 'admin' ? '/admin' : '/dashboard');
+            if (user.role === 'admin') navigate('/admin');
+            else if (user.role === 'warden') navigate('/warden');
+            else if (user.role === 'technician') navigate('/technician');
+            else navigate('/dashboard');
         } catch (err) {
             toast.error(err.response?.data?.message || 'Invalid credentials');
         } finally {
@@ -30,8 +33,13 @@ export default function Login() {
     };
 
     const fillDemo = (role) => {
-        if (role === 'admin') setForm({ email: 'admin@campus.edu', password: 'admin123' });
-        else setForm({ email: 'student@campus.edu', password: 'student123' });
+        const creds = {
+            admin: { email: 'admin@campus.edu', password: 'admin123' },
+            student: { email: 'student@campus.edu', password: 'student123' },
+            technician: { email: 'tech@campus.edu', password: 'tech123' },
+            warden: { email: 'warden@campus.edu', password: 'warden123' },
+        };
+        setForm(creds[role] || creds.student);
     };
 
     return (
@@ -136,15 +144,18 @@ export default function Login() {
                             {/* Demo credentials */}
                             <div className="mt-6 p-4 rounded-xl bg-secondary/30 border border-border/50 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.5s' }}>
                                 <p className="text-xs text-muted-foreground font-medium mb-3 text-center tracking-wider">DEMO ACCOUNTS</p>
-                                <div className="flex gap-2">
-                                    <button onClick={() => fillDemo('student')}
-                                        className="flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 px-3 text-sm font-medium border border-border hover:border-purple-600/50 hover:bg-purple-600/10 text-muted-foreground hover:text-purple-300 transition-all duration-300 hover:-translate-y-0.5">
-                                        <GraduationCap className="w-4 h-4" /> Student
-                                    </button>
-                                    <button onClick={() => fillDemo('admin')}
-                                        className="flex-1 flex items-center justify-center gap-2 rounded-lg py-2.5 px-3 text-sm font-medium border border-border hover:border-purple-600/50 hover:bg-purple-600/10 text-muted-foreground hover:text-purple-300 transition-all duration-300 hover:-translate-y-0.5">
-                                        <ShieldCheck className="w-4 h-4" /> Admin
-                                    </button>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {[
+                                        { role: 'student', icon: GraduationCap, label: 'Student' },
+                                        { role: 'admin', icon: ShieldCheck, label: 'Admin' },
+                                        { role: 'technician', icon: Wrench, label: 'Technician' },
+                                        { role: 'warden', icon: UserCheck, label: 'Warden' },
+                                    ].map(({ role, icon: Icon, label }) => (
+                                        <button key={role} onClick={() => fillDemo(role)}
+                                            className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-3 text-sm font-medium border border-border hover:border-purple-600/50 hover:bg-purple-600/10 text-muted-foreground hover:text-purple-300 transition-all duration-300 hover:-translate-y-0.5">
+                                            <Icon className="w-4 h-4" /> {label}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
 

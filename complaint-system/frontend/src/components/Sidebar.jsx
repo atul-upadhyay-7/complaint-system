@@ -3,27 +3,44 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import {
     LayoutDashboard, PlusCircle, FileText, ShieldCheck, ClipboardList,
-    GraduationCap, Menu, X
+    GraduationCap, Menu, X, Wrench, UserCheck, ListChecks
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
-const studentLinks = [
-    { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/submit', icon: PlusCircle, label: 'Submit Complaint' },
-    { to: '/my-complaints', icon: FileText, label: 'My Complaints' },
-];
-const adminLinks = [
-    { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/admin/complaints', icon: ClipboardList, label: 'All Complaints' },
-];
+const linksByRole = {
+    student: [
+        { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+        { to: '/submit', icon: PlusCircle, label: 'Submit Complaint' },
+        { to: '/my-complaints', icon: FileText, label: 'My Complaints' },
+    ],
+    admin: [
+        { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+        { to: '/admin/complaints', icon: ClipboardList, label: 'All Complaints' },
+    ],
+    technician: [
+        { to: '/technician', icon: ListChecks, label: 'My Tasks' },
+    ],
+    warden: [
+        { to: '/warden', icon: LayoutDashboard, label: 'Dashboard' },
+        { to: '/warden/complaints', icon: ClipboardList, label: 'All Complaints' },
+    ],
+};
+
+const accentByRole = {
+    student: { active: 'bg-[#1e1b3a] text-purple-100', bar: 'bg-purple-500 shadow-[0_0_10px_#9333ea]', icon: 'text-indigo-400' },
+    admin: { active: 'bg-[#1b1e3a] text-indigo-100', bar: 'bg-indigo-500 shadow-[0_0_10px_#6366f1]', icon: 'text-indigo-400' },
+    technician: { active: 'bg-[#0f1e2e] text-blue-100', bar: 'bg-blue-500 shadow-[0_0_10px_#3b82f6]', icon: 'text-blue-400' },
+    warden: { active: 'bg-[#0f2a1e] text-emerald-100', bar: 'bg-emerald-500 shadow-[0_0_10px_#10b981]', icon: 'text-emerald-400' },
+};
 
 export default function Sidebar() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const [mobileOpen, setMobileOpen] = useState(false);
 
-    const links = user?.role === 'admin' ? adminLinks : studentLinks;
+    const links = linksByRole[user?.role] || linksByRole.student;
+    const accent = accentByRole[user?.role] || accentByRole.student;
     const initials = user?.name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
 
     const handleLogout = () => { logout(); navigate('/login'); };
@@ -56,17 +73,17 @@ export default function Sidebar() {
             {/* Navigation links */}
             <nav className="flex-1 space-y-2">
                 {links.map((l) => (
-                    <NavLink key={l.to} to={l.to} onClick={onLinkClick} end={l.to === '/admin' || l.to === '/dashboard' || l.to === '/admin/dashboard'}
+                    <NavLink key={l.to} to={l.to} onClick={onLinkClick} end={l.to.endsWith('/dashboard') || l.to === '/dashboard' || l.to === '/technician' || l.to === '/warden'}
                         className={({ isActive }) => cn(
                             'group flex items-center gap-3.5 px-6 py-3.5 text-sm font-medium transition-all duration-300 relative',
                             isActive
-                                ? 'bg-[#1e1b3a] text-purple-100'
+                                ? accent.active
                                 : 'text-slate-400 hover:text-white hover:bg-white/5'
                         )}>
                         {({ isActive }) => (
                             <>
-                                {isActive && <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-purple-500 rounded-r-md shadow-[0_0_10px_#9333ea]" />}
-                                <l.icon className={cn('w-5 h-5 transition-transform duration-300 group-hover:scale-110 ml-2', isActive ? 'text-indigo-400' : 'text-slate-400')} />
+                                {isActive && <div className={`absolute left-0 top-0 bottom-0 w-[4px] rounded-r-md ${accent.bar}`} />}
+                                <l.icon className={cn('w-5 h-5 transition-transform duration-300 group-hover:scale-110 ml-2', isActive ? accent.icon : 'text-slate-400')} />
                                 <span>{l.label}</span>
                             </>
                         )}
