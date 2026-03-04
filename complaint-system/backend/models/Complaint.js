@@ -5,13 +5,13 @@ const complaintSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Title is required'],
         trim: true,
-        maxlength: 100,
+        maxlength: 150,
     },
     description: {
         type: String,
         required: [true, 'Description is required'],
         trim: true,
-        maxlength: 1000,
+        maxlength: 2000,
     },
     category: {
         type: String,
@@ -20,12 +20,12 @@ const complaintSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'In Progress', 'Resolved'],
+        enum: ['Pending', 'Assigned', 'In Progress', 'Resolved', 'Rejected'],
         default: 'Pending',
     },
     priority: {
         type: String,
-        enum: ['Low', 'Medium', 'High'],
+        enum: ['Low', 'Medium', 'High', 'Critical'],
         default: 'Medium',
     },
     student: {
@@ -34,23 +34,25 @@ const complaintSchema = new mongoose.Schema({
         required: true,
     },
     assignedTo: {
-        type: String,
-        trim: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         default: null,
     },
-    location: {
-        type: String,
-        trim: true,
-    },
-    resolvedAt: {
-        type: Date,
-        default: null,
-    },
+    assignedToName: { type: String, default: null },
+    location: { type: String, trim: true },
+    attachments: [{ type: String }],         // image URLs (Cloudinary/local)
+    aiCategory: { type: String, default: null },  // AI auto-classification result
+    resolvedAt: { type: Date, default: null },
     adminNotes: {
         type: String,
         trim: true,
-        maxlength: 500,
+        maxlength: 1000,
     },
+    rejectionReason: { type: String, trim: true },
 }, { timestamps: true });
+
+// Index for fast queries
+complaintSchema.index({ student: 1, status: 1 });
+complaintSchema.index({ status: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Complaint', complaintSchema);

@@ -22,27 +22,21 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['student', 'admin'],
+        enum: ['student', 'admin', 'technician', 'warden'],
         default: 'student',
     },
-    rollNumber: {
-        type: String,
-        trim: true,
-    },
-    hostel: {
-        type: String,
-        trim: true,
-    },
+    rollNumber: { type: String, trim: true },
+    hostel: { type: String, trim: true },
+    department: { type: String, trim: true }, // for technicians/wardens
+    isActive: { type: Boolean, default: true },
 }, { timestamps: true });
 
-// Hash password before save
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 12);
     next();
 });
 
-// Compare passwords
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
