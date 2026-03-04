@@ -1,34 +1,17 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 import ComplaintCard from '../components/ComplaintCard';
-import { PlusCircle, RefreshCw, Clock, CheckCircle2, AlertCircle, Loader, Sparkles } from 'lucide-react';
+import { Plus, Clock, CheckCircle2, Loader, Folder, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-
-const FILTERS = ['All', 'Pending', 'In Progress', 'Resolved'];
-
-const statConfig = [
-    { label: 'Total', key: 'total', icon: Sparkles, color: 'text-purple-400', bg: 'bg-purple-500/10' },
-    { label: 'Pending', key: 'pending', icon: AlertCircle, color: 'text-amber-400', bg: 'bg-amber-500/10' },
-    { label: 'In Progress', key: 'inProgress', icon: Loader, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-    { label: 'Resolved', key: 'resolved', icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-];
-
-function getGreeting() {
-    const h = new Date().getHours();
-    if (h < 12) return 'Good Morning';
-    if (h < 17) return 'Good Afternoon';
-    return 'Good Evening';
-}
 
 export default function Dashboard() {
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
     const [complaints, setComplaints] = useState([]);
-    const [filter, setFilter] = useState('All');
     const [loading, setLoading] = useState(true);
 
     const fetchComplaints = async () => {
@@ -41,102 +24,114 @@ export default function Dashboard() {
 
     useEffect(() => { fetchComplaints(); }, []);
 
+    const handleLogout = () => { logout(); navigate('/login'); };
+
     const stats = {
         total: complaints.length,
         pending: complaints.filter(c => c.status === 'Pending').length,
         inProgress: complaints.filter(c => c.status === 'In Progress').length,
-        resolved: complaints.filter(c => c.status === 'Resolved').length,
     };
 
-    const filtered = filter === 'All' ? complaints : complaints.filter(c => c.status === filter);
-
     return (
-        <div className="flex min-h-screen bg-background">
+        <div className="flex min-h-screen bg-[#070710] text-[#f1f0ff]">
             <Sidebar />
-            <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0">
-                <div className="p-6 max-w-5xl mx-auto">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-8">
-                        <div>
-                            <h1 className="text-2xl font-bold">
-                                {getGreeting()},{' '}
-                                <span className="text-gradient">{user?.name?.split(' ')[0]}</span>
-                                {' '}👋
-                            </h1>
-                            <p className="text-muted-foreground text-sm mt-1">
-                                {user?.rollNumber && `Roll No: ${user.rollNumber} · `}
-                                {user?.hostel && `Hostel: ${user.hostel}`}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Button variant="ghost" size="icon" onClick={fetchComplaints} disabled={loading} className="h-9 w-9">
-                                <RefreshCw className={cn('w-4 h-4', loading && 'animate-spin')} />
-                            </Button>
-                            <Button asChild size="sm">
-                                <Link to="/submit"><PlusCircle className="w-4 h-4" /> New Complaint</Link>
-                            </Button>
-                        </div>
+            <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative">
+
+                {/* Desktop Topbar */}
+                <div className="hidden lg:flex items-center justify-end px-8 py-5">
+                    <button onClick={handleLogout} className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[#1e1e2d] text-sm font-medium text-slate-300 hover:bg-[#121124] hover:text-white transition-colors">
+                        <ShieldCheck className="w-4 h-4" /> Secure Logout
+                    </button>
+                </div>
+
+                <div className="p-6 md:p-10 max-w-7xl mx-auto">
+                    {/* Greeting Section */}
+                    <div className="mb-14 animate-fade-in">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
+                            Good Evening, <span className="text-indigo-400">{user?.name?.split(' ')[0] || 'User'}</span> <span className="inline-block origin-bottom-right rotate-[-10deg]">👋</span>
+                        </h1>
+                        <p className="text-slate-400 text-sm md:text-base font-medium mb-8">
+                            Roll No: {user?.rollNumber || '2021CS042'} <span className="mx-2 opacity-50">•</span> Hostel: {user?.hostel || 'Block A'}
+                        </p>
+
+                        <Button asChild className="h-11 px-5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
+                            <Link to="/submit"><Plus className="w-4 h-4 mr-2" /> New Complaint</Link>
+                        </Button>
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-                        {statConfig.map(s => {
-                            const Icon = s.icon;
-                            return (
-                                <Card key={s.key} className="hover:border-border/80 transition-colors">
-                                    <CardContent className="p-4 flex items-center gap-3">
-                                        <div className={cn('w-10 h-10 rounded-xl flex items-center justify-center shrink-0', s.bg)}>
-                                            <Icon className={cn('w-5 h-5', s.color)} />
-                                        </div>
-                                        <div>
-                                            <p className="text-2xl font-bold text-foreground">{stats[s.key]}</p>
-                                            <p className="text-xs text-muted-foreground">{s.label}</p>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            );
-                        })}
-                    </div>
+                    <div className="mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                        <h2 className="text-2xl font-bold text-white mb-6">Complaint Statistics</h2>
 
-                    {/* Filter tabs */}
-                    <div className="flex gap-1 p-1 bg-secondary rounded-xl w-fit mb-6">
-                        {FILTERS.map(f => (
-                            <button key={f} onClick={() => setFilter(f)}
-                                className={cn('px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200',
-                                    filter === f ? 'bg-card text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground')}>
-                                {f}
-                                {f !== 'All' && <span className="ml-1.5 text-xs opacity-60">
-                                    {complaints.filter(c => c.status === f).length}
-                                </span>}
-                            </button>
-                        ))}
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
+                            {/* Total Box */}
+                            <Card className="bg-[#121124] border-[#1e1e2d] overflow-hidden relative group">
+                                <div className="absolute right-0 bottom-0 w-40 h-40 bg-indigo-500/10 rounded-tl-full blur-2xl group-hover:bg-indigo-500/15 transition-all" />
+                                <div className="absolute right-0 bottom-0 w-full h-full opacity-10 pattern-dots group-hover:opacity-20 transition-all pointer-events-none" />
+                                <CardContent className="p-7 relative z-10">
+                                    <div className="flex items-center gap-4 mb-8">
+                                        <div className="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center border border-indigo-500/20">
+                                            <Folder className="w-5 h-5 text-indigo-400" />
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-slate-200">Total</h3>
+                                    </div>
+                                    <p className="text-5xl font-bold text-white tracking-tight">{stats.total}</p>
+                                </CardContent>
+                            </Card>
 
-                    {/* Complaints list */}
-                    {loading ? (
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            {[1, 2, 3, 4].map(i => <div key={i} className="h-40 rounded-xl bg-card animate-pulse border border-border/50" />)}
+                            {/* Pending Box */}
+                            <Card className="bg-[#121124] border-[#1e1e2d] overflow-hidden relative group">
+                                <div className="absolute right-0 bottom-0 w-40 h-40 bg-orange-500/10 rounded-tl-full blur-2xl group-hover:bg-orange-500/15 transition-all" />
+                                <div className="absolute right-0 bottom-0 w-full h-full opacity-10 pattern-dots group-hover:opacity-20 transition-all pointer-events-none" />
+                                <CardContent className="p-7 relative z-10">
+                                    <div className="flex items-center gap-4 mb-8">
+                                        <div className="w-10 h-10 rounded-xl bg-orange-500/15 flex items-center justify-center border border-orange-500/20">
+                                            <Clock className="w-5 h-5 text-orange-400" />
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-slate-200">Pending</h3>
+                                    </div>
+                                    <p className="text-5xl font-bold text-white tracking-tight">{stats.pending}</p>
+                                </CardContent>
+                            </Card>
+
+                            {/* In Progress Box */}
+                            <Card className="bg-[#121124] border-[#1e1e2d] overflow-hidden relative group">
+                                <div className="absolute right-0 bottom-0 w-40 h-40 bg-blue-500/10 rounded-tl-full blur-2xl group-hover:bg-blue-500/15 transition-all" />
+                                <div className="absolute right-0 bottom-0 w-full h-full opacity-10 pattern-dots group-hover:opacity-20 transition-all pointer-events-none" />
+                                <CardContent className="p-7 relative z-10">
+                                    <div className="flex items-center gap-4 mb-8">
+                                        <div className="w-10 h-10 rounded-xl bg-blue-500/15 flex items-center justify-center border border-blue-500/20">
+                                            <Loader className="w-5 h-5 text-blue-400" />
+                                        </div>
+                                        <h3 className="text-lg font-semibold text-slate-200">In Progress</h3>
+                                    </div>
+                                    <p className="text-5xl font-bold text-white tracking-tight">{stats.inProgress}</p>
+                                </CardContent>
+                            </Card>
                         </div>
-                    ) : filtered.length === 0 ? (
-                        <div className="text-center py-20">
-                            <div className="w-16 h-16 rounded-2xl glass-purple flex items-center justify-center mx-auto mb-4">
-                                <AlertCircle className="w-8 h-8 text-purple-400/60" />
+                    </div>
+
+                    {/* Check if there are recent complaints */}
+                    <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                        {loading ? (
+                            <div className="grid gap-4 sm:grid-cols-2 mt-10">
+                                {[1, 2].map(i => <div key={i} className="h-40 rounded-xl bg-[#121124] animate-pulse border border-[#1e1e2d]" />)}
                             </div>
-                            <p className="text-muted-foreground font-medium">No complaints found</p>
-                            <p className="text-muted-foreground text-sm mt-1">
-                                {filter !== 'All' ? `No ${filter.toLowerCase()} complaints` : 'Submit your first complaint'}
-                            </p>
-                            {filter === 'All' && (
-                                <Button asChild className="mt-4" size="sm">
-                                    <Link to="/submit"><PlusCircle className="w-4 h-4" /> Submit Complaint</Link>
-                                </Button>
-                            )}
-                        </div>
-                    ) : (
-                        <div className="grid gap-4 sm:grid-cols-2">
-                            {filtered.map(c => <ComplaintCard key={c._id} complaint={c} />)}
-                        </div>
-                    )}
+                        ) : complaints.length > 0 && (
+                            <div className="mt-14">
+                                <div className="flex items-center justify-between mb-6">
+                                    <h2 className="text-xl font-bold text-white">Recent Activity</h2>
+                                    <Button asChild variant="ghost" className="text-indigo-400 hover:text-indigo-300 hover:bg-[#121124]">
+                                        <Link to="/my-complaints">View All</Link>
+                                    </Button>
+                                </div>
+                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                    {complaints.slice(0, 3).map(c => <ComplaintCard key={c._id} complaint={c} />)}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
                 </div>
             </main>
         </div>
