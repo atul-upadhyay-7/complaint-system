@@ -44,71 +44,81 @@ export default function Login() {
 
     return (
         <div className="min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden">
-            {/* Left Panel - Hero Image/Graphic (Hidden on Mobile) */}
-            <div className="hidden lg:flex relative flex-col justify-between p-12 bg-secondary/30 border-r border-border/50 overflow-hidden">
-                {/* Background orbs for Left Panel */}
-                <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                    <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] animate-float" />
-                    <div className="absolute bottom-[10%] right-[10%] w-[400px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px] animate-float" style={{ animationDelay: '2s' }} />
+            {/* Left Hero Panel */}
+            <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden" style={{ background: 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
+                {/* Animated orbs */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="absolute top-[15%] left-[10%] w-[450px] h-[450px] bg-blue-600/15 rounded-full blur-[110px] animate-float" />
+                    <div className="absolute bottom-[10%] right-[5%] w-[350px] h-[350px] bg-cyan-600/12 rounded-full blur-[100px] animate-float" style={{ animationDelay: '2s' }} />
                 </div>
+                {/* Grid pattern */}
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.4) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
-                <div className="relative z-10 flex items-center gap-3 animate-slide-in-right">
-                    <div className="w-12 h-12 rounded-2xl glass-purple flex items-center justify-center">
-                        <GraduationCap className="w-6 h-6 text-purple-400" />
+                {/* Logo */}
+                <div className="relative z-10 flex items-center gap-3 animate-fade-in">
+                    <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
+                        <GraduationCap className="w-6 h-6 text-blue-400" />
                     </div>
-                    <span className="text-2xl font-bold text-gradient">UniIssuehub</span>
+                    <span className="text-2xl font-bold text-white">Campus<span className="text-blue-400">Desk</span></span>
                 </div>
 
+                {/* Hero Text */}
                 <div className="relative z-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                    <h1 className="text-5xl font-bold tracking-tight mb-6">
-                        Seamlessly resolve campus issues.
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300 font-medium mb-6">
+                        <Sparkles className="w-3.5 h-3.5" /> Powered by AI · Real-time Updates
+                    </div>
+                    <h1 className="text-5xl font-bold tracking-tight mb-6 text-white leading-tight">
+                        Resolve campus<br />
+                        <span style={{ background: 'linear-gradient(135deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            issues instantly.
+                        </span>
                     </h1>
-                    <p className="text-lg text-muted-foreground max-w-md leading-relaxed">
-                        A unified platform bridging the gap between students and administration. Track, manage, and resolve complaints with unparalleled efficiency.
+                    <p className="text-lg text-slate-400 max-w-md leading-relaxed">
+                        A unified platform bridging the gap between students and administration. Track, manage, and resolve complaints with real-time notifications.
                     </p>
-
-                    <div className="mt-12 flex items-center gap-4 text-sm font-medium text-foreground/80">
-                        <div className="flex items-center gap-2">
-                            <Sparkles className="w-4 h-4 text-purple-400" /> Trusted by students
-                        </div>
+                    {/* Feature Pills */}
+                    <div className="mt-10 flex flex-wrap gap-3">
+                        {['⚡ Real-time Notifications', '📊 Analytics Dashboard', '📍 Progress Tracking', '📸 Photo Upload'].map(f => (
+                            <span key={f} className="px-3 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-slate-300">{f}</span>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            {/* Right Panel - Login Form */}
-            <div className="flex items-center justify-center p-6 relative">
-                {/* Mobile Background Orbs */}
+            {/* Right Login Panel */}
+            <div className="flex items-center justify-center p-6 relative" style={{ background: '#030e1c' }}>
+                {/* Mobile orbs */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none lg:hidden">
-                    <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] animate-float" />
-                    <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-purple-800/15 rounded-full blur-[100px] animate-float" style={{ animationDelay: '1.5s' }} />
+                    <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-[100px] animate-float" />
+                    <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-600/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '1.5s' }} />
                 </div>
 
-                <div className="w-full max-w-[420px] relative z-10 animate-slide-up">
-                    {/* Mobile Brand Header */}
-                    <div className="text-center mb-8 lg:hidden">
-                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl glass-purple mb-4 animate-float">
-                            <GraduationCap className="w-7 h-7 text-purple-400" />
+                <div className="w-full max-w-[420px] relative z-10">
+                    {/* Mobile Brand */}
+                    <div className="text-center mb-8 lg:hidden animate-fade-in">
+                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
+                            <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
-                        <h1 className="text-3xl font-bold text-gradient mb-1">UniIssuehub</h1>
-                        <p className="text-muted-foreground text-sm">Complaint Management Portal</p>
+                        <h1 className="text-3xl font-bold text-white mb-1">Campus<span className="text-blue-400">Desk</span></h1>
+                        <p className="text-slate-400 text-sm">Complaint Management Portal</p>
                     </div>
 
-                    <Card className="border-border/50 shadow-glass animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    <Card className="border-blue-900/40 animate-fade-in" style={{ background: 'rgba(8, 20, 40, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
                         <CardHeader className="pb-4 text-center lg:text-left">
-                            <CardTitle className="text-2xl font-semibold tracking-tight">Sign In</CardTitle>
-                            <CardDescription className="text-base">Enter your campus credentials to continue</CardDescription>
+                            <CardTitle className="text-2xl font-semibold tracking-tight text-white">Sign In</CardTitle>
+                            <CardDescription className="text-base text-slate-400">Enter your campus credentials to continue</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <form onSubmit={handleSubmit} className="space-y-4">
+                                {/* Email */}
                                 <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                                    <Label htmlFor="email">Email Address</Label>
+                                    <Label className="text-slate-300">Email Address</Label>
                                     <div className="relative group">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-purple-400 transition-colors" />
+                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
                                         <Input
-                                            id="email"
                                             type="email"
                                             placeholder="you@campus.edu"
-                                            className="pl-10 h-12 transition-all duration-300 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50"
+                                            className="pl-10 h-12 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all"
                                             value={form.email}
                                             onChange={e => setForm({ ...form, email: e.target.value })}
                                             required
@@ -116,34 +126,40 @@ export default function Login() {
                                     </div>
                                 </div>
 
+                                {/* Password */}
                                 <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label className="text-slate-300">Password</Label>
                                     <div className="relative group">
-                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-purple-400 transition-colors" />
+                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
                                         <Input
-                                            id="password"
                                             type={showPass ? 'text' : 'password'}
                                             placeholder="••••••••"
-                                            className="pl-10 pr-10 h-12 transition-all duration-300 focus-visible:ring-purple-500/50 focus-visible:border-purple-500/50"
+                                            className="pl-10 pr-10 h-12 bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 transition-all"
                                             value={form.password}
                                             onChange={e => setForm({ ...form, password: e.target.value })}
                                             required
                                         />
                                         <button type="button" onClick={() => setShowPass(!showPass)}
-                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
+                                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors">
                                             {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                         </button>
                                     </div>
                                 </div>
 
-                                <Button type="submit" className="w-full h-12 mt-2 font-medium text-base shadow-purple-glow hover:shadow-purple-glow/150 transition-all duration-300 animate-slide-up" style={{ animationDelay: '0.4s' }} disabled={loading}>
-                                    {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Signing in...</> : 'Sign In'}
+                                {/* Submit */}
+                                <Button
+                                    type="submit"
+                                    className="w-full h-12 mt-2 font-semibold text-base transition-all duration-300 animate-slide-up hover:-translate-y-0.5 text-white"
+                                    style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 0 20px rgba(59,130,246,0.3)', animationDelay: '0.4s' }}
+                                    disabled={loading}
+                                >
+                                    {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Signing in...</> : 'Sign In →'}
                                 </Button>
                             </form>
 
                             {/* Demo credentials */}
-                            <div className="mt-6 p-4 rounded-xl bg-secondary/30 border border-border/50 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.5s' }}>
-                                <p className="text-xs text-muted-foreground font-medium mb-3 text-center tracking-wider">DEMO ACCOUNTS</p>
+                            <div className="mt-6 p-4 rounded-xl border border-blue-900/40 animate-slide-up" style={{ background: 'rgba(59,130,246,0.05)', animationDelay: '0.5s' }}>
+                                <p className="text-xs text-slate-500 font-medium mb-3 text-center tracking-widest uppercase">Demo Accounts</p>
                                 <div className="grid grid-cols-2 gap-2">
                                     {[
                                         { role: 'student', icon: GraduationCap, label: 'Student' },
@@ -152,16 +168,16 @@ export default function Login() {
                                         { role: 'warden', icon: UserCheck, label: 'Warden' },
                                     ].map(({ role, icon: Icon, label }) => (
                                         <button key={role} onClick={() => fillDemo(role)}
-                                            className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-3 text-sm font-medium border border-border hover:border-purple-600/50 hover:bg-purple-600/10 text-muted-foreground hover:text-purple-300 transition-all duration-300 hover:-translate-y-0.5">
+                                            className="flex items-center justify-center gap-2 rounded-lg py-2.5 px-3 text-sm font-medium border border-white/10 hover:border-blue-500/40 hover:bg-blue-500/10 text-slate-400 hover:text-blue-300 transition-all duration-300 hover:-translate-y-0.5">
                                             <Icon className="w-4 h-4" /> {label}
                                         </button>
                                     ))}
                                 </div>
                             </div>
 
-                            <p className="text-center text-sm text-muted-foreground mt-6 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+                            <p className="text-center text-sm text-slate-500 mt-6 animate-slide-up" style={{ animationDelay: '0.6s' }}>
                                 No account?{' '}
-                                <Link to="/register" className="text-purple-400 hover:text-purple-300 font-medium transition-colors hover:underline underline-offset-4">
+                                <Link to="/register" className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline underline-offset-4">
                                     Create one
                                 </Link>
                             </p>

@@ -47,8 +47,25 @@ export default {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
-                // Explicit purple palette
+                // Electric Blue palette
+                blue: {
+                    300: '#93c5fd',
+                    400: '#60a5fa',
+                    500: '#3b82f6',
+                    600: '#2563eb',
+                    700: '#1d4ed8',
+                    800: '#1e40af',
+                    900: '#1e3a8a',
+                },
+                cyan: {
+                    300: '#67e8f9',
+                    400: '#22d3ee',
+                    500: '#06b6d4',
+                    600: '#0891b2',
+                },
+                // Keep purple for legacy components
                 purple: {
+                    300: '#d8b4fe',
                     400: '#c084fc',
                     500: '#a855f7',
                     600: '#9333ea',
@@ -67,6 +84,8 @@ export default {
             },
             boxShadow: {
                 'purple-glow': '0 0 30px rgba(147, 51, 234, 0.2)',
+                'blue-glow': '0 0 30px rgba(59, 130, 246, 0.25)',
+                'blue-glow-sm': '0 0 12px rgba(59, 130, 246, 0.2)',
                 'card': '0 4px 24px rgba(0,0,0,0.5)',
                 'glass': '0 8px 40px rgba(0,0,0,0.6)',
             },
@@ -95,6 +114,14 @@ export default {
                     '0%, 100%': { transform: 'translateY(0)' },
                     '50%': { transform: 'translateY(-10px)' },
                 },
+                shimmer: {
+                    from: { backgroundPosition: '200% 0' },
+                    to: { backgroundPosition: '-200% 0' },
+                },
+                bounceSlight: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-5px)' },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
@@ -104,6 +131,8 @@ export default {
                 "slide-in-right": "slide-in-right 0.4s ease-out both",
                 "float": "float 5s ease-in-out infinite",
                 "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                "shimmer": "shimmer 1.8s infinite",
+                "bounce-subtle": "bounceSlight 2s infinite",
             },
         },
     },

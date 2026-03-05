@@ -1,18 +1,19 @@
-// Notification Service — emits Socket.io real-time events
-// The io instance is set by server.js after Socket.io initialization
-
+// Notification Service — emits Socket.io real-time events to specific user rooms
 let _io = null;
 
 const setIO = (io) => { _io = io; };
 
-const emit = (event, payload) => {
-    if (_io) {
-        _io.emit(event, payload);
-    }
+// Emit to a specific user room or broadcast to all
+const emitToRoom = (room, event, payload) => {
+    if (_io) _io.to(room).emit(event, payload);
+};
+const emitAll = (event, payload) => {
+    if (_io) _io.emit(event, payload);
 };
 
 const notifyComplaintCreated = (complaint, studentName) => {
-    emit('complaint:created', {
+    // Broadcast to all admins/wardens — they listen on this event
+    emitAll('complaint:created', {
         complaintId: complaint._id,
         title: complaint.title,
         category: complaint.category,
@@ -22,29 +23,42 @@ const notifyComplaintCreated = (complaint, studentName) => {
 };
 
 const notifyComplaintAssigned = (complaint, assigneeName) => {
-    emit('complaint:assigned', {
+    emitAll('complaint:assigned', {
         complaintId: complaint._id,
         title: complaint.title,
         assignedTo: assigneeName || complaint.assignedToName,
     });
 };
 
-const notifyStatusChanged = (complaint, oldStatus) => {
-    emit('complaint:statusChanged', {
+const notifyStatusChanged = (complaint, oldStatus, studentId) => {
+    const payload = {
         complaintId: complaint._id,
         title: complaint.title,
         oldStatus,
         newStatus: complaint.status,
-    });
+    };
+
+    // Notify the specific student if we have their id
+    if (studentId) {
+        emitToRoom(`user:${studentId}`, 'complaint:statusChanged', payload);
+    } else {
+        emitAll('complaint:statusChanged', payload);
+    }
 
     if (complaint.status === 'Resolved') {
-        const resolutionMs = complaint.resolvedAt - complaint.createdAt;
-        const resolutionHours = Math.round(resolutionMs / (1000 * 60 * 60));
-        emit('complaint:resolved', {
+        const resolvedAt = complaint.resolvedAt || new Date();
+        const resolutionMs = resolvedAt - complaint.createdAt;
+        const resolutionHours = Math.max(0, Math.round(resolutionMs / (1000 * 60 * 60)));
+        const resolvedPayload = {
             complaintId: complaint._id,
             title: complaint.title,
             resolutionTimeHours: resolutionHours,
-        });
+        };
+        if (studentId) {
+            emitToRoom(`user:${studentId}`, 'complaint:resolved', resolvedPayload);
+        } else {
+            emitAll('complaint:resolved', resolvedPayload);
+        }
     }
 };
 

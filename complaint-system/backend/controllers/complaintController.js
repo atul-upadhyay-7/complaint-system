@@ -5,9 +5,9 @@ const asyncHandler = require('../utils/asyncHandler');
 
 // @route POST /api/complaints
 exports.createComplaint = asyncHandler(async (req, res) => {
-    const { title, description, category, priority, location } = req.body;
+    const { title, description, category, priority, location, attachments } = req.body;
     const complaint = await complaintService.createComplaint(
-        { title, description, category, priority, location },
+        { title, description, category, priority, location, attachments: attachments || [] },
         req.user
     );
     res.status(201).json({ success: true, complaint });
