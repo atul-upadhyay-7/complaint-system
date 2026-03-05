@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar';
 import ComplaintCard from '../components/ComplaintCard';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { Search, Filter, X, Loader2, Trash2, Save, FileText } from 'lucide-react';
+import { Search, Filter, X, Loader2, Trash2, Save, FileText, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -163,7 +163,14 @@ export default function AdminComplaints() {
                     {selected && (
                         <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
                             <div className="p-4 rounded-xl bg-secondary/30 border border-border/50">
-                                <h3 className="font-semibold text-foreground text-lg mb-2">{selected.title}</h3>
+                                <div className="flex items-center gap-2 mb-2 flex-wrap">
+                                    <h3 className="font-semibold text-foreground text-lg">{selected.title}</h3>
+                                    {selected.aiCategory && (
+                                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 ml-auto">
+                                            <Sparkles className="w-3 h-3" /> AI: {selected.aiCategory}
+                                        </span>
+                                    )}
+                                </div>
                                 <p className="text-sm text-muted-foreground leading-relaxed">{selected.description}</p>
                             </div>
 

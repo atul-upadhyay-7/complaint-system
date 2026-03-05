@@ -2,12 +2,20 @@ const Complaint = require('../models/Complaint');
 const ComplaintHistory = require('../models/ComplaintHistory');
 const notificationService = require('./notificationService');
 const logger = require('../utils/logger');
+const { autoCategorizeComplaint } = require('./aiService'); // Import autoCategorizeComplaint
 
 // ─── Create a new complaint + fire creation event ──────────────────────────
 const createComplaint = async (data, student) => {
+    // Await AI categorization
+    const predictedCategory = await autoCategorizeComplaint(
+        data.title,
+        data.description
+    );
+
     const complaint = await Complaint.create({
         ...data,
         student: student._id,
+        aiCategory: predictedCategory, // Add aiCategory to the complaint data
     });
     await complaint.populate('student', 'name email rollNumber hostel');
 

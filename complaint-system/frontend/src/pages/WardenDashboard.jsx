@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
-import { ShieldCheck, Users, ClipboardList, CheckCircle2, Loader2, AlertTriangle, UserCheck } from 'lucide-react';
+import { ShieldCheck, Users, ClipboardList, CheckCircle2, Loader2, AlertTriangle, UserCheck, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import toast from 'react-hot-toast';
 
@@ -137,7 +137,12 @@ export default function WardenDashboard() {
                                                 <div className="flex items-center gap-2 mb-1 flex-wrap">
                                                     <span className={`px-2 py-0.5 rounded-md text-xs font-medium border ${STATUS_COLORS[c.status] || ''}`}>{c.status}</span>
                                                     <span className={`px-2 py-0.5 rounded-md text-xs font-medium ${PRIORITY_COLORS[c.priority] || ''}`}>{c.priority}</span>
-                                                    <span className="text-xs text-slate-500">{c.category}</span>
+                                                    <span className="text-xs text-slate-500 mr-2">{c.category}</span>
+                                                    {c.aiCategory && (
+                                                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                                                            <Sparkles className="w-3 h-3" /> AI: {c.aiCategory}
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 <h3 className="text-base font-semibold text-white">{c.title}</h3>
                                                 <p className="text-slate-400 text-xs mt-1">
