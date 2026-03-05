@@ -44,7 +44,7 @@ export default function Register() {
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl glass-purple mb-4">
                         <GraduationCap className="w-8 h-8 text-purple-400" />
                     </div>
-                    <h1 className="text-3xl font-bold text-gradient mb-1">CampusDesk</h1>
+                    <h1 className="text-3xl font-bold text-gradient mb-1">UniIssuehub</h1>
                     <p className="text-muted-foreground text-sm">Create your account</p>
                 </div>
 

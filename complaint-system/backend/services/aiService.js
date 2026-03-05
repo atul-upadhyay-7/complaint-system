@@ -1,8 +1,12 @@
 import { GoogleGenAI } from '@google/genai';
 import logger from '../utils/logger.js';
+import dotenv from 'dotenv';
 
-// Initialize SDK. It automatically picks up GEMINI_API_KEY from process.env
-const ai = new GoogleGenAI();
+dotenv.config();
+
+// Initialize SDK. Explicitly pass apiKey to avoid loader ordering issues.
+const apiKey = process.env.GEMINI_API_KEY;
+const ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
 const ALLOWED_CATEGORIES = ['Electricity', 'Water', 'Internet', 'Cleanliness', 'Maintenance', 'Other'];
 
@@ -14,8 +18,8 @@ const ALLOWED_CATEGORIES = ['Electricity', 'Water', 'Internet', 'Cleanliness', '
  */
 export const autoCategorizeComplaint = async (title, description) => {
     try {
-        if (!process.env.GEMINI_API_KEY) {
-            logger.warn('GEMINI_API_KEY not found. Skipping AI categorization.');
+        if (!ai) {
+            logger.warn('GEMINI_API_KEY not found or invalid. Skipping AI categorization.');
             return 'Other';
         }
 

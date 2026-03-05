@@ -56,7 +56,7 @@ export default function Login() {
                     <div className="w-12 h-12 rounded-2xl glass-purple flex items-center justify-center">
                         <GraduationCap className="w-6 h-6 text-purple-400" />
                     </div>
-                    <span className="text-2xl font-bold text-gradient">CampusDesk</span>
+                    <span className="text-2xl font-bold text-gradient">UniIssuehub</span>
                 </div>
 
                 <div className="relative z-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
@@ -89,7 +89,7 @@ export default function Login() {
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl glass-purple mb-4 animate-float">
                             <GraduationCap className="w-7 h-7 text-purple-400" />
                         </div>
-                        <h1 className="text-3xl font-bold text-gradient mb-1">CampusDesk</h1>
+                        <h1 className="text-3xl font-bold text-gradient mb-1">UniIssuehub</h1>
                         <p className="text-muted-foreground text-sm">Complaint Management Portal</p>
                     </div>
 
