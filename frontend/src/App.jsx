@@ -13,6 +13,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminComplaints from './pages/AdminComplaints';
 import TechnicianDashboard from './pages/TechnicianDashboard';
 import WardenDashboard from './pages/WardenDashboard';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 const getHome = (role) => {
     if (role === 'admin') return '/admin';
@@ -55,6 +57,8 @@ function AppRoutes() {
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<GuestOnly><Login /></GuestOnly>} />
             <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
+            <Route path="/forgot-password" element={<GuestOnly><ForgotPassword /></GuestOnly>} />
+            <Route path="/reset-password/:token" element={<GuestOnly><ResetPassword /></GuestOnly>} />
 
             {/* Student routes */}
             <Route path="/dashboard" element={<RequireRole roles={['student']}><Dashboard /></RequireRole>} />
