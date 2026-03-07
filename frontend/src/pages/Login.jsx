@@ -143,7 +143,7 @@ export default function Login() {
     return (
         <div className="min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
             {/* ── LEFT HERO PANEL ── */}
-            <div className="hidden lg:flex relative flex-col p-12 gap-10 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e0eeff 0%, #f0f5ff 40%, #eef2ff 70%, #e8f5ff 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
+            <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e0eeff 0%, #f0f5ff 40%, #eef2ff 70%, #e8f5ff 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
 
                 {/* Background orbs */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
