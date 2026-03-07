@@ -1,98 +1,278 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/graduation-cap.svg" width="80" height="80" alt="UniIssueHub Logo">
-  
-  # 🎓 UniIssueHub
-  **The Next-Generation Campus Complaint Management & Resolution Platform**
 
-  [![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react&logoColor=black)](#)
-  [![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite&logoColor=white)](#)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.x-38B2AC?logo=tailwind-css&logoColor=white)](#)
-  [![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?logo=nodedotjs&logoColor=white)](#)
-  [![Socket.io](https://img.shields.io/badge/Socket.io-4.x-010101?logo=socketdotio&logoColor=white)](#)
-  [![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?logo=mongodb&logoColor=white)](#)
+# 🎓 UniIssueHub
 
-  <p align="center">
-    Built for the <strong>EliteCoder Hackathon</strong> 🚀 &nbsp;|&nbsp; Dark & Light Mode &nbsp;|&nbsp; Real-time WebSockets
-  </p>
+### AI-Powered Campus Complaint Management & Resolution Platform
+
+[![Built for](https://img.shields.io/badge/Built_for-EliteCoder_Hackathon_2026-blueviolet?style=for-the-badge&logo=hackthebox&logoColor=white)](#)
+
+[![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black)](#)
+[![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=flat-square&logo=vite&logoColor=white)](#)
+[![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](#)
+[![Node.js](https://img.shields.io/badge/Node.js_22-339933?style=flat-square&logo=nodedotjs&logoColor=white)](#)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white)](#)
+[![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socketdotio&logoColor=white)](#)
+[![NLP](https://img.shields.io/badge/NLP_Engine-natural-FF6F61?style=flat-square)](#)
+
+<br/>
+
+> **UniIssueHub** completely digitizes the campus complaint pipeline — from student submission to technician resolution — powered by a **custom-built NLP/AI engine** that auto-categorizes, auto-prioritizes, detects duplicates, and analyzes sentiment in **real-time**, all without any paid API.
+
+<br/>
+
+| 🧠 6 AI Features | ⚡ Real-Time WebSockets | 🎨 Premium Dark/Light UI | 🔐 4-Role RBAC |
+|:---:|:---:|:---:|:---:|
+| Naive Bayes + TF-IDF + Keyword Scoring | Socket.io per-user rooms | Glassmorphism + animations | Student · Admin · Warden · Technician |
+
 </div>
 
 ---
 
-## 🌟 What Makes UniIssueHub Stand Out
+## 🏆 Why This Project Stands Out
 
-UniIssueHub is not just another CRUD app — it's a **fully real-time, production-grade, beautifully designed** platform that completely digitizes the campus complaint pipeline from submission to resolution.
-
-| Feature | Description |
-|---|---|
-| ⚡ **Real-Time WebSockets** | Socket.io with user-specific rooms. Status changes instantly push toast notifications — no manual refresh needed. |
-| 🤖 **AI Auto-Categorization** | Backend engine predicts complaint categories from description text, reducing admin overhead. |
-| 💎 **Premium Dual-Theme UI** | Stunning dark & light glassmorphism design with animated floating particles, gradient headings, animated stat counters, and color-coded feature cards. |
-| 📊 **Live Analytics Dashboard** | Recharts-powered admin overview with resolution rates, complaint categories, and campus-wide trends. |
-| 📍 **Progress Timeline** | Students track complaints step-by-step: Submitted → Assigned → In Progress → Resolved. |
-| 📸 **Image Attachments** | Drag-and-drop photo upload with base64 payload handling for photographic evidence. |
-| 📧 **Async Email Notifications** | Fire-and-forget email alerts via Nodemailer on every status change — never blocks the request cycle. |
+| Differentiator | What We Built | Why It Matters |
+|---|---|---|
+| 🤖 **Custom AI Engine** | Built a full NLP pipeline using `natural` — Naive Bayes classifier + TF-IDF similarity + weighted keyword scoring. **Zero paid APIs.** | Proves real ML understanding, not just API wrapping |
+| 🧠 **6 AI Features** | Auto-categorization, auto-prioritization, sentiment analysis, resolution ETA, duplicate detection, live AI panel | End-to-end intelligent automation |
+| 📡 **True Real-Time** | Socket.io with user-specific rooms + toast notifications + live bell counter | No polling, instant push updates |
+| 💎 **Production-Grade UI** | Glassmorphism, animated particles, gradient headings, color-coded cards, dual themes | Not a prototype — a shippable product |
+| 🧩 **Clean Architecture** | MVC pattern, service layer, middleware chain, async error handling, audit trail | Industry-standard code organization |
+| 📬 **Async Email Pipeline** | Fire-and-forget Nodemailer — never blocks HTTP response | Real-world reliability pattern |
+| 🛡️ **Enterprise Security** | JWT + bcrypt + Helmet + rate limiting + role middleware on every route | Production security posture |
 
 ---
 
-## 🎥 Demo
+## 🤖 AI Engine — Deep Dive
 
-![UniIssueHub Full Demo](./demo.webp)
-*(Login → Admin Analytics → Warden Dashboard → Technician View → Light/Dark Theme Toggle)*
+> Our AI runs **100% locally** using the [`natural`](https://github.com/NaturalNode/natural) NLP library. Zero cost. Zero latency. Works offline.
+
+### Architecture
+
+```
+Student types complaint
+        │
+        ▼
+┌─────────────────────────────────────────────────┐
+│            /api/complaints/ai-suggest            │
+│                  (live endpoint)                  │
+├─────────────────────────────────────────────────┤
+│                                                  │
+│  ┌──────────────┐   ┌───────────────────────┐   │
+│  │ Pass 1:      │   │ Pass 2:               │   │
+│  │ Keyword Scan │──▶│ Naive Bayes Fallback  │   │
+│  │ (100+ terms) │   │ (200+ training docs)  │   │
+│  └──────┬───────┘   └───────────┬───────────┘   │
+│         │                       │                │
+│         ▼                       ▼                │
+│  ┌─────────────────────────────────────────┐    │
+│  │        Category Detected                │    │
+│  │   (Electricity/Water/Internet/Food/...) │    │
+│  └─────────────────────────────────────────┘    │
+│                                                  │
+│  ┌──────────────┐   ┌───────────────────────┐   │
+│  │ 60+ Weighted │   │  Urgency Amplifiers   │   │
+│  │ Keywords     │──▶│  ALL-CAPS + !! boost  │   │
+│  └──────┬───────┘   └───────────┬───────────┘   │
+│         │                       │                │
+│         ▼                       ▼                │
+│  ┌─────────────────────────────────────────┐    │
+│  │   Priority: Critical / High / Med / Low │    │
+│  └─────────────────────────────────────────┘    │
+│                                                  │
+│  ┌──────────────┐   ┌───────────────────────┐   │
+│  │ Negative &   │   │  TF-IDF Cosine        │   │
+│  │ Positive     │   │  Similarity vs 50     │   │
+│  │ Word Scoring │   │  existing complaints  │   │
+│  └──────┬───────┘   └───────────┬───────────┘   │
+│         │                       │                │
+│         ▼                       ▼                │
+│  ┌──────────────┐   ┌───────────────────────┐   │
+│  │  Sentiment:  │   │  Duplicate Warning    │   │
+│  │  🔥Urgent    │   │  if >70% match found  │   │
+│  │  😤Frustrated│   └───────────────────────┘   │
+│  │  😐Neutral   │                               │
+│  │  😊Polite    │   ┌───────────────────────┐   │
+│  └──────────────┘   │  ETA: Category ×      │   │
+│                     │  Priority matrix       │   │
+│                     │  (e.g. "4-8 hours")    │   │
+│                     └───────────────────────┘   │
+└─────────────────────────────────────────────────┘
+        │
+        ▼
+  Live AI Panel updates in real-time on frontend
+```
+
+### The 6 AI Features
+
+| # | Feature | Technique | Input → Output |
+|---|---|---|---|
+| 1 | **Auto-Categorization** | Two-pass: Keyword scan (100+ terms) → Naive Bayes fallback (200+ training docs) | `"WiFi down in hostel"` → `Internet` |
+| 2 | **Auto-Prioritization** | Weighted keyword scoring (60+ terms) + urgency amplifiers (CAPS, `!!`) | `"URGENT no water since 3 days!!"` → `Critical` |
+| 3 | **Sentiment Analysis** | Negative/Positive word classification with frustration amplifiers | `"Disgusting food, pathetic!"` → `🔥 Urgent` |
+| 4 | **Resolution ETA** | Category × Priority matrix (8 categories × 4 levels = 32 ETAs) | `Electricity + High` → `4-8 hours` |
+| 5 | **Duplicate Detection** | TF-IDF vectorization + Cosine similarity against 50 recent complaints | `"Water issue Block A"` → `⚠️ 71% match found` |
+| 6 | **Live AI Panel** | Debounced (800ms) real-time API calls as user types | Updates category, priority, sentiment, ETA live |
+
+---
+
+## ⚡ Key Features
+
+### 👥 4-Role RBAC System
+| Role | Capabilities |
+|---|---|
+| **🎓 Student** | Submit complaints with image upload, track live progress timeline, receive real-time notifications |
+| **🛡️ Admin** | Full analytics dashboard (Recharts), manage all complaints, view campus-wide trends |
+| **🏠 Warden** | View hostel complaints, assign technicians from dropdown, update status |
+| **🔧 Technician** | View assigned work only, mark In Progress / Resolved, add admin notes |
+
+### 📡 Real-Time Engine
+- **Socket.io** with per-user rooms (`user:{id}`)
+- Instant toast notifications on complaint status change
+- Bell icon with live unread count badge
+- Mark-all-read functionality
+
+### 🎨 Premium UI/UX
+- **Glassmorphism** design system with CSS custom properties
+- **Dark ↔ Light** theme toggle (persisted to localStorage)
+- Animated floating particles on login page
+- Color-coded feature cards, gradient headings, micro-animations
+- **EliteCoder Hackathon** badge with purple glow
+- Responsive: mobile, tablet, and desktop layouts
+
+### 📧 Async Email Notifications
+- **Fire-and-forget** pattern via Nodemailer
+- Never blocks HTTP response (non-blocking with `.catch()`)
+- Emails sent on: complaint created, status changed, technician assigned
+
+### 🔐 Security Stack
+- JWT access tokens with role payload
+- Bcrypt password hashing (10 salt rounds)
+- Helmet.js security headers
+- Express Rate Limiter (brute-force protection)
+- Role-based middleware guards on every route
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Purpose |
+| Technology | Role |
 |---|---|
-| **React 18 + Vite** | Lightning-fast HMR and modern component architecture |
-| **Tailwind CSS + Shadcn UI** | Custom design system with Radix primitives |
-| **Socket.io Client** | Real-time bi-directional events |
-| **React Router DOM** | Client-side RBAC routing |
-| **Recharts** | Analytics and data visualization |
-| **Lucide React + React Hot Toast** | Icons, micro-animations, instant feedback |
+| React 18 + Vite 5 | Component UI + lightning-fast HMR |
+| Tailwind CSS + Shadcn UI | Design system + Radix primitives |
+| Socket.io Client | Real-time bi-directional events |
+| React Router DOM v6 | Client-side RBAC routing |
+| Recharts | Analytics charts + data visualization |
+| Lucide React | Modern icon system |
+| React Hot Toast | Non-blocking toast notifications |
+| Context API | Auth, Socket, Theme state management |
 
 ### Backend
-| Technology | Purpose |
+| Technology | Role |
 |---|---|
-| **Node.js + Express.js** | RESTful API server |
-| **Socket.io** | Real-time room-based event broadcasting |
-| **MongoDB + Mongoose** | Document store with linked complaint history |
-| **JWT + Bcrypt** | Secure authentication and password hashing |
-| **Nodemailer** | Async email notifications (fire-and-forget) |
-| **Winston** | Structured request & error logging |
-| **Helmet + Rate Limiter** | Production security headers |
+| Node.js 22 + Express.js | RESTful API server |
+| MongoDB + Mongoose | Document store + schema validation |
+| Socket.io | Real-time room-based broadcasting |
+| `natural` (NLP library) | Naive Bayes + TF-IDF + tokenization |
+| JWT + Bcrypt | Authentication + password hashing |
+| Nodemailer | Async email notifications |
+| Winston | Structured logging (file + console) |
+| Helmet + Express Rate Limiter | Security headers + brute-force protection |
 
 ---
 
 ## 📁 Project Structure
 
-```text
+```
 complaint-system/
 │
-├── backend/                   # Node.js + Express API
-│   ├── config/                # DB & environment configs
-│   ├── controllers/           # Route handlers (admin, auth, complaints)
-│   ├── middleware/            # JWT auth guards, role checks, error handlers
-│   ├── models/                # Mongoose schemas (User, Complaint, History)
-│   ├── routes/                # Express API route definitions
-│   ├── services/              # Business logic (AI, email, notifications)
-│   ├── utils/                 # AsyncHandler, Winston logger
-│   └── server.js              # Entry point & Socket.io initialization
+├── backend/                          # Express.js API Server
+│   ├── config/
+│   │   └── db.js                     # MongoDB connection with Mongoose
+│   ├── controllers/
+│   │   ├── adminController.js        # Admin analytics & user management
+│   │   ├── authController.js         # Register, login, password reset
+│   │   └── complaintController.js    # CRUD + AI suggest endpoint
+│   ├── middleware/
+│   │   ├── auth.js                   # JWT verification + role authorization
+│   │   ├── errorHandler.js           # Global async error handler
+│   │   ├── rateLimiter.js            # Brute-force protection
+│   │   └── validate.js               # Express-validator middleware
+│   ├── models/
+│   │   ├── Complaint.js              # Schema: title, category, priority, AI fields
+│   │   ├── ComplaintHistory.js       # Audit trail: every status change logged
+│   │   └── User.js                   # Schema: name, email, role, hashed password
+│   ├── routes/
+│   │   ├── admin.js                  # GET /stats, GET /users
+│   │   ├── auth.js                   # POST /register, /login, /forgot-password
+│   │   └── complaints.js             # CRUD + POST /ai-suggest
+│   ├── services/
+│   │   ├── aiService.js              # 🧠 NLP Engine: Bayes + TF-IDF + scoring
+│   │   ├── complaintService.js       # Business logic: create, update, email
+│   │   └── notificationService.js    # Socket.io event emitter
+│   ├── utils/
+│   │   ├── asyncHandler.js           # Async/await error wrapper
+│   │   ├── logger.js                 # Winston: file + console logging
+│   │   └── sendEmail.js              # Nodemailer transporter
+│   ├── seed.js                       # Auto-seed demo users + sample data
+│   ├── server.js                     # Entry point: Express + Socket.io init
+│   └── .env.example                  # Environment variable template
 │
-├── frontend/                  # React + Vite SPA
-│   └── src/
-│       ├── api/               # Axios instance & interceptors
-│       ├── components/        # Sidebar, Skeleton loaders, Charts, Cards
-│       │   ├── charts/        # Recharts wrappers
-│       │   └── ui/            # Shadcn UI base components
-│       ├── context/           # AuthContext, ThemeContext, SocketContext
-│       ├── pages/             # Login, Student, Admin, Warden, Technician
-│       ├── App.jsx            # Core routing & RBAC wrapper
-│       └── main.jsx           # React DOM entry
+├── frontend/                         # React + Vite SPA
+│   ├── src/
+│   │   ├── api/
+│   │   │   └── axios.js              # Axios instance + JWT interceptor
+│   │   ├── components/
+│   │   │   ├── charts/
+│   │   │   │   ├── CategoryPieChart.jsx  # Recharts pie chart
+│   │   │   │   └── WeeklyBarChart.jsx    # Recharts bar chart
+│   │   │   ├── ui/                   # Shadcn UI base components
+│   │   │   │   ├── avatar.jsx
+│   │   │   │   ├── badge.jsx
+│   │   │   │   ├── button.jsx
+│   │   │   │   ├── card.jsx
+│   │   │   │   ├── dialog.jsx
+│   │   │   │   ├── input.jsx
+│   │   │   │   ├── label.jsx
+│   │   │   │   ├── progress.jsx
+│   │   │   │   ├── select.jsx
+│   │   │   │   ├── separator.jsx
+│   │   │   │   └── textarea.jsx
+│   │   │   ├── ComplaintCard.jsx      # Card with AI badges row
+│   │   │   ├── ComplaintTimeline.jsx  # Progress step visualization
+│   │   │   ├── DashboardStats.jsx     # Stats overview component
+│   │   │   ├── NotificationBell.jsx   # Real-time bell + unread count
+│   │   │   ├── ProtectedRoute.jsx     # RBAC route guard
+│   │   │   ├── Sidebar.jsx            # Navigation sidebar
+│   │   │   └── SkeletonCard.jsx       # Loading skeleton
+│   │   ├── context/
+│   │   │   ├── AuthContext.jsx        # JWT auth state + login/logout
+│   │   │   ├── SocketContext.jsx      # Socket.io connection manager
+│   │   │   └── ThemeContext.jsx       # Dark/light theme toggle
+│   │   ├── pages/
+│   │   │   ├── AdminComplaints.jsx    # Admin: manage all complaints
+│   │   │   ├── AdminDashboard.jsx     # Admin: analytics + charts
+│   │   │   ├── Dashboard.jsx          # Student: overview
+│   │   │   ├── ForgotPassword.jsx     # Password reset request
+│   │   │   ├── Login.jsx              # 💎 Premium login with particles
+│   │   │   ├── MyComplaints.jsx       # Student: complaint list + timeline
+│   │   │   ├── Notifications.jsx      # Notification center
+│   │   │   ├── Register.jsx           # Student registration
+│   │   │   ├── ResetPassword.jsx      # Password reset form
+│   │   │   ├── SubmitComplaint.jsx    # 🧠 AI-powered form + live panel
+│   │   │   ├── TechnicianDashboard.jsx# Technician: assigned complaints
+│   │   │   └── WardenDashboard.jsx    # Warden: hostel management
+│   │   ├── lib/
+│   │   │   └── utils.js              # Shadcn utility functions
+│   │   ├── App.jsx                    # Router + RBAC wrapper
+│   │   ├── main.jsx                   # React DOM entry point
+│   │   └── index.css                  # Global styles + animations
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── postcss.config.js
 │
-└── README.md
+└── README.md                         # This file
 ```
 
 ---
@@ -100,101 +280,139 @@ complaint-system/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js ≥ 18
-- MongoDB (local or Atlas)
+- **Node.js** ≥ 18
+- **MongoDB** running locally or MongoDB Atlas URI
 
-### 1. Backend Setup
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/atul-upadhyay-7/complaint-system.git
+cd complaint-system
+```
+
+### 2. Backend Setup
+
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file:
+Create a `.env` file (copy from `.env.example`):
+
 ```env
 MONGO_URI=mongodb://127.0.0.1:27017/complaint-system
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=your_super_secret_jwt_key
+PORT=5000
+
+# Email (Optional — Gmail App Password)
 SMTP_EMAIL=your_email@gmail.com
 SMTP_PASSWORD=your_app_password
 ```
 
 ```bash
 npm run dev
-# API running at http://localhost:5000
+# ✅ API running at http://localhost:5000
+# ✅ AI Engine: Naive Bayes classifier trained
 ```
 
-### 2. Frontend Setup
+### 3. Frontend Setup
+
 ```bash
-cd frontend
+cd ../frontend
 npm install
 npm run dev
-# UI running at http://localhost:5173
+# ✅ UI running at http://localhost:5173
 ```
 
-> **Tip:** The database auto-seeds demo users and sample complaints on first startup.
+> **Note:** The database auto-seeds demo users and 6 sample complaints on first startup.
 
 ---
 
 ## 🔑 Demo Accounts
 
-Click the **"Demo Accounts"** buttons on the login page or use:
+Click the role buttons on the login page for one-click fill:
 
 | Role | Email | Password |
 |------|-------|----------|
-| 🛡️ **Admin** | `admin@campus.edu` | `admin123` |
-| 🎓 **Student** | `student@campus.edu` | `student123` |
-| 🔧 **Technician** | `tech@campus.edu` | `tech123` |
-| 🏠 **Warden** | `warden@campus.edu` | `warden123` |
+| 🛡️ Admin | `admin@campus.edu` | `admin123` |
+| 🎓 Student | `student@campus.edu` | `student123` |
+| 🔧 Technician | `tech@campus.edu` | `tech123` |
+| 🏠 Warden | `warden@campus.edu` | `warden123` |
 
 ---
 
-## 🏗️ Core Features
+## 🧪 Testing the AI
 
-### 👥 Role-Based Access Control (4 Roles)
-- **Student** — Submit complaints, upload images, track live progress timeline
-- **Admin** — Full analytics dashboard, manage all complaints & users
-- **Warden** — View hostel complaints, assign technicians, update status
-- **Technician** — View assigned work, mark In Progress / Resolved
+### Quick Test Cases
 
-### 🎨 Premium Login Page
-- Animated floating particle dots on dark mode
-- **EliteCoder Hackathon** badge with purple gradient glow
-- "Live Platform · All Systems Operational" status pill
-- Animated counter stats (1240+ resolved, 98% success rate, 24h response)
-- 4 color-coded feature cards with icon highlights
-- One-click demo account buttons
-- Full dark ↔ light theme toggle
-
-### ⚙️ Bug Fixes & Reliability (Latest Updates)
-- **Fixed:** "Failed to update status" error on first click — caused by a `null` student reference in the email template crashing the server with a 500 error. Now guarded with null checks; email is skipped gracefully when student data is missing.
-- **Fixed:** Technician authorization using correct MongoDB ObjectId string comparison (`toString()`).
-- **Fixed:** Email sending is fully asynchronous (fire-and-forget) so it never blocks or delays status update responses.
-- **Fixed:** Warden "Assign" button works correctly without auto-triggering on dropdown change.
-- **Improved:** Loading states and button disabling on all status update actions to prevent double-clicks.
-
-### 🌙 Dark & Light Theme
-- CSS variable-based theme system (`data-theme` attribute)
-- Persisted to `localStorage`
-- All dashboards, cards, charts, and forms fully themed
-
-### 📡 Real-Time Notifications
-- Socket.io rooms per user (`user:{id}`)
-- Instant toast popups on complaint updates
-- Bell icon with unread count badge
-- Mark-all-read functionality
+| Test | Title to Type | Expected AI Result |
+|---|---|---|
+| Category: Internet | `WiFi not working in hostel` | 🌐 Internet, 🟡 Medium, ⏱️ 1-3 days |
+| Category: Water | `No water supply since morning` | 💧 Water, 🟢 Low, ⏱️ 2-4 days |
+| High Priority | `URGENT: No electricity since 2 days!` | ⚡ Electricity, 🔴 High, ⏱️ 4-8 hours |
+| Critical + Sentiment | `Terrible food, disgusting and pathetic!` | 🍽️ Food, 🚨 Critical, 🔥 Urgent, ⏱️ 1 hour |
+| Duplicate Detection | Submit same complaint twice | ⚠️ "Similar complaint found! (71% match)" |
 
 ---
 
-## 🔐 Security
+## 📊 API Endpoints
 
-- JWT access tokens with role payload
-- Bcrypt password hashing (salt rounds: 10)
-- Helmet.js security headers
-- Express Rate Limiter (brute-force protection)
-- Role-based middleware guards on every protected route
-- Technicians can only update complaints assigned to them
+### Auth
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new student |
+| POST | `/api/auth/login` | Login (returns JWT) |
+| POST | `/api/auth/forgot-password` | Send reset email |
+| POST | `/api/auth/reset-password/:token` | Reset password |
+
+### Complaints
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/complaints` | Create complaint (AI auto-processes) |
+| POST | `/api/complaints/ai-suggest` | Live AI analysis (real-time panel) |
+| GET | `/api/complaints` | List complaints (filtered by role) |
+| GET | `/api/complaints/:id` | Get single complaint |
+| PATCH | `/api/complaints/:id` | Update status/assignment |
+| DELETE | `/api/complaints/:id` | Delete complaint |
+| GET | `/api/complaints/:id/history` | Audit trail |
+
+### Admin
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/admin/stats` | Dashboard analytics |
+| GET | `/api/admin/users` | User management |
+
+---
+
+## 🐛 Key Bug Fixes
+
+| Bug | Root Cause | Fix |
+|---|---|---|
+| "Failed to update status" on first click | `null` student ref crashed email template → 500 error | Null-check guard; email skipped gracefully |
+| Technician couldn't update own complaints | ObjectId comparison used `===` instead of `.toString()` | String-based comparison |
+| Email sending blocked HTTP response | Synchronous `await sendEmail()` | Fire-and-forget `.catch()` pattern |
+| AI classified "WiFi" as "Other" | Naive Bayes alone unreliable for short input | Two-pass: keyword scan first → Bayes fallback |
+| Category dropdown not syncing with AI | Only auto-filled on first empty selection | Always updates from AI suggestion |
+
+---
+
+## 🗺️ Future Roadmap
+
+- [ ] AI auto-assignment of technicians based on workload + specialty
+- [ ] Image analysis — detect complaint category from uploaded photo
+- [ ] Student satisfaction rating after resolution
+- [ ] Complaint escalation rules (auto-escalate after 48h)
+- [ ] Analytics export (PDF/CSV reports)
+- [ ] Mobile PWA with push notifications
 
 ---
 
 <div align="center">
-  <i>Built with ❤️ for a better campus experience — <strong>EliteCoder Hackathon 2026</strong></i>
+
+### Built with ❤️ for a smarter campus
+
+**EliteCoder Hackathon 2026**
+
+Made by [**Atul Upadhyay**](https://github.com/atul-upadhyay-7)
+
 </div>
