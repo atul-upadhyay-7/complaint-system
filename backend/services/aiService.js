@@ -204,4 +204,181 @@ const autoPrioritizeComplaint = (title, description) => {
     }
 };
 
-module.exports = { autoCategorizeComplaint, autoPrioritizeComplaint };
+// ─── 4. SENTIMENT / URGENCY ANALYSIS ───────────────────────────────────────
+
+const NEGATIVE_WORDS = [
+    'angry', 'frustrated', 'terrible', 'horrible', 'worst', 'unacceptable',
+    'disgusting', 'pathetic', 'useless', 'waste', 'ridiculous', 'nonsense',
+    'furious', 'outraged', 'fed up', 'sick of', 'tired of', 'annoyed',
+    'disappointed', 'hurt', 'unbearable', 'intolerable', 'appalling',
+];
+const POSITIVE_WORDS = [
+    'please', 'kindly', 'request', 'thank', 'grateful', 'appreciate',
+    'suggestion', 'recommend', 'would be nice', 'if possible',
+];
+
+/**
+ * Analyze sentiment/urgency of complaint text
+ * @returns {{ sentiment: 'Urgent'|'Frustrated'|'Neutral'|'Polite', score: number }}
+ */
+const analyzeSentiment = (title, description) => {
+    try {
+        const text = `${title} ${description}`.toLowerCase();
+        let negScore = 0;
+        let posScore = 0;
+
+        NEGATIVE_WORDS.forEach(w => { if (text.includes(w)) negScore++; });
+        POSITIVE_WORDS.forEach(w => { if (text.includes(w)) posScore++; });
+
+        // Amplifiers
+        const exclamations = (text.match(/!/g) || []).length;
+        const capsWords = (`${title} ${description}`.match(/\b[A-Z]{3,}\b/g) || []).length;
+        negScore += exclamations * 0.5 + capsWords * 0.5;
+
+        let sentiment, score;
+        if (negScore >= 3) { sentiment = 'Urgent'; score = Math.min(negScore * 20, 100); }
+        else if (negScore >= 1) { sentiment = 'Frustrated'; score = 40 + negScore * 15; }
+        else if (posScore >= 2) { sentiment = 'Polite'; score = 20; }
+        else { sentiment = 'Neutral'; score = 30; }
+
+        logger.info(`[AI Sentiment] "${title.slice(0, 40)}" → ${sentiment} (neg:${negScore} pos:${posScore})`);
+        return { sentiment, score: Math.round(score) };
+    } catch (err) {
+        logger.error(`[AI Sentiment Error] ${err.message}`);
+        return { sentiment: 'Neutral', score: 30 };
+    }
+};
+
+// ─── 5. RESOLUTION TIME ESTIMATOR ──────────────────────────────────────────
+
+const RESOLUTION_TIMES = {
+    Electricity: { Low: '3-5 days', Medium: '1-2 days', High: '4-8 hours', Critical: '1-2 hours' },
+    Water: { Low: '2-4 days', Medium: '1-2 days', High: '3-6 hours', Critical: '1-2 hours' },
+    Internet: { Low: '3-5 days', Medium: '1-3 days', High: '6-12 hours', Critical: '2-4 hours' },
+    Cleanliness: { Low: '3-5 days', Medium: '1-2 days', High: '4-8 hours', Critical: '2-4 hours' },
+    Maintenance: { Low: '5-7 days', Medium: '2-4 days', High: '1-2 days', Critical: '4-8 hours' },
+    Security: { Low: '1-2 days', Medium: '4-8 hours', High: '1-2 hours', Critical: '30 min' },
+    Food: { Low: '2-3 days', Medium: '1 day', High: '2-4 hours', Critical: '1 hour' },
+    Other: { Low: '5-7 days', Medium: '3-5 days', High: '1-2 days', Critical: '4-8 hours' },
+};
+
+/**
+ * Estimate resolution time based on category + priority
+ */
+const estimateResolutionTime = (category, priority) => {
+    try {
+        const catTimes = RESOLUTION_TIMES[category] || RESOLUTION_TIMES['Other'];
+        const eta = catTimes[priority] || catTimes['Medium'];
+        logger.info(`[AI ETA] ${category}/${priority} → ${eta}`);
+        return eta;
+    } catch (err) {
+        return '2-4 days';
+    }
+};
+
+// ─── 6. DUPLICATE / SIMILAR COMPLAINT DETECTION (TF-IDF) ──────────────────
+
+const TfIdf = natural.TfIdf;
+
+/**
+ * Check if a new complaint is similar to existing ones using TF-IDF cosine similarity
+ * @param {string} newText - title + description of new complaint
+ * @param {Array} existingComplaints - array of { _id, title, description, status }
+ * @returns {{ isDuplicate: boolean, similarComplaints: Array, highestScore: number }}
+ */
+const detectDuplicates = (newText, existingComplaints) => {
+    try {
+        if (!existingComplaints || existingComplaints.length === 0) {
+            return { isDuplicate: false, similarComplaints: [], highestScore: 0 };
+        }
+
+        const tfidf = new TfIdf();
+
+        // Add new complaint as first document
+        tfidf.addDocument(newText.toLowerCase());
+
+        // Add existing complaints
+        existingComplaints.forEach(c => {
+            tfidf.addDocument(`${c.title} ${c.description}`.toLowerCase());
+        });
+
+        const similarities = [];
+        const newTerms = {};
+
+        // Get TF-IDF terms for the new document
+        tfidf.listTerms(0).forEach(item => {
+            newTerms[item.term] = item.tfidf;
+        });
+
+        // Compare with each existing complaint
+        for (let i = 1; i <= existingComplaints.length; i++) {
+            const existingTerms = {};
+            tfidf.listTerms(i).forEach(item => {
+                existingTerms[item.term] = item.tfidf;
+            });
+
+            // Cosine similarity
+            const allTerms = new Set([...Object.keys(newTerms), ...Object.keys(existingTerms)]);
+            let dotProduct = 0, magA = 0, magB = 0;
+            allTerms.forEach(term => {
+                const a = newTerms[term] || 0;
+                const b = existingTerms[term] || 0;
+                dotProduct += a * b;
+                magA += a * a;
+                magB += b * b;
+            });
+            const similarity = (magA && magB) ? dotProduct / (Math.sqrt(magA) * Math.sqrt(magB)) : 0;
+
+            if (similarity > 0.35) {
+                similarities.push({
+                    complaint: existingComplaints[i - 1],
+                    score: Math.round(similarity * 100),
+                });
+            }
+        }
+
+        similarities.sort((a, b) => b.score - a.score);
+        const top = similarities.slice(0, 3);
+        const highestScore = top.length > 0 ? top[0].score : 0;
+
+        logger.info(`[AI Duplicate] Found ${top.length} similar complaints (highest: ${highestScore}%)`);
+        return {
+            isDuplicate: highestScore > 70,
+            similarComplaints: top,
+            highestScore,
+        };
+    } catch (err) {
+        logger.error(`[AI Duplicate Error] ${err.message}`);
+        return { isDuplicate: false, similarComplaints: [], highestScore: 0 };
+    }
+};
+
+// ─── 7. COMBINED ANALYSIS (for /ai-suggest endpoint) ───────────────────────
+
+/**
+ * Run all AI analyses on text and return combined result
+ */
+const analyzeComplaint = (title, description, existingComplaints = []) => {
+    const category = autoCategorizeComplaint(title, description);
+    const priority = autoPrioritizeComplaint(title, description);
+    const sentiment = analyzeSentiment(title, description);
+    const estimatedTime = estimateResolutionTime(category, priority);
+    const duplicates = detectDuplicates(`${title} ${description}`, existingComplaints);
+
+    return {
+        category,
+        priority,
+        sentiment,
+        estimatedTime,
+        duplicates,
+    };
+};
+
+module.exports = {
+    autoCategorizeComplaint,
+    autoPrioritizeComplaint,
+    analyzeSentiment,
+    estimateResolutionTime,
+    detectDuplicates,
+    analyzeComplaint,
+};

@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
-import { Clock, MapPin, ArrowUp, AlertCircle, CheckCircle2, Loader, Tag, Image, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, MapPin, ArrowUp, AlertCircle, CheckCircle2, Loader, Tag, Image, ChevronDown, ChevronUp, Brain, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -99,6 +99,34 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                         <Clock className="w-3.5 h-3.5" /> {timeAgo}
                     </span>
                 </div>
+
+                {/* AI Insights Row */}
+                {(complaint.aiCategory || complaint.aiSentiment || complaint.aiEstimatedTime) && (
+                    <div className="flex items-center flex-wrap gap-2 mt-2 pt-2 border-t border-slate-100 dark:border-white/5">
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-violet-500 bg-violet-100 dark:bg-violet-500/10 px-1.5 py-0.5 rounded">
+                            <Brain className="w-3 h-3" /> AI
+                        </span>
+                        {complaint.aiCategory && (
+                            <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-md">
+                                {complaint.aiCategory}
+                            </span>
+                        )}
+                        {complaint.aiSentiment && (
+                            <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${complaint.aiSentiment === 'Urgent' ? 'text-rose-600 dark:text-rose-400 bg-rose-100 dark:bg-rose-500/10' :
+                                    complaint.aiSentiment === 'Frustrated' ? 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-500/10' :
+                                        complaint.aiSentiment === 'Polite' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/10' :
+                                            'text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5'
+                                }`}>
+                                {complaint.aiSentiment === 'Urgent' ? '🔥' : complaint.aiSentiment === 'Frustrated' ? '😤' : complaint.aiSentiment === 'Polite' ? '😊' : '😐'} {complaint.aiSentiment}
+                            </span>
+                        )}
+                        {complaint.aiEstimatedTime && (
+                            <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-2 py-0.5 rounded-md flex items-center gap-1">
+                                <Clock className="w-3 h-3" /> ETA: {complaint.aiEstimatedTime}
+                            </span>
+                        )}
+                    </div>
+                )}
 
                 {/* Progress Timeline toggle (student view) */}
                 {!isAdmin && (

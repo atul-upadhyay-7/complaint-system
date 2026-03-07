@@ -1,6 +1,7 @@
 const Complaint = require('../models/Complaint');
 const ComplaintHistory = require('../models/ComplaintHistory');
 const complaintService = require('../services/complaintService');
+const { analyzeComplaint } = require('../services/aiService');
 const asyncHandler = require('../utils/asyncHandler');
 
 // @route POST /api/complaints
@@ -113,4 +114,22 @@ exports.getComplaintHistory = asyncHandler(async (req, res) => {
         .sort({ createdAt: 1 });
 
     res.json({ success: true, count: history.length, history });
+});
+
+// @route POST /api/complaints/ai-suggest
+// Live AI analysis — called from frontend as user types
+exports.aiSuggest = asyncHandler(async (req, res) => {
+    const { title, description } = req.body;
+    if (!title && !description) {
+        return res.status(400).json({ success: false, message: 'Title or description required' });
+    }
+
+    // Fetch recent pending/in-progress complaints for duplicate detection
+    const existingComplaints = await Complaint.find(
+        { status: { $in: ['Pending', 'Assigned', 'In Progress'] } },
+        'title description status'
+    ).sort({ createdAt: -1 }).limit(50).lean();
+
+    const result = analyzeComplaint(title || '', description || '', existingComplaints);
+    res.json({ success: true, ai: result });
 });

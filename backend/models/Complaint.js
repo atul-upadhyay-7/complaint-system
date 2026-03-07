@@ -42,6 +42,9 @@ const complaintSchema = new mongoose.Schema({
     location: { type: String, trim: true },
     attachments: [{ type: String }],         // image URLs (Cloudinary/local)
     aiCategory: { type: String, default: null },  // AI auto-classification result
+    aiPriority: { type: String, default: null },  // AI-predicted priority
+    aiSentiment: { type: String, default: null },  // AI sentiment (Urgent/Frustrated/Neutral/Polite)
+    aiEstimatedTime: { type: String, default: null },  // AI predicted resolution ETA
     resolvedAt: { type: Date, default: null },
     adminNotes: {
         type: String,

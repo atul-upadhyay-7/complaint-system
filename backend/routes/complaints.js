@@ -7,6 +7,7 @@ const {
     updateComplaint,
     deleteComplaint,
     getComplaintHistory,
+    aiSuggest,
 } = require('../controllers/complaintController');
 const { protect, authorize } = require('../middleware/auth');
 const validate = require('../middleware/validate');
@@ -23,10 +24,11 @@ const createRules = [
 // All routes are protected
 router.use(protect);
 
+router.post('/ai-suggest', authorize('student'), aiSuggest);                     // AI live suggestions
 router.post('/', authorize('student'), createRules, validate, createComplaint);
 router.get('/', getComplaints);
 router.get('/:id', getComplaint);
-router.get('/:id/history', getComplaintHistory);                                 // ← NEW: audit trail
+router.get('/:id/history', getComplaintHistory);
 router.patch('/:id', authorize('admin', 'warden', 'technician'), updateComplaint);
 router.delete('/:id', deleteComplaint);
 
