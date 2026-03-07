@@ -77,9 +77,44 @@ In most modern campuses, student complaints are a point of friction. Students su
 
 This project is engineered for **High Availability** and **Cloud Portability**. We don't just ship code; we ship a complete, reproducible infrastructure.
 
-- **[Docker Deployment Guide](./README_DEVOPS.md)**: ⚡ One-command orchestration for Local, VPS, or Cloud.
-- **Microservices Orchestration**: Scalable 3-tier container stack (Nginx + Express + MongoDB).
-- **Automated CI/CD**: Rigorous quality gates powered by GitHub Actions.
+### 🏗️ Architecture Overview
+
+UniIssueHub follows a modern **3-Tier Architecture**:
+1. **Frontend**: React (Vite) Single Page Application.
+2. **Backend**: Node.js/Express API with Socket.io for real-time events.
+3. **Database**: MongoDB (Local for Dev / Atlas for Prod).
+
+---
+
+### 📦 Docker Orchestration
+
+The project includes a `docker-compose.yml` for unified management.
+
+#### Spin up the entire stack:
+```bash
+docker-compose up --build
+```
+
+#### Services included:
+- **`backend`**: Exposed on port `5000`
+- **`frontend`**: Exposed on port `5173`
+- **`mongodb`**: Internally connected (no port exposed to host for security)
+
+---
+
+### 🚀 Production Deployment
+
+- **Backend (Render)**: `atul-upadhyay-7/EliteCoderHackathon/backend`
+- **Frontend (Vercel)**: `atul-upadhyay-7/EliteCoderHackathon/frontend` (linked with `VITE_API_URL`)
+
+---
+
+### 🛡️ CI/CD Pipeline
+
+We use **GitHub Actions** (`.github/workflows/ci.yml`) for:
+- **Syntax Validation**: Ensures no broken JS/JSX.
+- **Build Integrity**: Verifies the frontend builds without errors.
+- **Audit**: Checks dependencies for known vulnerabilities.
 
 ---
 
@@ -447,6 +482,17 @@ Click the role buttons on the login page for one-click fill:
 
 > [!TIP]
 > **To make the prototype links work**: Go to your GitHub Repo Settings → **Pages** → Build and deployment → Branch: **main** → **Save**. This will host your prototype live!
+
+---
+
+## 📽️ Full Video Demonstration
+
+<div align="center">
+  <a href="https://youtu.be/7yhNndCdo9s">
+    <img src="https://img.youtube.com/vi/7yhNndCdo9s/maxresdefault.jpg" width="100%" alt="Watch the video">
+  </a>
+  <p><i><b>Full Project Walkthrough:</b> AI Features, Role-based Access, and Deployment.</i></p>
+</div>
 
 ---
 
