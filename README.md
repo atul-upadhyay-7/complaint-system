@@ -384,19 +384,7 @@ Click the role buttons on the login page for one-click fill:
 
 ---
 
-## 🐛 Key Bug Fixes
-
-| Bug | Root Cause | Fix |
-|---|---|---|
-| "Failed to update status" on first click | `null` student ref crashed email template → 500 error | Null-check guard; email skipped gracefully |
-| Technician couldn't update own complaints | ObjectId comparison used `===` instead of `.toString()` | String-based comparison |
-| Email sending blocked HTTP response | Synchronous `await sendEmail()` | Fire-and-forget `.catch()` pattern |
-| AI classified "WiFi" as "Other" | Naive Bayes alone unreliable for short input | Two-pass: keyword scan first → Bayes fallback |
-| Category dropdown not syncing with AI | Only auto-filled on first empty selection | Always updates from AI suggestion |
-
----
-
-## 🗺️ Future Roadmap
+## ️ Future Roadmap
 
 - [ ] AI auto-assignment of technicians based on workload + specialty
 - [ ] Image analysis — detect complaint category from uploaded photo
