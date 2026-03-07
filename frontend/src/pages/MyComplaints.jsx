@@ -28,9 +28,9 @@ export default function MyComplaints() {
     const filtered = filter === 'All' ? complaints : complaints.filter(c => c.status === filter);
 
     return (
-        <div className="flex min-h-screen bg-background relative selection:bg-blue-500/30">
+        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[40%] left-[-10%] w-[500px] h-[500px] bg-blue-900/8 rounded-full blur-[120px] animate-float" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-[40%] left-[-10%] w-[500px] h-[500px] bg-blue-100 dark:bg-blue-900/8 rounded-full blur-[120px] animate-float" style={{ animationDelay: '1s' }} />
             </div>
 
             <Sidebar />
@@ -38,11 +38,11 @@ export default function MyComplaints() {
                 <div className="p-4 sm:p-6 md:p-8 max-w-5xl mx-auto">
                     {/* Header */}
                     <div className="mb-8 animate-slide-up">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-3 animate-fade-in">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3 animate-fade-in">
                             <LayoutDashboard className="w-3.5 h-3.5" /> Your History
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground">My Complaints</h1>
-                        <p className="text-muted-foreground text-sm sm:text-base mt-2">Track, manage, and view the status of all your submitted issues.</p>
+                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">My Complaints</h1>
+                        <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">Track, manage, and view the status of all your submitted issues.</p>
                     </div>
 
                     {/* Mini stat cards */}
@@ -51,7 +51,7 @@ export default function MyComplaints() {
                             const Icon = s.icon;
                             return (
                                 <Card key={s.key}
-                                    className="cursor-pointer group glass-card border-blue-900/30 hover:border-blue-500/40 card-hover animate-slide-up"
+                                    className="cursor-pointer group glass-card border-slate-200 dark:border-blue-900/30 hover:border-blue-300 dark:hover:border-blue-500/40 card-hover animate-slide-up"
                                     style={{ animationDelay: `${0.1 + i * 0.1}s` }}
                                     onClick={() => setFilter(filter === s.key ? 'All' : s.key)}>
                                     <CardContent className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
@@ -59,8 +59,8 @@ export default function MyComplaints() {
                                             <Icon className={cn('w-5 h-5 sm:w-6 sm:h-6', s.color)} />
                                         </div>
                                         <div>
-                                            <p className="text-2xl sm:text-3xl font-bold text-foreground drop-shadow-sm">{counts[s.key] ?? 0}</p>
-                                            <p className="text-xs sm:text-sm font-medium text-muted-foreground">{s.label}</p>
+                                            <p className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-foreground drop-shadow-sm">{counts[s.key] ?? 0}</p>
+                                            <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-muted-foreground">{s.label}</p>
                                         </div>
                                     </CardContent>
                                 </Card>
@@ -70,17 +70,17 @@ export default function MyComplaints() {
 
                     {/* Filter tabs */}
                     <div className="flex overflow-x-auto pb-2 scrollbar-hide mb-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-                        <div className="flex items-center gap-1 p-1 glass-card border border-blue-900/30 rounded-xl w-fit min-w-max">
-                            <ListFilter className="w-4 h-4 text-muted-foreground mx-2 shrink-0" />
+                        <div className="flex items-center gap-1 p-1 bg-white dark:glass-card border border-slate-200 dark:border-blue-900/30 rounded-xl w-fit min-w-max shadow-sm">
+                            <ListFilter className="w-4 h-4 text-slate-400 dark:text-muted-foreground mx-2 shrink-0" />
                             {FILTERS.map(f => (
                                 <button key={f} onClick={() => setFilter(f)}
                                     className={cn('px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 whitespace-nowrap',
                                         filter === f
-                                            ? 'bg-blue-500/15 text-blue-300 border border-blue-500/30 shadow-sm'
-                                            : 'text-muted-foreground hover:text-foreground hover:bg-white/5')}>
+                                            ? 'bg-blue-100 dark:bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30 shadow-sm'
+                                            : 'text-slate-600 dark:text-muted-foreground hover:text-slate-900 dark:hover:text-foreground hover:bg-slate-50 dark:hover:bg-white/5')}>
                                     {f}
                                     {f !== 'All' && (
-                                        <span className={cn('ml-2 text-xs px-1.5 py-0.5 rounded-md bg-secondary border border-border/50 opacity-80')}>
+                                        <span className={cn('ml-2 text-xs px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-secondary border border-transparent dark:border-border/50 opacity-80')}>
                                             {complaints.filter(c => c.status === f).length}
                                         </span>
                                     )}
@@ -96,12 +96,12 @@ export default function MyComplaints() {
                                 {[1, 2, 3, 4].map(i => <SkeletonCard key={i} lines={3} showImage={i % 2 === 0} />)}
                             </div>
                         ) : filtered.length === 0 ? (
-                            <div className="text-center py-20 sm:py-28 px-4 rounded-3xl border border-dashed border-blue-900/40 glass-card">
-                                <div className="w-20 h-20 rounded-3xl bg-blue-500/10 flex items-center justify-center mx-auto mb-6 animate-float">
+                            <div className="text-center py-20 sm:py-28 px-4 rounded-3xl border border-dashed border-slate-300 dark:border-blue-900/40 bg-white dark:glass-card shadow-sm">
+                                <div className="w-20 h-20 rounded-3xl bg-blue-50 dark:bg-blue-500/10 flex items-center justify-center mx-auto mb-6 animate-float">
                                     <AlertCircle className="w-10 h-10 text-blue-400/80" />
                                 </div>
-                                <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">No complaints found</h3>
-                                <p className="text-muted-foreground text-sm sm:text-base max-w-sm mx-auto">
+                                <h3 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-foreground mb-2">No complaints found</h3>
+                                <p className="text-slate-500 dark:text-muted-foreground text-sm sm:text-base max-w-sm mx-auto">
                                     {filter !== 'All' ? `You don't have any complaints marked as "${filter}".` : "You haven't submitted any complaints yet."}
                                 </p>
                             </div>

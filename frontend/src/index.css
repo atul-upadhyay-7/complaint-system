@@ -62,6 +62,7 @@
     font-family: 'Inter', system-ui, sans-serif;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    /* transition: background-color 0.3s ease, color 0.3s ease; */
   }
 
   ::-webkit-scrollbar {
@@ -94,16 +95,19 @@
   }
 
   /* Glassmorphism base */
-  .glass-card {
+  .dark .glass-card, [data-theme="dark"] .glass-card {
     background: rgba(10, 20, 40, 0.55);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(59, 130, 246, 0.12);
   }
 
-  [data-theme="light"] .glass-card {
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(59, 130, 246, 0.15);
+  [data-theme="light"] .glass-card, .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px rounded-xl border border-blue-100 rgba(0, 0, 0, 0.05);
   }
 
   /* Blue glow utility */

@@ -6,7 +6,13 @@ export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
+        const root = document.documentElement;
+        root.setAttribute('data-theme', theme);
+        if (theme === 'dark') {
+            root.classList.add('dark');
+        } else {
+            root.classList.remove('dark');
+        }
         localStorage.setItem('theme', theme);
     }, [theme]);
 

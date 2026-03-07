@@ -32,8 +32,8 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
 
     return (
         <Card className={cn(
-            'group border border-blue-900/30 glass-card card-hover transition-all duration-300 overflow-hidden relative',
-            'hover:border-blue-500/40'
+            'group border border-slate-200 dark:border-blue-900/30 glass-card card-hover transition-all duration-300 overflow-hidden relative',
+            'hover:border-blue-300 dark:hover:border-blue-500/40'
         )}>
             {/* Blue glow on hover overlay */}
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/0 via-blue-500/0 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-[inherit]" />
@@ -42,7 +42,7 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                 {/* Header */}
                 <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-foreground text-sm sm:text-base leading-snug truncate group-hover:text-blue-300 transition-colors">
+                        <h3 className="font-semibold text-foreground text-sm sm:text-base leading-snug truncate group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors">
                             {complaint.title}
                         </h3>
                         {isAdmin && complaint.student && (
@@ -60,14 +60,14 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
 
                 {/* Complaint photo thumbnail */}
                 {hasImage && (
-                    <div className="mb-3 rounded-xl overflow-hidden border border-blue-500/15 relative group/img">
+                    <div className="mb-3 rounded-xl overflow-hidden border border-slate-200 dark:border-blue-500/15 relative group/img">
                         <img
                             src={complaint.attachments[0]}
                             alt="Complaint attachment"
                             className="w-full h-36 object-cover transition-transform duration-500 group-hover/img:scale-105"
                             onError={(e) => { e.target.style.display = 'none'; }}
                         />
-                        <div className="absolute bottom-2 right-2 glass-card px-2 py-1 rounded-lg flex items-center gap-1 text-[10px] text-blue-300 border border-blue-500/20">
+                        <div className="absolute bottom-2 right-2 glass-card px-2 py-1 rounded-lg flex items-center gap-1 text-[10px] text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-blue-500/20">
                             <Image className="w-3 h-3" />
                             Photo attached
                         </div>
@@ -95,7 +95,7 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                             <span className="truncate max-w-[100px]">{complaint.location}</span>
                         </span>
                     )}
-                    <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground ml-auto glass-card px-2 py-1 rounded-md border border-blue-500/10 shrink-0">
+                    <span className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground ml-auto glass-card px-2 py-1 rounded-md border border-blue-200 dark:border-blue-500/10 shrink-0">
                         <Clock className="w-3.5 h-3.5" /> {timeAgo}
                     </span>
                 </div>
@@ -104,29 +104,29 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                 {!isAdmin && (
                     <button
                         onClick={() => setExpanded(e => !e)}
-                        className="mt-4 w-full flex items-center justify-between text-xs text-muted-foreground hover:text-blue-400 transition-colors py-1"
+                        className="mt-4 w-full flex items-center justify-between text-xs text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors py-1"
                     >
                         <span className="font-medium">Progress Timeline</span>
                         {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                 )}
                 {!isAdmin && expanded && (
-                    <div className="mt-1 pt-3 border-t border-blue-900/30 animate-fade-in">
+                    <div className="mt-1 pt-3 border-t border-slate-200 dark:border-blue-900/30 animate-fade-in">
                         <ComplaintTimeline status={complaint.status} />
                     </div>
                 )}
 
                 {/* Admin manage section */}
                 {isAdmin && (
-                    <div className="mt-4 pt-4 border-t border-blue-900/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 -mx-5 -mb-5 px-5 pb-5 bg-blue-950/10 rounded-b-[inherit]">
+                    <div className="mt-4 pt-4 border-t border-slate-200 dark:border-blue-900/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 -mx-5 -mb-5 px-5 pb-5 bg-slate-50 dark:bg-blue-950/10 rounded-b-[inherit]">
                         <div className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
                             {complaint.assignedTo
-                                ? <><span>Assigned to</span><span className="text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-500/20">{complaint.assignedToName || complaint.assignedTo}</span></>
-                                : <span className="text-amber-500/90 flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> Unassigned</span>
+                                ? <><span>Assigned to</span><span className="text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-500/20">{complaint.assignedToName || complaint.assignedTo}</span></>
+                                : <span className="text-amber-600 dark:text-amber-500/90 flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> Unassigned</span>
                             }
                         </div>
                         <Button size="sm" variant="outline" onClick={() => onManage?.(complaint)}
-                            className="h-8 text-xs font-semibold sm:w-auto w-full border-blue-600/30 text-blue-400 hover:bg-blue-600/10 hover:border-blue-600/50 hover:text-blue-300 transition-all shadow-sm">
+                            className="h-8 text-xs font-semibold sm:w-auto w-full border-blue-300 dark:border-blue-600/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-600/10 hover:border-blue-400 dark:hover:border-blue-600/50 hover:text-blue-500 dark:hover:text-blue-300 transition-all shadow-sm">
                             Manage Complaint
                         </Button>
                     </div>

@@ -66,23 +66,23 @@ export default function AdminComplaints() {
     });
 
     return (
-        <div className="flex min-h-screen bg-background relative selection:bg-purple-500/30">
+        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-purple-500/30 transition-colors duration-300">
             {/* Global Background Orbs */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] animate-float" />
-                <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-indigo-900/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }} />
+                <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-100 dark:bg-purple-900/10 rounded-full blur-[120px] animate-float" />
+                <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-indigo-100 dark:bg-indigo-900/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }} />
             </div>
 
             <Sidebar />
             <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto z-10">
                     <div className="mb-6 animate-slide-up">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/50 border border-border/50 text-xs font-medium text-muted-foreground mb-3 animate-fade-in shadow-sm">
-                            <FileText className="w-3.5 h-3.5 text-purple-400" /> Administrative View
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 dark:bg-secondary/50 border border-slate-300/50 dark:border-border/50 text-xs font-medium text-slate-600 dark:text-muted-foreground mb-3 animate-fade-in shadow-sm">
+                            <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" /> Administrative View
                         </div>
-                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">All Complaints</h1>
-                        <p className="text-muted-foreground text-sm sm:text-base mt-2">
-                            Showing <span className="font-semibold text-foreground">{filtered.length}</span> of {complaints.length} complaints
+                        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">All Complaints</h1>
+                        <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">
+                            Showing <span className="font-semibold text-slate-900 dark:text-foreground">{filtered.length}</span> of {complaints.length} complaints
                         </p>
                     </div>
 
@@ -129,15 +129,15 @@ export default function AdminComplaints() {
                     <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-44 rounded-2xl bg-card/40 animate-pulse border border-border/30" />)}
+                                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-44 rounded-2xl bg-slate-100 dark:bg-card/40 animate-pulse border border-slate-200 dark:border-border/30" />)}
                             </div>
                         ) : filtered.length === 0 ? (
-                            <div className="text-center py-20 sm:py-32 px-4 rounded-3xl border border-dashed border-border/50 bg-secondary/20 backdrop-blur-sm">
-                                <div className="w-20 h-20 rounded-3xl glass flex items-center justify-center mx-auto mb-6 animate-float">
-                                    <Search className="w-10 h-10 text-muted-foreground/60" />
+                            <div className="text-center py-20 sm:py-32 px-4 rounded-3xl border border-dashed border-slate-300 dark:border-border/50 bg-white/50 dark:bg-secondary/20 backdrop-blur-sm">
+                                <div className="w-20 h-20 rounded-3xl bg-slate-100 dark:glass flex items-center justify-center mx-auto mb-6 animate-float">
+                                    <Search className="w-10 h-10 text-slate-400 dark:text-muted-foreground/60" />
                                 </div>
-                                <p className="text-xl font-semibold text-foreground mb-2">No complaints found</p>
-                                <p className="text-muted-foreground max-w-sm mx-auto">Try adjusting your search criteria or modifying the selected filters.</p>
+                                <p className="text-xl font-semibold text-slate-900 dark:text-foreground mb-2">No complaints found</p>
+                                <p className="text-slate-500 dark:text-muted-foreground max-w-sm mx-auto">Try adjusting your search criteria or modifying the selected filters.</p>
                             </div>
                         ) : (
                             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -154,29 +154,29 @@ export default function AdminComplaints() {
 
             {/* Manage Modal */}
             <Dialog open={!!selected} onOpenChange={(open) => { if (!open) closeModal(); }}>
-                <DialogContent className="max-w-lg sm:max-w-[600px] border-border/60 bg-background/95 backdrop-blur-xl shadow-2xl p-0 overflow-hidden">
-                    <DialogHeader className="p-6 border-b border-border/50 bg-secondary/20">
-                        <DialogTitle className="text-xl font-bold flex items-center gap-2">
-                            <FileText className="w-5 h-5 text-purple-400" /> Manage Complaint
+                <DialogContent className="max-w-lg sm:max-w-[600px] border-slate-200 dark:border-border/60 bg-white dark:bg-background/95 backdrop-blur-xl shadow-2xl p-0 overflow-hidden">
+                    <DialogHeader className="p-6 border-b border-slate-200 dark:border-border/50 bg-slate-50 dark:bg-secondary/20">
+                        <DialogTitle className="text-xl font-bold flex items-center gap-2 text-slate-900 dark:text-foreground">
+                            <FileText className="w-5 h-5 text-purple-600 dark:text-purple-400" /> Manage Complaint
                         </DialogTitle>
                     </DialogHeader>
                     {selected && (
                         <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                            <div className="p-4 rounded-xl bg-secondary/30 border border-border/50">
+                            <div className="p-4 rounded-xl bg-slate-50 dark:bg-secondary/30 border border-slate-200 dark:border-border/50">
                                 <div className="flex items-center gap-2 mb-2 flex-wrap">
-                                    <h3 className="font-semibold text-foreground text-lg">{selected.title}</h3>
+                                    <h3 className="font-semibold text-slate-900 dark:text-foreground text-lg">{selected.title}</h3>
                                     {selected.aiCategory && (
-                                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 ml-auto">
+                                        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-widest bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 ml-auto">
                                             <Sparkles className="w-3 h-3" /> AI: {selected.aiCategory}
                                         </span>
                                     )}
                                 </div>
-                                <p className="text-sm text-muted-foreground leading-relaxed">{selected.description}</p>
+                                <p className="text-sm text-slate-600 dark:text-muted-foreground leading-relaxed">{selected.description}</p>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                 <div className="space-y-2">
-                                    <Label className="text-sm font-medium">Status <span className="text-red-400">*</span></Label>
+                                    <Label className="text-sm font-medium text-slate-900 dark:text-foreground">Status <span className="text-red-500 dark:text-red-400">*</span></Label>
                                     <Select value={form.status} onValueChange={v => setForm(f => ({ ...f, status: v }))}>
                                         <SelectTrigger className="h-11 bg-background/50 focus:ring-purple-500/50"><SelectValue /></SelectTrigger>
                                         <SelectContent>
@@ -185,9 +185,9 @@ export default function AdminComplaints() {
                                     </Select>
                                 </div>
                                 <div className="space-y-2">
-                                    <Label className="text-sm font-medium">Priority Level</Label>
+                                    <Label className="text-sm font-medium text-slate-900 dark:text-foreground">Priority Level</Label>
                                     <Select value={form.priority} onValueChange={v => setForm(f => ({ ...f, priority: v }))}>
-                                        <SelectTrigger className="h-11 bg-background/50 focus:ring-purple-500/50"><SelectValue /></SelectTrigger>
+                                        <SelectTrigger className="h-11 bg-white dark:bg-background/50 border-slate-200 dark:border-border focus:ring-purple-500/50"><SelectValue /></SelectTrigger>
                                         <SelectContent>
                                             {['Low', 'Medium', 'High'].map(p => <SelectItem key={p} value={p}>{p}</SelectItem>)}
                                         </SelectContent>
@@ -196,18 +196,18 @@ export default function AdminComplaints() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-sm font-medium">Assign To</Label>
+                                <Label className="text-sm font-medium text-slate-900 dark:text-foreground">Assign To</Label>
                                 <Input
-                                    className="h-11 bg-background/50 focus-visible:ring-purple-500/50"
+                                    className="h-11 bg-white dark:bg-background/50 border-slate-200 dark:border-border focus-visible:ring-purple-500/50"
                                     placeholder="e.g. Facilities Management Team"
                                     value={form.assignedTo} onChange={e => setForm(f => ({ ...f, assignedTo: e.target.value }))}
                                 />
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-sm font-medium">Admin Notes (Visible to Student)</Label>
+                                <Label className="text-sm font-medium text-slate-900 dark:text-foreground">Admin Notes (Visible to Student)</Label>
                                 <Textarea
-                                    className="min-h-[100px] resize-y bg-background/50 focus-visible:ring-purple-500/50 p-3"
+                                    className="min-h-[100px] resize-y bg-white dark:bg-background/50 border-slate-200 dark:border-border focus-visible:ring-purple-500/50 p-3"
                                     placeholder="Provide feedback, updates, or resolution details to the student..."
                                     value={form.adminNotes} onChange={e => setForm(f => ({ ...f, adminNotes: e.target.value }))}
                                 />
