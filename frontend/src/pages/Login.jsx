@@ -42,18 +42,21 @@ function StatCard({ value, suffix, label, icon: Icon, delay, animate, color, isL
             style={{
                 animationDelay: `${delay}s`,
                 background: isLight
-                    ? `linear-gradient(135deg, white, ${color}08)`
-                    : 'rgba(255,255,255,0.04)',
-                border: isLight ? `1.5px solid ${color}30` : '1px solid rgba(255,255,255,0.08)',
+                    ? `linear-gradient(135deg, white 60%, ${color}10)`
+                    : `linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))`,
+                border: isLight ? `1.5px solid ${color}35` : `1px solid ${color}30`,
                 backdropFilter: 'blur(12px)',
-                boxShadow: isLight ? `0 4px 20px ${color}18, 0 1px 4px rgba(0,0,0,0.06)` : 'none',
+                boxShadow: isLight
+                    ? `0 4px 20px ${color}18, 0 1px 4px rgba(0,0,0,0.06)`
+                    : `0 4px 20px ${color}12, inset 0 1px 0 rgba(255,255,255,0.05)`,
             }}
         >
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" style={{ background: `radial-gradient(circle at center, ${color}20, transparent 70%)` }} />
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center mb-2" style={{ background: `${color}15`, border: `1px solid ${color}30` }}>
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center mb-2" style={{ background: `${color}20`, border: `1px solid ${color}40` }}>
                 <Icon className="w-4 h-4" style={{ color }} />
             </div>
-            <span className="text-3xl font-bold tabular-nums" style={{ background: isLight ? `linear-gradient(135deg, ${color}, ${color}aa)` : `linear-gradient(135deg, ${color}, white)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            {/* Use plain color — gradient-text causes rectangle rendering bug in some browsers */}
+            <span className="text-3xl font-bold tabular-nums" style={{ color }}>
                 {count}{suffix}
             </span>
             <span className={`text-xs font-medium mt-1 text-center leading-tight ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{label}</span>
@@ -140,7 +143,7 @@ export default function Login() {
     return (
         <div className="min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
             {/* ── LEFT HERO PANEL ── */}
-            <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e0eeff 0%, #f0f5ff 40%, #eef2ff 70%, #e8f5ff 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
+            <div className="hidden lg:flex relative flex-col p-12 gap-10 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e0eeff 0%, #f0f5ff 40%, #eef2ff 70%, #e8f5ff 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
 
                 {/* Background orbs */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -193,7 +196,7 @@ export default function Login() {
                     <LiveStats isLight={isLight} />
 
                     {/* Feature Cards Grid */}
-                    <div className="grid grid-cols-2 gap-3 mb-6">
+                    <div className="grid grid-cols-2 gap-3">
                         {FEATURE_CARDS.map(({ icon: Icon, title, desc, color }) => (
                             <div key={title}
                                 className="flex items-start gap-3 p-3.5 rounded-xl transition-all duration-300 group hover:scale-[1.02] cursor-default"
@@ -201,18 +204,17 @@ export default function Login() {
                                     background: 'white',
                                     border: `1.5px solid ${color}30`,
                                     boxShadow: `0 2px 12px ${color}15, 0 1px 3px rgba(0,0,0,0.05)`,
-                                    backdropFilter: 'blur(8px)',
                                 } : {
-                                    background: 'rgba(255,255,255,0.04)',
-                                    border: '1px solid rgba(255,255,255,0.08)',
-                                    backdropFilter: 'blur(8px)',
+                                    background: `linear-gradient(135deg, ${color}10, rgba(255,255,255,0.03))`,
+                                    border: `1px solid ${color}25`,
+                                    boxShadow: `0 2px 10px ${color}10`,
                                 }}>
-                                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: `${color}18`, border: `1.5px solid ${color}40` }}>
+                                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: `${color}20`, border: `1.5px solid ${color}40` }}>
                                     <Icon className="w-4 h-4" style={{ color }} />
                                 </div>
                                 <div>
                                     <p className={`text-xs font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>{title}</p>
-                                    <p className={`text-[11px] mt-0.5 leading-snug ${isLight ? 'text-slate-500' : 'text-slate-500'}`}>{desc}</p>
+                                    <p className={`text-[11px] mt-0.5 leading-snug ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{desc}</p>
                                 </div>
                             </div>
                         ))}
