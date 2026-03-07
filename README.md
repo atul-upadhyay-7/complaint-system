@@ -479,15 +479,26 @@ Click the role buttons on the login page for one-click fill:
 | Category | Link |
 |---|---|
 | **GitHub Repository** | [💻 Source Code (GitHub)](https://github.com/atul-upadhyay-7/EliteCoderHackathon) |
-| **Frontend App** | [🚀 Live App (Vercel)](https://uni-issue-hub.vercel.app/) |
-| **Backend API** | [📡 API Server (Render)](https://elite-coder-hackathon-backend.onrender.com/) |
-| **Interactive Prototype** | [🎨 UI Mockup (GitHub Pages)](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/landing.html) |
-| **Student Hub View** | [🎓 Student Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/student.html) |
-| **Admin View** | [🛡️ Admin Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/admin.html) |
-| **Technician View** | [🔧 Tech Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/tech.html) |
+| **Frontend App** | [🚀 Live App (Vercel)](https://complaint-system-wine.vercel.app/) |
+| **Backend API** | [📡 API Server (Render)](https://complaint-system-bc1h.onrender.com/) |
 
-> [!TIP]
-> **To make the prototype links work**: Go to your GitHub Repo Settings → **Pages** → Build and deployment → Branch: **main** → **Save**. This will host your prototype live!
+---
+
+## 🖼️ High-Res 4K UI Prototypes
+
+Experience the UI/UX design of UniIssueHub in stunning 4K resolution.
+
+````carousel
+<img src="./assets/prototype_landing.png" width="100%" alt="Landing Page Mockup">
+<!-- slide -->
+<img src="./assets/prototype_student.png" width="100%" alt="Student Hub Mockup">
+<!-- slide -->
+<img src="./assets/prototype_admin.png" width="100%" alt="Admin Hub Mockup">
+<!-- slide -->
+<img src="./assets/prototype_tech.png" width="100%" alt="Technician Hub Mockup">
+````
+
+---
 
 ---
 
