@@ -124,7 +124,14 @@ export default function LandingPage() {
                     transition={{ delay: 0.4 }}
                     className="flex flex-col sm:flex-row items-center justify-center gap-4"
                 >
-                    <Button size="lg" className="h-14 px-8 text-lg font-bold grad-blue min-w-[200px]" onClick={() => navigate('/register')}>
+                    <Button
+                        size="lg"
+                        className="h-14 px-8 text-lg font-bold grad-blue min-w-[200px]"
+                        onClick={() => {
+                            if (user) navigate('/dashboard');
+                            else document.getElementById('roles')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >
                         Get Started <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
                     <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/10 hover:bg-white/5 bg-transparent text-white" onClick={() => navigate('/login')}>
@@ -163,7 +170,7 @@ export default function LandingPage() {
             </header>
 
             {/* Features Section */}
-            <section className="relative z-10 py-32 px-6 max-w-7xl mx-auto">
+            <section id="features" className="relative z-10 py-32 px-6 max-w-7xl mx-auto">
                 <motion.div
                     className="text-center mb-20"
                     initial={{ opacity: 0, y: 30 }}
@@ -204,7 +211,7 @@ export default function LandingPage() {
             </section>
 
             {/* Roles Section */}
-            <section className="relative z-10 py-24 px-6 bg-white/[0.02] border-y border-white/5">
+            <section id="roles" className="relative z-10 py-24 px-6 bg-white/[0.02] border-y border-white/5">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
                     <motion.div
                         className="flex-1"
@@ -276,6 +283,25 @@ export default function LandingPage() {
                         ))}
                     </motion.div>
                 </div>
+            </section>
+
+            {/* Call to Action Section */}
+            <section className="relative z-10 py-24 px-6 text-center">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    className="max-w-4xl mx-auto p-12 rounded-[40px] bg-gradient-to-br from-blue-600/20 to-violet-600/20 border border-white/10 relative overflow-hidden"
+                >
+                    <div className="absolute top-0 right-0 p-8 opacity-10">
+                        <Sparkles className="w-32 h-32" />
+                    </div>
+                    <h2 className="text-4xl font-black mb-4">Ready to Resolve?</h2>
+                    <p className="text-slate-400 mb-8 max-w-lg mx-auto">Join UniIssueHub today and experience the future of campus governance powered by local AI.</p>
+                    <Button size="lg" className="h-14 px-10 text-lg font-bold grad-blue min-w-[220px] shadow-[0_0_30px_rgba(59,130,246,0.4)]" onClick={() => navigate('/register')}>
+                        Create Free Account
+                    </Button>
+                </motion.div>
             </section>
 
             {/* Footer */}
