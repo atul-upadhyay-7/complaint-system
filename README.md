@@ -447,22 +447,6 @@ Click the role buttons on the login page for one-click fill:
 - [ ] Analytics export (PDF/CSV reports)
 - [ ] Mobile PWA with push notifications
 
----
-
-## 📺 Demo Video
-
-<div align="center">
-  <video src="./demo.webm" width="100%" controls autoplay loop muted></video>
-  <br/>
-  <br/>
-  <a href="https://youtu.be/m9LCOyF1yS8">
-    <img src="https://img.shields.io/badge/Watch_Full_Video_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
-  </a>
-</div>
-
-> **Note:** Replace the link above with your actual YouTube or Drive video link.
-
----
 
 <div align="center">
 
@@ -472,4 +456,17 @@ Click the role buttons on the login page for one-click fill:
 
 Made by **Atul Upadhyay** & **Anshika**
 
+</div>
+
+---
+
+## 📺 Demo Video
+
+<div align="center">
+  <video src="./demo.mp4" width="100%" controls autoplay loop muted></video>
+  <br/>
+  <br/>
+  <a href="https://youtu.be/m9LCOyF1yS8">
+    <img src="https://img.shields.io/badge/Watch_Full_Video_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+  </a>
 </div>
