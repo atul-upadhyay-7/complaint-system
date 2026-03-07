@@ -23,11 +23,18 @@ const notifyComplaintCreated = (complaint, studentName) => {
 };
 
 const notifyComplaintAssigned = (complaint, assigneeName) => {
-    emitAll('complaint:assigned', {
+    const payload = {
         complaintId: complaint._id,
         title: complaint.title,
         assignedTo: assigneeName || complaint.assignedToName,
-    });
+    };
+
+    // Notify the technician directly if we have their ID
+    if (complaint.assignedTo) {
+        emitToRoom(`user:${complaint.assignedTo}`, 'complaint:assigned', payload);
+    } else {
+        emitAll('complaint:assigned', payload);
+    }
 };
 
 const notifyStatusChanged = (complaint, oldStatus, studentId) => {

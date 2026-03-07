@@ -18,6 +18,8 @@ export const SocketProvider = ({ children }) => {
         if (!user) {
             socketRef.current?.disconnect();
             socketRef.current = null;
+            setNotifications([]);
+            setUnreadCount(0);
             return;
         }
 
@@ -76,6 +78,25 @@ export const SocketProvider = ({ children }) => {
                     </div>
                 ), { duration: 7000 });
                 addNotification({ type: 'resolved', message: `"${data.title}" resolved in ${data.resolutionTimeHours}h 🎉`, time: new Date() });
+            }
+        });
+
+        socket.on('complaint:assigned', (data) => {
+            if (user.role === 'technician') {
+                toast.custom((t) => (
+                    <div className={`glass-card flex items-start gap-4 px-5 py-4 rounded-2xl border border-cyan-500/40 shadow-xl shadow-cyan-900/20 animate-slide-up ${t.visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                        <div className="w-10 h-10 rounded-full bg-cyan-500/20 flex items-center justify-center shrink-0">
+                            <Loader2 className="w-6 h-6 text-cyan-400 animate-spin-slow" />
+                        </div>
+                        <div className="flex-1">
+                            <p className="text-sm font-bold text-cyan-50 text-shadow-sm flex items-center gap-1.5">
+                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" /> New Task Assigned!
+                            </p>
+                            <p className="text-xs text-cyan-300/80 mt-1 leading-relaxed">"{data.title}" has been assigned to you. Review protocol on your workbench.</p>
+                        </div>
+                    </div>
+                ), { duration: 8000 });
+                addNotification({ type: 'status', message: `New task assigned: "${data.title}"`, time: new Date() });
             }
         });
 

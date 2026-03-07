@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 import ComplaintCard from '../components/ComplaintCard';
@@ -11,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export default function Dashboard() {
     const { user, logout } = useAuth();
+    const { notifications } = useSocket();
     const navigate = useNavigate();
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,6 +26,11 @@ export default function Dashboard() {
     };
 
     useEffect(() => { fetchComplaints(); }, []);
+
+    // Real-time synchronization: refresh when status changes are received
+    useEffect(() => {
+        if (notifications.length > 0) fetchComplaints();
+    }, [notifications]);
 
     const handleLogout = () => { logout(); navigate('/login'); };
 

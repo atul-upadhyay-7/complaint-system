@@ -8,23 +8,28 @@ import {
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
+import NotificationBell from './NotificationBell';
 
 const linksByRole = {
     student: [
         { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { to: '/submit', icon: PlusCircle, label: 'Submit Complaint' },
         { to: '/my-complaints', icon: FileText, label: 'My Complaints' },
+        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
     admin: [
         { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { to: '/admin/complaints', icon: ClipboardList, label: 'All Complaints' },
+        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
     technician: [
         { to: '/technician', icon: ListChecks, label: 'My Tasks' },
+        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
     warden: [
         { to: '/warden', icon: LayoutDashboard, label: 'Dashboard' },
         { to: '/warden/complaints', icon: ClipboardList, label: 'All Complaints' },
+        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
 };
 
@@ -57,6 +62,7 @@ export default function Sidebar() {
                     <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></h1>
                 </div>
                 <div className="flex items-center gap-1">
+                    <NotificationBell />
                     <button
                         onClick={toggleTheme}
                         className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-white/5 transition-colors"

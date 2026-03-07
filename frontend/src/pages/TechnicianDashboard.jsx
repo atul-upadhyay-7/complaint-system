@@ -36,6 +36,7 @@ const REPAIR_SUGGESTIONS = {
 
 export default function TechnicianDashboard() {
     const { user, logout } = useAuth();
+    const { notifications } = useSocket();
     const navigate = useNavigate();
     const [complaints, setComplaints] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -51,6 +52,11 @@ export default function TechnicianDashboard() {
     };
 
     useEffect(() => { fetchMyTasks(); }, []);
+
+    // Auto-refresh when new notifications arrive (assigned tasks)
+    useEffect(() => {
+        if (notifications.length > 0) fetchMyTasks();
+    }, [notifications]);
 
     const updateStatus = async (id, status) => {
         setUpdating(id);

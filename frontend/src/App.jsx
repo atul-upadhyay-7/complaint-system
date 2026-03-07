@@ -85,7 +85,7 @@ function AppRoutes() {
 
                 {/* Warden routes */}
                 <Route path="/warden" element={<RequireRole roles={['warden']}><AnimatedPage><WardenDashboard /></AnimatedPage></RequireRole>} />
-                <Route path="/warden/complaints" element={<RequireRole roles={['warden']}><WardenDashboard /></RequireRole>} />
+                <Route path="/warden/complaints" element={<RequireRole roles={['warden']}><AnimatedPage><WardenDashboard /></AnimatedPage></RequireRole>} />
 
                 <Route path="*" element={<Navigate to="/login" replace />} />
             </Routes>

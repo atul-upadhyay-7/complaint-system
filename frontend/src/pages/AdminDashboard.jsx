@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
 import { TrendingUp, AlertCircle, CheckCircle2, Loader, Clock, Tag, Users, LayoutDashboard, PieChart as PieChartIcon, BarChart2, ShieldCheck, Sparkles } from 'lucide-react';
@@ -57,13 +58,21 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [weeklyData, setWeeklyData] = useState([]);
 
-    useEffect(() => {
+    const { notifications } = useSocket();
+
+    const fetchAnalytics = () => {
         api.get('/admin/analytics').then(({ data }) => {
             setAnalytics(data.analytics);
             setWeeklyData(buildWeeklyData(data.analytics?.recentComplaints || []));
         }).catch(err => console.error('Analytics error:', err))
             .finally(() => setLoading(false));
-    }, []);
+    };
+
+    useEffect(() => { fetchAnalytics(); }, []);
+
+    useEffect(() => {
+        if (notifications.length > 0) fetchAnalytics();
+    }, [notifications]);
 
     if (loading) return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-background relative transition-colors duration-300">
