@@ -84,7 +84,7 @@ export default function AdminComplaints() {
                     </div>
 
                     {/* Search + Filters */}
-                    <Card className="mb-8 border-border/50 shadow-glass bg-card/60 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                    <Card className="mb-8 border-slate-200 dark:border-border/50 shadow-glass bg-card/60 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.1s' }}>
                         <CardContent className="p-4 sm:p-5">
                             <div className="flex flex-col md:flex-row gap-4">
                                 <div className="relative flex-1 group">

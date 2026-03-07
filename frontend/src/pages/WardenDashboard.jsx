@@ -8,18 +8,18 @@ import { Card, CardContent } from '@/components/ui/card';
 import toast from 'react-hot-toast';
 
 const STATUS_COLORS = {
-    'Pending': 'bg-yellow-500/15 text-yellow-400 border-yellow-500/25',
-    'Assigned': 'bg-blue-500/15 text-blue-400 border-blue-500/25',
-    'In Progress': 'bg-indigo-500/15 text-indigo-400 border-indigo-500/25',
-    'Resolved': 'bg-green-500/15 text-green-400 border-green-500/25',
-    'Rejected': 'bg-red-500/15 text-red-400 border-red-500/25',
+    'Pending': 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-yellow-500/15 dark:text-yellow-400 dark:border-yellow-500/25',
+    'Assigned': 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-500/15 dark:text-blue-400 dark:border-blue-500/25',
+    'In Progress': 'bg-indigo-100 text-indigo-700 border-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-400 dark:border-indigo-500/25',
+    'Resolved': 'bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-green-500/15 dark:text-green-400 dark:border-green-500/25',
+    'Rejected': 'bg-red-100 text-red-700 border-red-200 dark:bg-red-500/15 dark:text-red-400 dark:border-red-500/25',
 };
 
 const PRIORITY_COLORS = {
-    'Critical': 'bg-red-500/15 text-red-400',
-    'High': 'bg-orange-500/15 text-orange-400',
-    'Medium': 'bg-yellow-500/15 text-yellow-400',
-    'Low': 'bg-green-500/15 text-green-400',
+    'Critical': 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-400',
+    'High': 'bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400',
+    'Medium': 'bg-amber-100 text-amber-700 dark:bg-yellow-500/15 dark:text-yellow-400',
+    'Low': 'bg-emerald-100 text-emerald-700 dark:bg-green-500/15 dark:text-green-400',
 };
 
 export default function WardenDashboard() {

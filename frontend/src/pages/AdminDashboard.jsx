@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
 import { TrendingUp, AlertCircle, CheckCircle2, Loader, Clock, Tag, Users, LayoutDashboard, PieChart as PieChartIcon, BarChart2, ShieldCheck } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,7 +14,7 @@ import WeeklyBarChart from '../components/charts/WeeklyBarChart';
 
 function StatCard({ label, value, icon: Icon, color, bg, sub, delay }) {
     return (
-        <Card className="group glass-card border-blue-900/30 hover:border-blue-500/40 card-hover animate-slide-up" style={{ animationDelay: `${delay}s` }}>
+        <Card className="group glass-card border-slate-200 dark:border-blue-900/30 hover:border-blue-500/40 card-hover animate-slide-up" style={{ animationDelay: `${delay}s` }}>
             <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
                     <p className="text-sm text-muted-foreground font-medium">{label}</p>
@@ -120,7 +120,6 @@ export default function AdminDashboard() {
                         <StatCard label="Resolved" value={resolved} icon={CheckCircle2} color="text-emerald-600 dark:text-emerald-400" bg="bg-emerald-100 dark:bg-emerald-500/10" sub={`${resolutionRate}% resolution rate`} delay={0.4} />
                     </div>
 
-                    {/* Charts Row */}
                     <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
                         {/* Pie Chart */}
                         <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.45s' }}>

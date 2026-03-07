@@ -2,15 +2,15 @@ import { cn } from '@/lib/utils';
 
 function SkeletonPulse({ className }) {
     return (
-        <div className={cn('relative overflow-hidden rounded-lg bg-white/5', className)}>
-            <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        <div className={cn('relative overflow-hidden rounded-lg bg-slate-200/60 dark:bg-white/5', className)}>
+            <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-slate-100/50 dark:via-white/5 to-transparent" />
         </div>
     );
 }
 
 export function SkeletonCard({ lines = 3, showImage = false }) {
     return (
-        <div className="glass-card rounded-2xl p-5 space-y-4 border border-white/5">
+        <div className="glass-card rounded-2xl p-5 space-y-4 border border-slate-200 dark:border-white/5">
             <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 space-y-2">
                     <SkeletonPulse className="h-4 w-3/4" />
@@ -35,7 +35,7 @@ export function SkeletonCard({ lines = 3, showImage = false }) {
 
 export function SkeletonStatCard() {
     return (
-        <div className="glass-card rounded-2xl p-5 space-y-3 border border-white/5">
+        <div className="glass-card rounded-2xl p-5 space-y-3 border border-slate-200 dark:border-white/5">
             <div className="flex items-center justify-between">
                 <SkeletonPulse className="h-3 w-2/3" />
                 <SkeletonPulse className="h-10 w-10 rounded-xl" />
@@ -48,7 +48,7 @@ export function SkeletonStatCard() {
 
 export function SkeletonChart() {
     return (
-        <div className="glass-card rounded-2xl p-5 border border-white/5 space-y-4">
+        <div className="glass-card rounded-2xl p-5 border border-slate-200 dark:border-white/5 space-y-4">
             <SkeletonPulse className="h-4 w-1/3" />
             <SkeletonPulse className="h-48 w-full rounded-xl" />
         </div>
