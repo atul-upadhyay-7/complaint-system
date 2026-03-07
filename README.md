@@ -1,5 +1,11 @@
 <div align="center">
 
+![UniIssueHub Banner](./assets/banner.png)
+
+<br/>
+
+<img src="./assets/logo.png" width="120" alt="UniIssueHub Logo">
+
 # 🎓 UniIssueHub
 
 ### AI-Powered Campus Complaint Management & Resolution Platform
@@ -489,7 +495,7 @@ Click the role buttons on the login page for one-click fill:
 
 <div align="center">
   <a href="https://youtu.be/7yhNndCdo9s">
-    <img src="https://img.youtube.com/vi/7yhNndCdo9s/maxresdefault.jpg" width="100%" alt="Watch the video">
+    <img src="https://img.youtube.com/vi/7yhNndCdo9s/hqdefault.jpg" width="100%" style="border-radius: 12px;" alt="Watch the video">
   </a>
   <p><i><b>Full Project Walkthrough:</b> AI Features, Role-based Access, and Deployment.</i></p>
 </div>
