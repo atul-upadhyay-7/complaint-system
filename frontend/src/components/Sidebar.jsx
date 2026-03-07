@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
-import NotificationBell from './NotificationBell';
 
 const linksByRole = {
     student: [
@@ -30,10 +29,10 @@ const linksByRole = {
 };
 
 const accentByRole = {
-    student: { active: 'bg-blue-500/10 text-blue-100', bar: 'bg-blue-500 shadow-[0_0_10px_#3b82f6]', icon: 'text-blue-400' },
-    admin: { active: 'bg-blue-600/10 text-blue-100', bar: 'bg-blue-600 shadow-[0_0_10px_#2563eb]', icon: 'text-blue-400' },
-    technician: { active: 'bg-cyan-500/10 text-cyan-100', bar: 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]', icon: 'text-cyan-400' },
-    warden: { active: 'bg-blue-400/10 text-blue-100', bar: 'bg-blue-400 shadow-[0_0_10px_#60a5fa]', icon: 'text-blue-400' },
+    student: { active: 'bg-blue-500/10 text-blue-600 dark:text-blue-100', bar: 'bg-blue-500 shadow-[0_0_10px_#3b82f6]', icon: 'text-blue-500 dark:text-blue-400' },
+    admin: { active: 'bg-blue-600/10 text-blue-700 dark:text-blue-100', bar: 'bg-blue-600 shadow-[0_0_10px_#2563eb]', icon: 'text-blue-600 dark:text-blue-400' },
+    technician: { active: 'bg-cyan-500/10 text-cyan-700 dark:text-cyan-100', bar: 'bg-cyan-500 shadow-[0_0_10px_#06b6d4]', icon: 'text-cyan-600 dark:text-cyan-400' },
+    warden: { active: 'bg-blue-400/10 text-blue-600 dark:text-blue-100', bar: 'bg-blue-400 shadow-[0_0_10px_#60a5fa]', icon: 'text-blue-500 dark:text-blue-400' },
 };
 
 export default function Sidebar() {
@@ -58,7 +57,6 @@ export default function Sidebar() {
                     <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></h1>
                 </div>
                 <div className="flex items-center gap-1">
-                    <NotificationBell />
                     <button
                         onClick={toggleTheme}
                         className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-white/5 transition-colors"
@@ -96,12 +94,12 @@ export default function Sidebar() {
                         end={l.to.endsWith('/dashboard') || l.to === '/dashboard' || l.to === '/technician' || l.to === '/warden'}
                         className={({ isActive }) => cn(
                             'group flex items-center gap-3.5 px-4 py-3 text-sm font-medium transition-all duration-300 relative rounded-xl',
-                            isActive ? accent.active : 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
+                            isActive ? accent.active : 'text-slate-800 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
                         )}>
                         {({ isActive }) => (
                             <>
                                 {isActive && <div className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-full ${accent.bar}`} />}
-                                <l.icon className={cn('w-5 h-5 transition-all duration-300 group-hover:scale-110', isActive ? accent.icon : 'text-slate-500 dark:text-slate-400')} />
+                                <l.icon className={cn('w-5 h-5 transition-all duration-300 group-hover:scale-110', isActive ? accent.icon : 'text-slate-600 dark:text-slate-400')} />
                                 <span>{l.label}</span>
                             </>
                         )}
@@ -109,20 +107,8 @@ export default function Sidebar() {
                 ))}
             </nav>
 
-            {/* Notifications + Logout */}
+            {/* Logout */}
             <div className="p-4 mt-auto space-y-2">
-                {/* Notifications button */}
-                <button
-                    className="flex items-center gap-3.5 w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-500/10 border border-slate-200 dark:border-transparent hover:border-blue-200 dark:hover:border-blue-500/20 transition-all duration-300"
-                    onClick={() => {/* future: open notifications panel */ }}
-                >
-                    <div className="relative">
-                        <Bell className="w-5 h-5" />
-                        {/* Unread badge */}
-                        <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-blue-500 border-2 border-slate-50 dark:border-[#060d1a]" />
-                    </div>
-                    <span>Notifications</span>
-                </button>
 
                 {/* Secure Logout */}
                 <button onClick={onLinkClick ? () => { onLinkClick(); handleLogout(); } : handleLogout}
@@ -149,7 +135,6 @@ export default function Sidebar() {
                     <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></span>
                 </div>
                 <div className="flex items-center gap-1">
-                    <NotificationBell />
                     <button onClick={toggleTheme} className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
                         {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
                     </button>
