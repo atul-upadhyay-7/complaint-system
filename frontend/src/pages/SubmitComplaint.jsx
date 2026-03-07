@@ -59,8 +59,8 @@ export default function SubmitComplaint() {
             const res = await api.post('/complaints/ai-suggest', { title, description });
             if (res.data?.success) {
                 setAiSuggestion(res.data.ai);
-                // Auto-fill category if user hasn't selected one
-                if (!form.category && res.data.ai.category) {
+                // Always auto-fill category from AI suggestion
+                if (res.data.ai.category) {
                     setForm(f => ({ ...f, category: res.data.ai.category }));
                 }
             }
@@ -69,7 +69,7 @@ export default function SubmitComplaint() {
         } finally {
             setAiLoading(false);
         }
-    }, [form.category]);
+    }, []);
 
     useEffect(() => {
         if (debounceRef.current) clearTimeout(debounceRef.current);

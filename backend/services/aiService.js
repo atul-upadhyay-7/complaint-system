@@ -133,6 +133,12 @@ const PRIORITY_WEIGHTS = {
     'inconvenience': 2, 'uncomfortable': 3, 'missing': 4, 'absent': 3,
     'hot': 3, 'cold': 3, 'noise': 3, 'loud': 3, 'disturbing': 4,
 
+    // ── Frustration words (push Medium → High when combined)
+    'terrible': 5, 'horrible': 5, 'disgusting': 5, 'pathetic': 5,
+    'unacceptable': 6, 'worst': 5, 'unbearable': 6, 'intolerable': 6,
+    'useless': 4, 'ridiculous': 4, 'frustrated': 4, 'angry': 4,
+    'furious': 6, 'outraged': 6, 'appalling': 5, 'fed up': 5,
+
     // ── Low priority (score < 3 → Low)
     'request': 1, 'suggestion': 1, 'replace': 2, 'paint': 2, 'minor': -2,
     'small': -1, 'slightly': -2, 'sometimes': -1, 'occasionally': -1,
@@ -166,19 +172,81 @@ const computePriority = (text) => {
     return 'Low';
 };
 
-// ─── 3. EXPORTED FUNCTIONS ─────────────────────────────────────────────────
+// ─── 3. KEYWORD-FIRST CATEGORY DETECTION ───────────────────────────────────
+// Explicit keyword mapping — checked FIRST before Naive Bayes fallback.
+// This ensures common words like "wifi", "water", "light" always match correctly.
+
+const CATEGORY_KEYWORDS = {
+    Internet: [
+        'wifi', 'wi-fi', 'internet', 'network', 'broadband', 'router', 'lan',
+        'connectivity', 'hotspot', 'dns', 'proxy', 'ethernet', 'bandwidth',
+        'data connection', 'online', 'signal', 'modem',
+    ],
+    Electricity: [
+        'electricity', 'electric', 'power', 'light', 'bulb', 'fan', 'ac ',
+        'air conditioner', 'socket', 'switchboard', 'wiring', 'short circuit',
+        'voltage', 'generator', 'inverter', 'transformer', 'ups', 'led',
+        'tube light', 'fuse', 'dark room', 'power cut', 'no power',
+    ],
+    Water: [
+        'water', 'tap', 'pipe', 'plumbing', 'drainage', 'drain', 'leak',
+        'toilet', 'flush', 'geyser', 'tank', 'pump', 'bathroom flood',
+        'pipeline', 'sewage', 'drinking', 'overhead tank',
+    ],
+    Cleanliness: [
+        'clean', 'dirty', 'garbage', 'trash', 'dustbin', 'sweep', 'mop',
+        'smell', 'odor', 'insect', 'cockroach', 'rat', 'mice', 'mosquito',
+        'pest', 'hygiene', 'unhygienic', 'litter', 'waste', 'unclean',
+    ],
+    Maintenance: [
+        'door', 'window', 'lock', 'furniture', 'chair', 'table', 'bed',
+        'wall crack', 'roof', 'ceiling', 'paint', 'cupboard', 'almirah',
+        'mirror', 'shelf', 'hinge', 'glass broken', 'repair', 'broken',
+        'handle', 'latch', 'cabinet', 'fixture',
+    ],
+    Security: [
+        'theft', 'stolen', 'robbery', 'intruder', 'outsider', 'cctv',
+        'camera', 'guard', 'unauthorized', 'suspicious', 'harassment',
+        'fight', 'ragging', 'unsafe', 'security', 'eve teasing',
+    ],
+    Food: [
+        'food', 'mess', 'canteen', 'meal', 'lunch', 'dinner', 'breakfast',
+        'menu', 'cook', 'kitchen', 'stale', 'food poisoning', 'dietary',
+    ],
+};
 
 /**
- * Auto-categorize a complaint using Naive Bayes NLP
- * @param {string} title
- * @param {string} description
- * @returns {string} - One of the Complaint categories
+ * Two-pass category detection:
+ *   1. Keyword scan (fast, reliable for common terms)
+ *   2. Naive Bayes fallback (handles nuanced/uncommon text)
  */
 const autoCategorizeComplaint = (title, description) => {
     try {
-        const text = `${title} ${description}`;
+        const text = `${title} ${description}`.toLowerCase();
+
+        // ── Pass 1: keyword scan ──
+        let bestCategory = null;
+        let bestScore = 0;
+
+        for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
+            let matchCount = 0;
+            for (const kw of keywords) {
+                if (text.includes(kw)) matchCount++;
+            }
+            if (matchCount > bestScore) {
+                bestScore = matchCount;
+                bestCategory = category;
+            }
+        }
+
+        if (bestCategory && bestScore >= 1) {
+            logger.info(`[AI Category] "${title}" → ${bestCategory} (keyword match: ${bestScore})`);
+            return bestCategory;
+        }
+
+        // ── Pass 2: Naive Bayes fallback ──
         const result = classifier.classify(text);
-        logger.info(`[AI Category] "${title}" → ${result}`);
+        logger.info(`[AI Category] "${title}" → ${result} (Bayes fallback)`);
         return result;
     } catch (err) {
         logger.error(`[AI Category Error] ${err.message}`);
@@ -188,9 +256,6 @@ const autoCategorizeComplaint = (title, description) => {
 
 /**
  * Auto-prioritize a complaint using keyword scoring
- * @param {string} title
- * @param {string} description
- * @returns {'Critical'|'High'|'Medium'|'Low'}
  */
 const autoPrioritizeComplaint = (title, description) => {
     try {
