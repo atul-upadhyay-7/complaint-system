@@ -87,7 +87,7 @@ export default function AdminComplaints() {
                     </div>
 
                     {/* Search + Filters */}
-                    <Card className="mb-8 border-border/50 shadow-glass bg-card/60 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                    <Card className="mb-8 border-slate-200 dark:border-border/50 shadow-glass bg-card/60 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.1s' }}>
                         <CardContent className="p-4 sm:p-5">
                             <div className="flex flex-col md:flex-row gap-4">
                                 <div className="relative flex-1 group">
@@ -129,7 +129,7 @@ export default function AdminComplaints() {
                     <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-44 rounded-2xl bg-slate-100 dark:bg-card/40 animate-pulse border border-slate-200 dark:border-border/30" />)}
+                                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-44 rounded-2xl bg-slate-200/50 dark:bg-card/40 animate-pulse border border-slate-200 dark:border-border/30" />)}
                             </div>
                         ) : filtered.length === 0 ? (
                             <div className="text-center py-20 sm:py-32 px-4 rounded-3xl border border-dashed border-slate-300 dark:border-border/50 bg-white/50 dark:bg-secondary/20 backdrop-blur-sm">
