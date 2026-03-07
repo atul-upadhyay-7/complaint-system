@@ -55,7 +55,7 @@ export default function Sidebar() {
                     <div className="w-9 h-9 rounded-xl bg-blue-500/15 flex items-center justify-center glow-blue-sm">
                         <GraduationCap className="w-5 h-5 text-blue-400" />
                     </div>
-                    <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Campus<span className="text-blue-500 dark:text-blue-400">Desk</span></h1>
+                    <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></h1>
                 </div>
                 <div className="flex items-center gap-1">
                     <NotificationBell />
@@ -132,7 +132,7 @@ export default function Sidebar() {
                     <div className="w-8 h-8 rounded-lg bg-blue-500/15 flex items-center justify-center">
                         <GraduationCap className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                     </div>
-                    <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">Campus<span className="text-blue-500 dark:text-blue-400">Desk</span></span>
+                    <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></span>
                 </div>
                 <div className="flex items-center gap-1">
                     <NotificationBell />
