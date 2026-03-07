@@ -23,12 +23,15 @@ export default function ForgotPassword() {
             const { data } = await api.post('/auth/forgot-password', { email });
             toast.success(data.message);
 
-            // Demo Hackathon redirect
+            // Demo Hackathon redirect fallback
             if (data.demoToken) {
                 setTimeout(() => {
                     toast('Redirecting to reset page (Demo)...', { icon: '🤖' });
                     navigate(`/reset-password/${data.demoToken}`);
                 }, 1500);
+            } else {
+                toast.success('Awesome! Please check your email inbox (and spam folder) for the reset link.', { duration: 5000 });
+                setEmail('');
             }
         } catch (err) {
             toast.error(err.response?.data?.message || 'Something went wrong');

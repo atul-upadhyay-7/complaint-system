@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const asyncHandler = require('../utils/asyncHandler');
 const logger = require('../utils/logger');
+const sendEmail = require('../utils/sendEmail');
 
 const signToken = (id) =>
     jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
@@ -46,13 +47,44 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
 
     logger.info(`Password reset token generated for ${user.email}`);
 
-    // In a production app, we would send an HTML email here. 
-    // For the hackathon demo, we simply return the reset token directly via JSON to jump right into the reset page.
-    res.status(200).json({
-        success: true,
-        message: 'Password reset link sent! (Demo mode: Use token directly)',
-        demoToken
-    });
+    // Create reset url
+    const resetUrl = `${req.protocol}://${req.get('host').replace(':5000', ':5173')}/reset-password/${demoToken}`;
+
+    const emailHtml = `
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #2563eb;">Password Reset Request</h2>
+            <p>Hi there,</p>
+            <p>You are receiving this email because you (or someone else) have requested the reset of a password for your UniIssueHub account.</p>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="${resetUrl}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Reset Password</a>
+            </div>
+            <p style="font-size: 14px; color: #666;">If the button doesn't work, copy and paste this link into your browser:</p>
+            <p style="font-size: 12px; color: #3b82f6; word-wrap: break-word;">${resetUrl}</p>
+            <hr style="border: none; border-top: 1px solid #eaeaea; margin: 20px 0;" />
+            <p style="font-size: 12px; color: #999;">If you did not request this, please ignore this email and your password will remain unchanged.</p>
+        </div>
+    `;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: 'Password Reset Token',
+            html: emailHtml
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Email sent securely to your inbox',
+            demoToken: process.env.SMTP_EMAIL ? undefined : demoToken // Only pass back the demo token if we are not using a real SMTP account
+        });
+    } catch (err) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+
+        logger.error(`Error sending email: ${err}`);
+        return res.status(500).json({ success: false, message: 'Email could not be sent' });
+    }
 });
 
 // @route POST /api/auth/reset-password/:token
