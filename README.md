@@ -26,7 +26,17 @@
 
 </div>
 
+<br/>
+
+## 📺 Product Walkthrough
+
+<div align="center">
+  <video src="./demo.mp4" width="100%" controls autoplay loop muted></video>
+  <p><i>Real-time AI Categorization, Sentiment Analysis, and Technician Workflow</i></p>
+</div>
+
 ---
+
 
 ## 🎯 The Purpose & Vision
 
@@ -218,7 +228,7 @@ Student types complaint
 ## 📁 Project Structure
 
 ```
-complaint-system/
+EliteCoderHackathon/
 │
 ├── backend/                          # Express.js API Server
 │   ├── config/
@@ -323,8 +333,8 @@ complaint-system/
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/atul-upadhyay-7/complaint-system.git
-cd complaint-system
+git clone https://github.com/atul-upadhyay-7/EliteCoderHackathon.git
+cd EliteCoderHackathon
 ```
 
 ### 2. Backend Setup
@@ -337,7 +347,7 @@ npm install
 Create a `.env` file (copy from `.env.example`):
 
 ```env
-MONGO_URI=mongodb://127.0.0.1:27017/complaint-system
+MONGO_URI=mongodb://127.0.0.1:27017/EliteCoderHackathon
 JWT_SECRET=your_super_secret_jwt_key
 PORT=5000
 
@@ -425,9 +435,9 @@ Click the role buttons on the login page for one-click fill:
 
 | Category | Link |
 |---|---|
-| **GitHub Repository** | [💻 Source Code (GitHub)](https://github.com/atul-upadhyay-7/complaint-system) |
+| **GitHub Repository** | [💻 Source Code (GitHub)](https://github.com/atul-upadhyay-7/EliteCoderHackathon) |
 | **Frontend App** | [🚀 Live App (Vercel)](https://uni-issue-hub.vercel.app/) |
-| **Backend API** | [📡 API Server (Render)](https://complaint-system-backend.onrender.com/) |
+| **Backend API** | [📡 API Server (Render)](https://elite-coder-hackathon-backend.onrender.com/) |
 | **Interactive Prototype** | [🎨 UI Mockup (GitHub Pages)](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/landing.html) |
 | **Student Hub View** | [🎓 Student Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/student.html) |
 | **Admin View** | [🛡️ Admin Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/admin.html) |
@@ -456,12 +466,5 @@ Click the role buttons on the login page for one-click fill:
 
 Made by **Atul Upadhyay** & **Anshika**
 
-</div>
 
----
-
-## 📺 Demo Video
-
-<div align="center">
-  <video src="https://github.com/atul-upadhyay-7/complaint-system/blob/main/demo.mp4?raw=true" width="100%" controls autoplay loop muted></video>
 </div>

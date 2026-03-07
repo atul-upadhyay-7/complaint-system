@@ -18,7 +18,7 @@ services:
       - "5000:5000"
     environment:
       - PORT=5000
-      - MONGO_URI=mongodb://db:27017/complaint-system
+      - MONGO_URI=mongodb://db:27017/EliteCoderHackathon
       - JWT_SECRET=hackathon_super_secret_2026
       - FRONTEND_URL=http://localhost:80
       - RUN_SEED=true
