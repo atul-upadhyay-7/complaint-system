@@ -93,31 +93,33 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
         });
         notificationService.notifyStatusChanged(complaint, oldStatus);
 
-        // Send Email Notification for Status Change
-        const statusColors = { 'In Progress': '#f59e0b', Resolved: '#10b981', Rejected: '#ef4444', Assigned: '#3b82f6' };
-        const color = statusColors[updates.status] || '#3b82f6';
-        const notesHtml = updates.adminNotes ? `<p style="background-color: #f8fafc; padding: 15px; border-left: 4px solid ${color};"><strong>Notes:</strong> ${updates.adminNotes}</p>` : '';
-        const rejectionHtml = updates.rejectionReason ? `<p style="background-color: #fef2f2; padding: 15px; border-left: 4px solid #ef4444; color: #b91c1c;"><strong>Reason:</strong> ${updates.rejectionReason}</p>` : '';
+        // Send Email Notification for Status Change (only if student data exists)
+        if (complaint.student && complaint.student.email) {
+            const statusColors = { 'In Progress': '#f59e0b', Resolved: '#10b981', Rejected: '#ef4444', Assigned: '#3b82f6' };
+            const color = statusColors[updates.status] || '#3b82f6';
+            const notesHtml = updates.adminNotes ? `<p style="background-color: #f8fafc; padding: 15px; border-left: 4px solid ${color};"><strong>Notes:</strong> ${updates.adminNotes}</p>` : '';
+            const rejectionHtml = updates.rejectionReason ? `<p style="background-color: #fef2f2; padding: 15px; border-left: 4px solid #ef4444; color: #b91c1c;"><strong>Reason:</strong> ${updates.rejectionReason}</p>` : '';
 
-        const statusEmailHtml = `
-            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-                <h2 style="color: ${color};">Status Update: ${updates.status}</h2>
-                <p>Hi <strong>${complaint.student.name}</strong>,</p>
-                <p>Your campus complaint <em>"${complaint.title}"</em> has been updated!</p>
-                <div style="font-size: 18px; margin: 20px 0;">New Status: <span style="font-weight: bold; color: ${color};">${updates.status}</span></div>
-                ${notesHtml}
-                ${rejectionHtml}
-                <br/>
-                <p>Check the live progress from your UniIssueHub dashboard.</p>
-                <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.</p>
-            </div>
-        `;
+            const statusEmailHtml = `
+                <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                    <h2 style="color: ${color};">Status Update: ${updates.status}</h2>
+                    <p>Hi <strong>${complaint.student.name || 'Student'}</strong>,</p>
+                    <p>Your campus complaint <em>"${complaint.title}"</em> has been updated!</p>
+                    <div style="font-size: 18px; margin: 20px 0;">New Status: <span style="font-weight: bold; color: ${color};">${updates.status}</span></div>
+                    ${notesHtml}
+                    ${rejectionHtml}
+                    <br/>
+                    <p>Check the live progress from your UniIssueHub dashboard.</p>
+                    <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.</p>
+                </div>
+            `;
 
-        sendEmail({
-            email: complaint.student.email,
-            subject: `Complaint Update: ${updates.status} - ${complaint.title}`,
-            html: statusEmailHtml
-        }).catch(error => logger.error(`Failed to send status email to ${complaint.student.email}: ${error.message}`));
+            sendEmail({
+                email: complaint.student.email,
+                subject: `Complaint Update: ${updates.status} - ${complaint.title}`,
+                html: statusEmailHtml
+            }).catch(error => logger.error(`Failed to send status email to ${complaint.student.email}: ${error.message}`));
+        }
     }
 
     if (updates.assignedTo && updates.assignedTo !== String(oldAssignedTo)) {
@@ -131,30 +133,32 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
         });
         notificationService.notifyComplaintAssigned(complaint, updates.assignedToName);
 
-        // Send Email Notification
-        const etaMap = { High: '2 hours', Medium: '24 hours', Low: '48 hours' };
-        const eta = etaMap[complaint.priority] || '24 hours';
-        const technicianName = updates.assignedToName || 'A technician';
+        // Send Email Notification (only if student data exists)
+        if (complaint.student && complaint.student.email) {
+            const etaMap = { High: '2 hours', Medium: '24 hours', Low: '48 hours' };
+            const eta = etaMap[complaint.priority] || '24 hours';
+            const technicianName = updates.assignedToName || 'A technician';
 
-        const emailHtml = `
-            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-                <h2 style="color: #2563eb;">Technician Assigned! 🛠️</h2>
-                <p>Hi <strong>${complaint.student.name}</strong>,</p>
-                <p>Good news! <strong>${technicianName}</strong> has been officially assigned to your campus complaint: <em>"${complaint.title}"</em>.</p>
-                <div style="background-color: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 20px 0;">
-                    <p style="margin: 0;"><strong>Estimated Arrival / Resolution Time:</strong> Within ${eta}</p>
+            const emailHtml = `
+                <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                    <h2 style="color: #2563eb;">Technician Assigned! 🛠️</h2>
+                    <p>Hi <strong>${complaint.student.name || 'Student'}</strong>,</p>
+                    <p>Good news! <strong>${technicianName}</strong> has been officially assigned to your campus complaint: <em>"${complaint.title}"</em>.</p>
+                    <div style="background-color: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 20px 0;">
+                        <p style="margin: 0;"><strong>Estimated Arrival / Resolution Time:</strong> Within ${eta}</p>
+                    </div>
+                    <p>You can check the live progress from your UniIssueHub dashboard.</p>
+                    <br/>
+                    <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.<br/>Happy hacking!</p>
                 </div>
-                <p>You can check the live progress from your UniIssueHub dashboard.</p>
-                <br/>
-                <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.<br/>Happy hacking!</p>
-            </div>
-        `;
+            `;
 
-        sendEmail({
-            email: complaint.student.email,
-            subject: `Technician Assigned: ${complaint.title}`,
-            html: emailHtml
-        }).catch(error => logger.error(`Failed to send email to ${complaint.student.email}: ${error.message}`));
+            sendEmail({
+                email: complaint.student.email,
+                subject: `Technician Assigned: ${complaint.title}`,
+                html: emailHtml
+            }).catch(error => logger.error(`Failed to send email to ${complaint.student.email}: ${error.message}`));
+        }
     }
 
     logger.info(`Complaint ${complaintId} updated by ${performedBy.email}: ${JSON.stringify(updates)}`);

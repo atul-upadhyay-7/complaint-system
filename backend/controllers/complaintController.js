@@ -58,7 +58,16 @@ exports.updateComplaint = asyncHandler(async (req, res) => {
     // If technician, ensure they are assigned to this complaint
     if (req.user.role === 'technician') {
         const complaint = await Complaint.findById(req.params.id);
-        if (complaint.assignedTo?.toString() !== req.user._id.toString()) {
+        if (!complaint) {
+            return res.status(404).json({ success: false, message: 'Complaint not found' });
+        }
+
+        // Use String comparison to reliably compare ObjectIds
+        const assignedToId = complaint.assignedTo ? complaint.assignedTo.toString() : null;
+        const currentUserId = req.user._id.toString();
+
+        if (assignedToId !== currentUserId) {
+            console.warn(`[TECH AUTH] Denied: complaint.assignedTo=${assignedToId} vs user=${currentUserId}`);
             return res.status(403).json({ success: false, message: 'Not authorized to update this specific complaint' });
         }
 
@@ -69,8 +78,13 @@ exports.updateComplaint = asyncHandler(async (req, res) => {
         });
     }
 
-    const complaint = await complaintService.updateComplaint(req.params.id, req.body, req.user);
-    res.json({ success: true, complaint });
+    try {
+        const complaint = await complaintService.updateComplaint(req.params.id, req.body, req.user);
+        res.json({ success: true, complaint });
+    } catch (err) {
+        console.error('[UPDATE COMPLAINT ERROR]', err.message, err.stack);
+        res.status(err.statusCode || 500).json({ success: false, message: err.message || 'Server error' });
+    }
 });
 
 // @route DELETE /api/complaints/:id
