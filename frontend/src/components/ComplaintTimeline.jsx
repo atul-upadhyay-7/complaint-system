@@ -16,8 +16,9 @@ export default function ComplaintTimeline({ status }) {
     return (
         <div className="py-4 px-2">
             <div className="flex items-start justify-between relative">
-                {/* Connecting line */}
-                <div className="absolute top-5 left-0 right-0 h-[2px] bg-white/10 mx-8" />
+                {/* Connecting line - base (inactive) */}
+                <div className="absolute top-5 left-0 right-0 h-[2px] bg-slate-200 dark:bg-white/10 mx-8" />
+                {/* Connecting line - progress fill */}
                 <div
                     className="absolute top-5 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-blue-400/50 mx-8 transition-all duration-1000 ease-out"
                     style={{ width: `calc(${(currentIdx / 3) * 100}% - 64px * ${currentIdx / 3})` }}
@@ -33,10 +34,10 @@ export default function ComplaintTimeline({ status }) {
                             <div className={cn(
                                 'w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 z-10',
                                 isDone
-                                    ? `border-transparent bg-blue-500/20 ${isActive ? `shadow-lg ${step.glow} scale-110 border-blue-400/50 ring-2 ring-blue-500/30 ring-offset-2 ring-offset-transparent` : 'border-white/10'}`
-                                    : 'border-white/10 bg-white/5'
+                                    ? `border-transparent bg-blue-500/20 ${isActive ? `shadow-lg ${step.glow} scale-110 border-blue-400/50 ring-2 ring-blue-500/30 ring-offset-2 ring-offset-transparent` : 'border-blue-200 dark:border-white/10'}`
+                                    : 'border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/5'
                             )}>
-                                <Icon className={cn('w-4 h-4 transition-colors duration-500', isDone ? step.color : 'text-white/20')} />
+                                <Icon className={cn('w-4 h-4 transition-colors duration-500', isDone ? step.color : 'text-slate-400 dark:text-white/20')} />
                             </div>
                             {isActive && (
                                 <div className="absolute top-0 w-10 h-10 rounded-full animate-ping bg-blue-500/20" />
