@@ -58,7 +58,43 @@ Here's what sets it apart to impress the judges:
 
 ---
 
-## 🚀 Getting Started (Run it Locally!)
+## � Project Architecture & Folder Structure
+
+```text
+complaint-system/
+│
+├── backend/                   # Node.js + Express API
+│   ├── config/                # Database & environment configurations
+│   ├── controllers/           # API route logic (admin, auth, complaints)
+│   ├── middleware/            # JWT auth guards, validators, error handlers
+│   ├── models/                # Mongoose Database Schemas
+│   ├── routes/                # Express API route definitions
+│   ├── services/              # Business logic (AI, Notifications, socket emits)
+│   ├── utils/                 # Helpers (AsyncHandler, logger)
+│   └── server.js              # Entry point & Socket.io initialization
+│
+├── frontend/                  # React + Vite Client Application
+│   ├── public/                # Static assets
+│   ├── src/
+│   │   ├── api/               # Axios instance configuration
+│   │   ├── components/        # Reusable UI (Sidebar, Skeleton, Charts, Cards)
+│   │   │   ├── charts/        # Recharts visualization wrappers
+│   │   │   └── ui/            # Shadcn UI base components
+│   │   ├── context/           # React Context (Auth, Theme, Socket)
+│   │   ├── pages/             # Route views (Login, Dashboards, Manage)
+│   │   ├── styles/            # Global CSS / Tailwind directives
+│   │   ├── App.jsx            # Core routing & RBAC wrapper
+│   │   └── main.jsx           # React DOM render entry
+│   │
+│   ├── tailwind.config.js     # Custom animations, colors, glass themes
+│   └── vite.config.js         # Build tools and WebSocket local proxy
+│
+└── .github/workflows/         # CI/CD GitHub Action Pipelines
+```
+
+---
+
+## �🚀 Getting Started (Run it Locally!)
 
 It only takes 2 commands to spin up the entire application.
 
