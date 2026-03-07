@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import {
     Sparkles,
     Zap,
@@ -10,7 +11,11 @@ import {
     BarChart3,
     Cpu,
     Bell,
-    Globe
+    Globe,
+    Lock,
+    Wifi,
+    BrainCircuit,
+    ChartBar
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -19,6 +24,13 @@ import { useAuth } from '../context/AuthContext';
 export default function LandingPage() {
     const navigate = useNavigate();
     const { user } = useAuth();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -57,34 +69,51 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
             </div>
 
-            {/* Nav */}
-            <nav className="relative z-50 flex items-center justify-between px-6 py-4 max-w-7xl mx-auto backdrop-blur-md border-b border-white/5">
-                <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-xl grad-blue flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.5)]">
-                        <Sparkles className="w-6 h-6 text-white" />
+            {/* Sticky Nav */}
+            <nav className={cn(
+                "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-300",
+                scrolled
+                    ? "bg-[#020617]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
+                    : "bg-transparent border-b border-white/5"
+            )}>
+                <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 rounded-xl grad-blue flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.5)]">
+                            <Sparkles className="w-6 h-6 text-white" />
+                        </div>
+                        <span className="text-xl font-bold tracking-tight text-white uppercase italic">UniIssueHub</span>
                     </div>
-                    <span className="text-xl font-bold tracking-tight text-white uppercase italic">UniIssueHub</span>
-                </div>
-                <div className="flex items-center gap-4">
-                    {user ? (
-                        <Button variant="ghost" className="text-white hover:bg-white/10" onClick={() => navigate('/dashboard')}>
-                            Go to Dashboard
-                        </Button>
-                    ) : (
-                        <>
-                            <Button variant="ghost" className="text-white hover:bg-white/10 hidden md:flex" onClick={() => navigate('/login')}>
-                                Sign In
-                            </Button>
-                            <Button className="grad-blue text-white border-none shadow-lg shadow-blue-500/20" onClick={() => navigate('/register')}>
-                                Create Account
-                            </Button>
-                        </>
-                    )}
+                    <div className="flex items-center gap-3">
+                        {user ? (
+                            <>
+                                {/* Notification Bell for logged-in users */}
+                                <button
+                                    onClick={() => navigate('/notifications')}
+                                    className="relative w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-all"
+                                >
+                                    <Bell className="w-4 h-4 text-slate-300" />
+                                    <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-blue-500 text-[9px] font-black text-white flex items-center justify-center">!</span>
+                                </button>
+                                <Button variant="ghost" className="text-white hover:bg-white/10" onClick={() => navigate('/dashboard')}>
+                                    Go to Dashboard
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button variant="ghost" className="text-white hover:bg-white/10 hidden md:flex" onClick={() => navigate('/login')}>
+                                    Sign In
+                                </Button>
+                                <Button className="grad-blue text-white border-none shadow-lg shadow-blue-500/20" onClick={() => navigate('/register')}>
+                                    Create Account
+                                </Button>
+                            </>
+                        )}
+                    </div>
                 </div>
             </nav>
 
-            {/* Hero Section */}
-            <header className="relative z-10 pt-20 pb-16 px-6 max-w-7xl mx-auto text-center">
+            {/* Hero Section - added pt to offset fixed navbar */}
+            <header className="relative z-10 pt-32 pb-16 px-6 max-w-7xl mx-auto text-center">
 
 
                 {/* Line 1: slides in from the LEFT */}
@@ -130,6 +159,35 @@ export default function LandingPage() {
                     <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/10 hover:bg-white/5 bg-transparent text-white" onClick={() => navigate('/login')}>
                         Admin Demo
                     </Button>
+                </motion.div>
+
+                {/* Floating Feature Pills */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6, duration: 0.6 }}
+                    className="flex flex-wrap items-center justify-center gap-3 mt-10"
+                >
+                    {[
+                        { icon: Lock, label: 'End-to-End Secure', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
+                        { icon: Zap, label: 'Real-time Notifications', color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
+                        { icon: BrainCircuit, label: 'No Cloud — 100% Local AI', color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
+                        { icon: ChartBar, label: 'Smart Analytics', color: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
+                    ].map((pill, i) => (
+                        <motion.span
+                            key={pill.label}
+                            initial={{ opacity: 0, scale: 0.85 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.65 + i * 0.08 }}
+                            className={cn(
+                                "inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border backdrop-blur-sm",
+                                pill.bg, pill.border, pill.color
+                            )}
+                        >
+                            <pill.icon className="w-3.5 h-3.5" />
+                            {pill.label}
+                        </motion.span>
+                    ))}
                 </motion.div>
 
                 {/* Dashboard Preview */}
