@@ -420,12 +420,20 @@ Click the role buttons on the login page for one-click fill:
 
 ---
 
+## 📺 Demo Video
+
+[![UniIssueHub Demo Video](https://img.shields.io/badge/Watch_Demo_Video-Play-red?style=for-the-badge&logo=youtube&logoColor=white)](YOUR_VIDEO_LINK_HERE)
+
+> **Note:** Replace the link above with your actual YouTube or Drive video link.
+
+---
+
 <div align="center">
 
 ### Built with ❤️ for a smarter campus
 
 **EliteCoder Hackathon 2026**
 
-Made by [**Atul Upadhyay**](https://github.com/atul-upadhyay-7)
+Made by **Atul Upadhyay** & **Anshika**
 
 </div>
