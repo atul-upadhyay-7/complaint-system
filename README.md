@@ -56,6 +56,18 @@ In most modern campuses, student complaints are a point of friction. Students su
 | 🧩 **Clean Architecture** | MVC pattern, service layer, middleware chain, async error handling, audit trail | Industry-standard code organization |
 | 📬 **Async Email Pipeline** | Fire-and-forget Nodemailer — never blocks HTTP response | Real-world reliability pattern |
 | 🛡️ **Enterprise Security** | JWT + bcrypt + Helmet + rate limiting + role middleware on every route | Production security posture |
+| 🐳 **Docker-Ready** | Full orchestration stack — build and run the entire 3-tier system with one command. | Built for modern cloud deployment |
+| 🛠️ **CI/CD Pipeline** | Automated GitHub Actions for syntax validation, build integrity, and audit. | Professional engineering standards |
+
+---
+
+## 🛠️ DevOps & Infrastructure
+
+This project is engineered for **High Availability** and **Cloud Portability**. We don't just ship code; we ship a complete, reproducible infrastructure.
+
+- **[Docker Deployment Guide](./README_DEVOPS.md)**: ⚡ One-command orchestration for Local, VPS, or Cloud.
+- **Microservices Orchestration**: Scalable 3-tier container stack (Nginx + Express + MongoDB).
+- **Automated CI/CD**: Rigorous quality gates powered by GitHub Actions.
 
 ---
 
@@ -87,7 +99,7 @@ Student types complaint
 │                                                   │
 │  ┌──────────────┐   ┌───────────────────────┐     │
 │  │ 60+ Weighted │   │  Sentiment & Urgency  │     │
-│  │ AI Scoring   │──▶│  Frustartion Scoring  │     │
+│  │ AI Scoring   │──▶│  Frustration Scoring  │     │
 │  └──────┬───────┘   └───────────┬───────────┘     │
 │         │                       │                 │
 │         ▼                       ▼                 │

@@ -1,0 +1,42 @@
+services:
+  # Database
+  db:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  # Backend API
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: api_service
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://db:27017/complaint-system
+      - JWT_SECRET=hackathon_super_secret_2026
+      - FRONTEND_URL=http://localhost:80
+      - RUN_SEED=true
+    depends_on:
+      - db
+
+  # Frontend Web
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:5000/api
+    container_name: ui_service
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  mongo-data:
