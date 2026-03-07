@@ -107,15 +107,8 @@ export default function Sidebar() {
                 ))}
             </nav>
 
-<<<<<<< Updated upstream
-            {/* Notifications + Logout */}
-            <div className="p-4 mt-auto space-y-2">
-
-
-=======
             {/* Logout */}
             <div className="p-4 mt-auto">
->>>>>>> Stashed changes
                 {/* Secure Logout */}
                 <button onClick={onLinkClick ? () => { onLinkClick(); handleLogout(); } : handleLogout}
                     className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-bold text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-slate-700/50 bg-white/80 dark:bg-[#0a1628]/60 hover:bg-red-50 dark:hover:bg-red-900/10 hover:border-red-400 dark:hover:border-red-500/30 hover:text-red-700 dark:hover:text-red-400 transition-all duration-300 shadow-sm">

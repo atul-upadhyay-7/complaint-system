@@ -85,15 +85,7 @@ export default function LandingPage() {
 
             {/* Hero Section */}
             <header className="relative z-10 pt-20 pb-16 px-6 max-w-7xl mx-auto text-center">
-                <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8"
-                >
-                    <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-ping" />
-                    <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">v2.0 Elite Hackathon Edition</span>
-                </motion.div>
+
 
                 <motion.h1
                     initial={{ y: 20, opacity: 0 }}
@@ -140,6 +132,9 @@ export default function LandingPage() {
                 >
                     <div className="max-w-5xl mx-auto rounded-3xl p-1 bg-gradient-to-tr from-blue-500/50 via-violet-500/50 to-amber-500/50 shadow-[0_0_80px_rgba(59,130,246,0.15)]">
                         <div className="bg-[#0f172a] rounded-[22px] overflow-hidden border border-white/5 aspect-video flex items-center justify-center relative group">
+                            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] bg-slate-900/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/5">Dashboard Preview</span>
+                            </div>
                             <img
                                 src="https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&q=80&w=2000"
                                 className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
