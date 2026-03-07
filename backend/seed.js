@@ -5,8 +5,7 @@ const Complaint = require('./models/Complaint');
 const ComplaintHistory = require('./models/ComplaintHistory');
 
 async function seed() {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('✅ Connected to MongoDB');
+    console.log('✅ Starting DB seed process...');
 
     // Clear existing demo data
     const demoEmails = ['admin@campus.edu', 'student@campus.edu', 'tech@campus.edu', 'warden@campus.edu'];
@@ -150,8 +149,20 @@ async function seed() {
     console.log('   Technician: tech@campus.edu    / tech123');
     console.log('   Warden:     warden@campus.edu  / warden123\n');
 
-    await mongoose.disconnect();
-    process.exit(0);
+    console.log('✅ Seed Complete!\n');
 }
 
-seed().catch((err) => { console.error(err); process.exit(1); });
+if (require.main === module) {
+    mongoose.connect(process.env.MONGO_URI)
+        .then(() => seed())
+        .then(() => {
+            mongoose.disconnect();
+            process.exit(0);
+        })
+        .catch((err) => {
+            console.error(err);
+            process.exit(1);
+        });
+} else {
+    module.exports = seed;
+}

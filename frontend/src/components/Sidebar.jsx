@@ -48,20 +48,20 @@ export default function Sidebar() {
     const handleLogout = () => { logout(); navigate('/login'); };
 
     const SidebarContent = ({ onLinkClick }) => (
-        <div className="flex flex-col h-full bg-[#060d1a]">
+        <div className="flex flex-col h-full bg-slate-50 dark:bg-[#060d1a]">
             {/* Logo + controls */}
             <div className="flex items-center justify-between px-5 py-5 pt-7">
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-blue-500/15 flex items-center justify-center glow-blue-sm">
                         <GraduationCap className="w-5 h-5 text-blue-400" />
                     </div>
-                    <h1 className="text-xl font-bold text-white tracking-tight">Campus<span className="text-blue-400">Desk</span></h1>
+                    <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Campus<span className="text-blue-500 dark:text-blue-400">Desk</span></h1>
                 </div>
                 <div className="flex items-center gap-1">
                     <NotificationBell />
                     <button
                         onClick={toggleTheme}
-                        className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/5 transition-colors"
+                        className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-white/5 transition-colors"
                         title={theme === 'dark' ? 'Switch to Light' : 'Switch to Dark'}
                     >
                         {theme === 'dark'
@@ -75,14 +75,14 @@ export default function Sidebar() {
             {/* Profile */}
             <div className="flex flex-col items-center mt-2 mb-8 px-4">
                 <div
-                    className="rounded-full p-0.5 mb-3 shrink-0 overflow-hidden"
-                    style={{ width: '88px', height: '88px', minWidth: '88px', background: 'linear-gradient(135deg, #3b82f6, #06b6d4)', boxShadow: '0 0 24px rgba(59,130,246,0.4)' }}>
-                    <Avatar className="w-full h-full border-[3px] border-[#060d1a] bg-[#0d1a2e]" style={{ width: '100%', height: '100%', borderRadius: '50%' }}>
+                    className="rounded-full p-0.5 mb-3 shrink-0 overflow-hidden shadow-[0_0_15px_rgba(59,130,246,0.2)] dark:shadow-[0_0_24px_rgba(59,130,246,0.4)]"
+                    style={{ width: '88px', height: '88px', minWidth: '88px', background: 'linear-gradient(135deg, #3b82f6, #06b6d4)' }}>
+                    <Avatar className="w-full h-full border-[3px] border-slate-50 dark:border-[#060d1a] bg-slate-100 dark:bg-[#0d1a2e]" style={{ width: '100%', height: '100%', borderRadius: '50%' }}>
                         <AvatarImage src={`https://api.dicebear.com/7.x/notionists/svg?seed=${user?.name?.replace(' ', '') || 'User'}&backgroundColor=transparent&size=96`} className="object-cover w-full h-full" />
-                        <AvatarFallback className="bg-[#0d1a2e] text-lg text-white">{initials}</AvatarFallback>
+                        <AvatarFallback className="bg-slate-100 dark:bg-[#0d1a2e] text-lg text-slate-700 dark:text-white">{initials}</AvatarFallback>
                     </Avatar>
                 </div>
-                <h2 className="text-lg font-bold text-white tracking-wide">{user?.name || 'User Name'}</h2>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-white tracking-wide">{user?.name || 'User Name'}</h2>
                 <div className="flex items-center gap-1.5 mt-1 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">
                     <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
                     <span className="text-xs font-medium text-blue-300 lowercase tracking-widest">{user?.role || 'student'}</span>
@@ -96,12 +96,12 @@ export default function Sidebar() {
                         end={l.to.endsWith('/dashboard') || l.to === '/dashboard' || l.to === '/technician' || l.to === '/warden'}
                         className={({ isActive }) => cn(
                             'group flex items-center gap-3.5 px-4 py-3 text-sm font-medium transition-all duration-300 relative rounded-xl',
-                            isActive ? accent.active : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            isActive ? accent.active : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
                         )}>
                         {({ isActive }) => (
                             <>
                                 {isActive && <div className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-full ${accent.bar}`} />}
-                                <l.icon className={cn('w-5 h-5 transition-all duration-300 group-hover:scale-110', isActive ? accent.icon : 'text-slate-400')} />
+                                <l.icon className={cn('w-5 h-5 transition-all duration-300 group-hover:scale-110', isActive ? accent.icon : 'text-slate-500 dark:text-slate-400')} />
                                 <span>{l.label}</span>
                             </>
                         )}
@@ -111,8 +111,8 @@ export default function Sidebar() {
 
             {/* Logout */}
             <div className="p-4 mt-auto">
-                <button onClick={handleLogout}
-                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-300 border border-slate-700/50 bg-[#0a1628]/60 hover:bg-blue-900/20 hover:border-blue-500/30 hover:text-white transition-all duration-300">
+                <button onClick={onLinkClick ? () => { onLinkClick(); handleLogout(); } : handleLogout}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700/50 bg-white/50 dark:bg-[#0a1628]/60 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-500/30 hover:text-blue-600 dark:hover:text-white transition-all duration-300 shadow-sm">
                     <ShieldCheck className="w-4 h-4" />
                     <span>Secure Logout</span>
                 </button>
@@ -122,24 +122,24 @@ export default function Sidebar() {
 
     return (
         <>
-            <aside className="hidden lg:flex w-[280px] min-h-screen flex-col border-r border-blue-900/30 bg-[#060d1a] fixed top-0 left-0 z-30">
+            <aside className="hidden lg:flex w-[280px] min-h-screen flex-col border-r border-slate-200 dark:border-blue-900/30 bg-slate-50 dark:bg-[#060d1a] fixed top-0 left-0 z-30 transition-colors duration-300">
                 <SidebarContent onLinkClick={undefined} />
             </aside>
 
             {/* Mobile top bar */}
-            <div className="lg:hidden fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 py-3 border-b border-blue-900/30 bg-[#060d1a]/90 backdrop-blur-lg">
+            <div className="lg:hidden fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-blue-900/30 bg-slate-50/90 dark:bg-[#060d1a]/90 backdrop-blur-lg">
                 <div className="flex items-center gap-2.5">
                     <div className="w-8 h-8 rounded-lg bg-blue-500/15 flex items-center justify-center">
-                        <GraduationCap className="w-4 h-4 text-blue-400" />
+                        <GraduationCap className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                     </div>
-                    <span className="text-base font-bold text-white tracking-tight">Campus<span className="text-blue-400">Desk</span></span>
+                    <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">Campus<span className="text-blue-500 dark:text-blue-400">Desk</span></span>
                 </div>
                 <div className="flex items-center gap-1">
                     <NotificationBell />
-                    <button onClick={toggleTheme} className="p-2 rounded-lg text-slate-300 hover:bg-white/5 transition-colors">
-                        {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-300" />}
+                    <button onClick={toggleTheme} className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
+                        {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
                     </button>
-                    <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 -mr-2 rounded-lg text-slate-300 hover:bg-white/5 transition-colors">
+                    <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 -mr-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
                         {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </button>
                 </div>
@@ -147,8 +147,8 @@ export default function Sidebar() {
 
             {mobileOpen && (
                 <div className="lg:hidden fixed inset-0 z-40">
-                    <div className="absolute inset-0 bg-[#060d1a]/80 backdrop-blur-sm animate-fade-in" onClick={() => setMobileOpen(false)} />
-                    <aside className="absolute left-0 top-0 h-full w-[280px] bg-[#060d1a] border-r border-blue-900/30 flex flex-col shadow-2xl animate-fade-in">
+                    <div className="absolute inset-0 bg-slate-900/20 dark:bg-[#060d1a]/80 backdrop-blur-sm animate-fade-in" onClick={() => setMobileOpen(false)} />
+                    <aside className="absolute left-0 top-0 h-full w-[280px] bg-slate-50 dark:bg-[#060d1a] border-r border-slate-200 dark:border-blue-900/30 flex flex-col shadow-2xl animate-fade-in">
                         <SidebarContent onLinkClick={() => setMobileOpen(false)} />
                     </aside>
                 </div>
