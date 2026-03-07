@@ -3,6 +3,7 @@ const ComplaintHistory = require('../models/ComplaintHistory');
 const notificationService = require('./notificationService');
 const logger = require('../utils/logger');
 const { autoCategorizeComplaint } = require('./aiService'); // Import autoCategorizeComplaint
+const sendEmail = require('../utils/sendEmail');
 
 // ─── Create a new complaint + fire creation event ──────────────────────────
 const createComplaint = async (data, student) => {
@@ -81,6 +82,35 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
             note: `Assigned to ${updates.assignedToName || updates.assignedTo}`,
         });
         notificationService.notifyComplaintAssigned(complaint, updates.assignedToName);
+
+        // Send Email Notification
+        const etaMap = { High: '2 hours', Medium: '24 hours', Low: '48 hours' };
+        const eta = etaMap[complaint.priority] || '24 hours';
+        const technicianName = updates.assignedToName || 'A technician';
+
+        const emailHtml = `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                <h2 style="color: #2563eb;">Technician Assigned! 🛠️</h2>
+                <p>Hi <strong>${complaint.student.name}</strong>,</p>
+                <p>Good news! <strong>${technicianName}</strong> has been officially assigned to your campus complaint: <em>"${complaint.title}"</em>.</p>
+                <div style="background-color: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 20px 0;">
+                    <p style="margin: 0;"><strong>Estimated Arrival / Resolution Time:</strong> Within ${eta}</p>
+                </div>
+                <p>You can check the live progress from your UniIssueHub dashboard.</p>
+                <br/>
+                <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.<br/>Happy hacking!</p>
+            </div>
+        `;
+
+        try {
+            await sendEmail({
+                email: complaint.student.email,
+                subject: `Technician Assigned: ${complaint.title}`,
+                html: emailHtml
+            });
+        } catch (error) {
+            logger.error(`Failed to send email to ${complaint.student.email}: ${error.message}`);
+        }
     }
 
     logger.info(`Complaint ${complaintId} updated by ${performedBy.email}: ${JSON.stringify(updates)}`);
