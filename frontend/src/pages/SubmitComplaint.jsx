@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
-import { Send, Loader2, ArrowLeft, FileText, Tag, AlertTriangle, MapPin, Sparkles, Upload, X, Image } from 'lucide-react';
+import { Send, Loader2, ArrowLeft, FileText, Tag, AlertTriangle, MapPin, Sparkles, Upload, X, Image, Brain, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,8 +16,9 @@ const CATEGORIES = ['Electricity', 'Water', 'Internet', 'Cleanliness', 'Maintena
 const PRIORITIES = ['Low', 'Medium', 'High'];
 
 export default function SubmitComplaint() {
-    const [form, setForm] = useState({ title: '', description: '', category: '', priority: 'Medium', location: '' });
+    const [form, setForm] = useState({ title: '', description: '', category: '', location: '' });
     const [loading, setLoading] = useState(false);
+    const [aiResult, setAiResult] = useState(null); // stores { priority, aiCategory } after submit
     const [imagePreview, setImagePreview] = useState(null);
     const [imageBase64, setImageBase64] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -56,9 +57,18 @@ export default function SubmitComplaint() {
         try {
             const payload = { ...form };
             if (imageBase64) payload.attachments = [imageBase64];
-            await api.post('/complaints', payload);
-            toast.success('Complaint submitted successfully! 🎉');
-            navigate('/my-complaints');
+            const res = await api.post('/complaints', payload);
+            const detected = res.data?.complaint;
+            const priorityLabel = detected?.priority || 'Medium';
+            const categoryLabel = detected?.aiCategory || form.category;
+            setAiResult({ priority: priorityLabel, aiCategory: categoryLabel });
+
+            const priorityColors = { High: '🔴', Medium: '🟡', Low: '🟢', Critical: '🚨' };
+            toast.success(
+                `✅ Submitted! AI detected priority: ${priorityColors[priorityLabel] || ''} ${priorityLabel}`,
+                { duration: 4000 }
+            );
+            setTimeout(() => navigate('/my-complaints'), 1800);
         } catch (err) {
             toast.error(err.response?.data?.message || 'Failed to submit complaint');
         } finally {
@@ -78,10 +88,10 @@ export default function SubmitComplaint() {
                             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Back
                         </button>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3 animate-fade-in">
-                            <Sparkles className="w-3.5 h-3.5" /> Need Help?
+                            <Sparkles className="w-3.5 h-3.5" /> AI-Powered Submission
                         </div>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">Submit a Complaint</h1>
-                        <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">Describe your issue in detail and our team will get it resolved as soon as possible.</p>
+                        <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">Describe your issue — our AI engine will automatically detect the <strong>priority level</strong> and <strong>category</strong>.</p>
                     </div>
 
                     <Card className="glass-card border-slate-200 dark:border-blue-900/30 shadow-[0_8px_32px_rgba(59,130,246,0.08)] animate-slide-up" style={{ animationDelay: '0.1s' }}>
@@ -121,28 +131,25 @@ export default function SubmitComplaint() {
                                     </div>
                                 </div>
 
-                                {/* Priority */}
+                                {/* AI Priority Notice — replaces manual selector */}
                                 <div className="space-y-3 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-                                    <Label className="text-base">Priority Level</Label>
-                                    <div className="grid grid-cols-3 gap-3">
-                                        {PRIORITIES.map(p => (
-                                            <button key={p} type="button" onClick={() => setForm(f => ({ ...f, priority: p }))}
-                                                className={`h-12 rounded-xl text-sm font-semibold border transition-all duration-300 hover:-translate-y-0.5 ${form.priority === p
-                                                    ? p === 'High' ? 'bg-red-100 dark:bg-red-500/20 border-red-300 dark:border-red-500/50 text-red-700 dark:text-red-300 shadow-sm shadow-red-500/10'
-                                                        : p === 'Medium' ? 'bg-amber-100 dark:bg-amber-500/20 border-amber-300 dark:border-amber-500/50 text-amber-700 dark:text-amber-300 shadow-sm shadow-amber-500/10'
-                                                            : 'bg-blue-100 dark:bg-blue-500/20 border-blue-300 dark:border-blue-500/50 text-blue-700 dark:text-blue-300 shadow-sm shadow-blue-500/10'
-                                                    : 'border-slate-200 dark:border-border/60 bg-slate-50 dark:bg-secondary/20 text-slate-500 dark:text-muted-foreground hover:border-slate-300 dark:hover:border-border hover:bg-slate-100 dark:hover:bg-secondary/40'
-                                                    }`}>
-                                                {p}
-                                            </button>
-                                        ))}
-                                    </div>
-                                    {form.priority === 'High' && (
-                                        <div className="flex items-start gap-3 p-3 mt-3 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 animate-fade-in">
-                                            <AlertTriangle className="w-4 h-4 text-red-500 dark:text-red-400 mt-0.5 shrink-0" />
-                                            <p className="text-xs sm:text-sm text-red-700 dark:text-red-300 leading-relaxed font-medium">High priority complaints are escalated immediately. Please use this only for urgent issues.</p>
+                                    <Label className="text-base flex items-center gap-2">
+                                        <Brain className="w-4 h-4 text-violet-500" />
+                                        Priority Level
+                                        <span className="text-violet-500 dark:text-violet-400 text-xs font-medium ml-1">AI Auto-detected</span>
+                                    </Label>
+                                    <div className="flex items-start gap-3 p-4 rounded-xl border animate-fade-in"
+                                        style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.08), rgba(59,130,246,0.05))', border: '1.5px solid rgba(139,92,246,0.25)' }}>
+                                        <div className="w-9 h-9 rounded-xl bg-violet-100 dark:bg-violet-500/15 flex items-center justify-center flex-shrink-0">
+                                            <Zap className="w-4 h-4 text-violet-500" />
                                         </div>
-                                    )}
+                                        <div>
+                                            <p className="text-sm font-semibold text-slate-800 dark:text-foreground">Automatic AI Prioritization</p>
+                                            <p className="text-xs text-slate-500 dark:text-muted-foreground mt-0.5 leading-relaxed">
+                                                Our NLP engine analyzes your title &amp; description and assigns <span className="text-violet-500 font-semibold">High / Medium / Low / Critical</span> priority automatically — no manual selection needed.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 {/* Description */}

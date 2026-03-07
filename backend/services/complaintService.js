@@ -2,21 +2,22 @@ const Complaint = require('../models/Complaint');
 const ComplaintHistory = require('../models/ComplaintHistory');
 const notificationService = require('./notificationService');
 const logger = require('../utils/logger');
-const { autoCategorizeComplaint } = require('./aiService'); // Import autoCategorizeComplaint
+const { autoCategorizeComplaint, autoPrioritizeComplaint } = require('./aiService');
 const sendEmail = require('../utils/sendEmail');
 
 // ─── Create a new complaint + fire creation event ──────────────────────────
 const createComplaint = async (data, student) => {
-    // Await AI categorization
-    const predictedCategory = await autoCategorizeComplaint(
-        data.title,
-        data.description
-    );
+    // AI: auto-categorize based on title + description
+    const predictedCategory = autoCategorizeComplaint(data.title, data.description);
+
+    // AI: auto-prioritize based on urgency keywords
+    const predictedPriority = autoPrioritizeComplaint(data.title, data.description);
 
     const complaint = await Complaint.create({
         ...data,
         student: student._id,
-        aiCategory: predictedCategory, // Add aiCategory to the complaint data
+        aiCategory: predictedCategory,
+        priority: predictedPriority,   // ← AI overrides student-selected priority
     });
     await complaint.populate('student', 'name email rollNumber hostel');
 
