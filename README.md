@@ -425,6 +425,7 @@ Click the role buttons on the login page for one-click fill:
 
 | Category | Link |
 |---|---|
+| **GitHub Repository** | [💻 Source Code (GitHub)](https://github.com/atul-upadhyay-7/complaint-system) |
 | **Frontend App** | [🚀 Live App (Vercel)](https://uni-issue-hub.vercel.app/) |
 | **Backend API** | [📡 API Server (Render)](https://complaint-system-backend.onrender.com/) |
 | **Interactive Prototype** | [🎨 UI Mockup (GitHub Pages)](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/landing.html) |
