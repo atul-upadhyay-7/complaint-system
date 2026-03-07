@@ -31,6 +31,32 @@ const createComplaint = async (data, student) => {
     notificationService.notifyComplaintCreated(complaint, student.name);
     logger.info(`Complaint created: "${complaint.title}" by ${student.email}`);
 
+    // Send Welcome / Pending Email Notification
+    const pendingEmailHtml = `
+        <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+            <h2 style="color: #3b82f6;">Complaint Received 📝</h2>
+            <p>Hi <strong>${student.name}</strong>,</p>
+            <p>We successfully received your campus complaint: <em>"${complaint.title}"</em>.</p>
+            <div style="font-size: 16px; margin: 20px 0; background-color: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6;">
+                Status: <span style="font-weight: bold; color: #3b82f6;">Pending</span>
+            </div>
+            <p>Our administrative team will review it shortly. You will receive an email as soon as a technician is assigned!</p>
+            <br/>
+            <p>Check the live progress from your UniIssueHub dashboard.</p>
+            <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.</p>
+        </div>
+    `;
+
+    try {
+        await sendEmail({
+            email: student.email,
+            subject: `Complaint Received: ${complaint.title}`,
+            html: pendingEmailHtml
+        });
+    } catch (error) {
+        logger.error(`Failed to send creation email to ${student.email}: ${error.message}`);
+    }
+
     return complaint;
 };
 
