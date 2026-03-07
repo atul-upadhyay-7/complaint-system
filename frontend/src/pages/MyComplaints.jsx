@@ -29,9 +29,7 @@ export default function MyComplaints() {
 
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[40%] left-[-10%] w-[500px] h-[500px] bg-blue-100 dark:bg-blue-900/8 rounded-full blur-[120px] animate-float" style={{ animationDelay: '1s' }} />
-            </div>
+
 
             <Sidebar />
             <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">

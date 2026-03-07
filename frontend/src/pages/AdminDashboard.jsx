@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
-import { TrendingUp, AlertCircle, CheckCircle2, Loader, Clock, Tag, Users, LayoutDashboard, PieChart as PieChartIcon, BarChart2 } from 'lucide-react';
+import { TrendingUp, AlertCircle, CheckCircle2, Loader, Clock, Tag, Users, LayoutDashboard, PieChart as PieChartIcon, BarChart2, ShieldCheck } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -49,6 +51,8 @@ function buildWeeklyData(complaints = []) {
 }
 
 export default function AdminDashboard() {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
     const [analytics, setAnalytics] = useState(null);
     const [loading, setLoading] = useState(true);
     const [weeklyData, setWeeklyData] = useState([]);
@@ -63,9 +67,7 @@ export default function AdminDashboard() {
 
     if (loading) return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-background relative transition-colors duration-300">
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-100 dark:bg-blue-900/10 rounded-full blur-[120px] animate-float" />
-            </div>
+
             <Sidebar />
             <main className="flex-1 lg:ml-64 p-4 sm:p-6 md:p-8 pt-20 lg:pt-8 w-full z-10">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -90,10 +92,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-blue-100 dark:bg-blue-900/10 rounded-full blur-[120px] animate-float" />
-                <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-cyan-100 dark:bg-cyan-900/8 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }} />
-            </div>
+
 
             <Sidebar />
             <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">

@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 
-const CATEGORIES = ['Electricity', 'Water', 'WiFi', 'Cleanliness', 'Maintenance', 'Security', 'Mess/Food', 'Other'];
+const CATEGORIES = ['Electricity', 'Water', 'Internet', 'Cleanliness', 'Maintenance', 'Security', 'Food', 'Other'];
 const PRIORITIES = ['Low', 'Medium', 'High'];
 
 export default function SubmitComplaint() {
@@ -68,10 +68,7 @@ export default function SubmitComplaint() {
 
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-blue-100 dark:bg-blue-900/10 rounded-full blur-[120px] animate-float" />
-                <div className="absolute bottom-[10%] left-[-5%] w-[350px] h-[350px] bg-cyan-100 dark:bg-cyan-900/8 rounded-full blur-[100px] animate-float" style={{ animationDelay: '3s' }} />
-            </div>
+
 
             <Sidebar />
             <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
