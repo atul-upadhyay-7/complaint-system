@@ -1,8 +1,8 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/graduation-cap.svg" width="80" height="80" alt="CampusDesk Logo">
+  <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/graduation-cap.svg" width="80" height="80" alt="UniIssueHub Logo">
   
-  # 🎓 UniIssueHub 
-  **The Next-Generation Complaint Management & Resolution Platform**
+  # 🎓 UniIssueHub
+  **The Next-Generation Campus Complaint Management & Resolution Platform**
 
   [![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react&logoColor=black)](#)
   [![Vite](https://img.shields.io/badge/Vite-5.x-646CFF?logo=vite&logoColor=white)](#)
@@ -12,130 +12,189 @@
   [![MongoDB](https://img.shields.io/badge/MongoDB-6.x-47A248?logo=mongodb&logoColor=white)](#)
 
   <p align="center">
-    Built for the <strong>EliteCoder Hackathon</strong> 🚀
+    Built for the <strong>EliteCoder Hackathon</strong> 🚀 &nbsp;|&nbsp; Dark & Light Mode &nbsp;|&nbsp; Real-time WebSockets
   </p>
 </div>
 
 ---
 
-## 🌟 The "Wow" Factor
+## 🌟 What Makes UniIssueHub Stand Out
 
-CampusDesk isn't just another CRUD app. It's a fully real-time, aesthetically stunning, and highly modular platform designed to completely digitize and streamline university complaint pipelines. 
+UniIssueHub is not just another CRUD app — it's a **fully real-time, production-grade, beautifully designed** platform that completely digitizes the campus complaint pipeline from submission to resolution.
 
-Here's what sets it apart to impress the judges:
-
-- ⚡ **Real-Time WebSockets (Socket.io):** No manual refreshing. When an admin updates a complaint status, the student is instantly notified via toast popups and the Notification Bell, powered by secure, user-specific socket rooms.
-- 🤖 **Smart AI Categorization:** Our backend engine automatically predicts and assigns categories to complaints based on the text description provided by the student, reducing the administrative burden of sorting. 
-- 💎 **Premium "Electric Blue" Glassmorphism UI:** A jaw-dropping dark mode interface built with custom Tailwind keyframes (`animate-float`, `shimmer`), blurred backdrops (`backdrop-filter: blur(20px)`), and snappy hover states.
-- 📊 **Live Analytics Command Center:** Built-in **Recharts** visualizations give administrators an instant birds-eye view of campus issues, resolution rates, and peak complaint categories.
-- 📍 **Interactive Progress Timeline:** Students can track their complaints step-by-step (Submitted -> Assigned -> In Progress -> Resolved) through an expandable, responsive live timeline widget.
-- 📸 **Robust Image Uploads:** Seamless drag-and-drop file zones with secure base64 payload handling allow students to submit photographic evidence smoothly.
-
----
-
-## 🎥 Full End-to-End Demo
-
-![CampusDesk Full Demo](./demo.webp)
-*(Above: Full walkthrough showing Login -> Admin Analytics -> Light/Dark Theme Toggle -> Student Timeline -> Image Upload)*
+| Feature | Description |
+|---|---|
+| ⚡ **Real-Time WebSockets** | Socket.io with user-specific rooms. Status changes instantly push toast notifications — no manual refresh needed. |
+| 🤖 **AI Auto-Categorization** | Backend engine predicts complaint categories from description text, reducing admin overhead. |
+| 💎 **Premium Dual-Theme UI** | Stunning dark & light glassmorphism design with animated floating particles, gradient headings, animated stat counters, and color-coded feature cards. |
+| 📊 **Live Analytics Dashboard** | Recharts-powered admin overview with resolution rates, complaint categories, and campus-wide trends. |
+| 📍 **Progress Timeline** | Students track complaints step-by-step: Submitted → Assigned → In Progress → Resolved. |
+| 📸 **Image Attachments** | Drag-and-drop photo upload with base64 payload handling for photographic evidence. |
+| 📧 **Async Email Notifications** | Fire-and-forget email alerts via Nodemailer on every status change — never blocks the request cycle. |
 
 ---
 
-## 🛠️ Tech Stack Architecture
+## 🎥 Demo
 
-**Frontend (Client)**
-- **Framework:** React 18 + Vite (Lightning fast HMR)
-- **Styling/UI:** Tailwind CSS + Shadcn UI (Radix Primitives)
-- **State/Routing:** React Router DOM, Context API (`AuthContext`, `ThemeContext`, `SocketContext`)
-- **Data Visualization:** Recharts
-- **Icons & Polish:** Lucide React, React Hot Toast, custom Skeleton loaders
-
-**Backend (API Server)**
-- **Runtime:** Node.js + Express.js
-- **Real-Time Engine:** Socket.io (with isolated user rooms and seamless Vite proxying)
-- **Database:** MongoDB + Mongoose ORM
-- **Intelligence:** AI Auto-Categorization engine
-- **Security:** JWT Authentication, Bcrypt Password Hashing, Helmet, Rate Limiting
+![UniIssueHub Full Demo](./demo.webp)
+*(Login → Admin Analytics → Warden Dashboard → Technician View → Light/Dark Theme Toggle)*
 
 ---
 
-## � Project Architecture & Folder Structure
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Purpose |
+|---|---|
+| **React 18 + Vite** | Lightning-fast HMR and modern component architecture |
+| **Tailwind CSS + Shadcn UI** | Custom design system with Radix primitives |
+| **Socket.io Client** | Real-time bi-directional events |
+| **React Router DOM** | Client-side RBAC routing |
+| **Recharts** | Analytics and data visualization |
+| **Lucide React + React Hot Toast** | Icons, micro-animations, instant feedback |
+
+### Backend
+| Technology | Purpose |
+|---|---|
+| **Node.js + Express.js** | RESTful API server |
+| **Socket.io** | Real-time room-based event broadcasting |
+| **MongoDB + Mongoose** | Document store with linked complaint history |
+| **JWT + Bcrypt** | Secure authentication and password hashing |
+| **Nodemailer** | Async email notifications (fire-and-forget) |
+| **Winston** | Structured request & error logging |
+| **Helmet + Rate Limiter** | Production security headers |
+
+---
+
+## 📁 Project Structure
 
 ```text
 complaint-system/
 │
 ├── backend/                   # Node.js + Express API
-│   ├── config/                # Database & environment configurations
-│   ├── controllers/           # API route logic (admin, auth, complaints)
-│   ├── middleware/            # JWT auth guards, validators, error handlers
-│   ├── models/                # Mongoose Database Schemas
+│   ├── config/                # DB & environment configs
+│   ├── controllers/           # Route handlers (admin, auth, complaints)
+│   ├── middleware/            # JWT auth guards, role checks, error handlers
+│   ├── models/                # Mongoose schemas (User, Complaint, History)
 │   ├── routes/                # Express API route definitions
-│   ├── services/              # Business logic (AI, Notifications, socket emits)
-│   ├── utils/                 # Helpers (AsyncHandler, logger)
+│   ├── services/              # Business logic (AI, email, notifications)
+│   ├── utils/                 # AsyncHandler, Winston logger
 │   └── server.js              # Entry point & Socket.io initialization
 │
-├── frontend/                  # React + Vite Client Application
-│   ├── public/                # Static assets
-│   ├── src/
-│   │   ├── api/               # Axios instance configuration
-│   │   ├── components/        # Reusable UI (Sidebar, Skeleton, Charts, Cards)
-│   │   │   ├── charts/        # Recharts visualization wrappers
-│   │   │   └── ui/            # Shadcn UI base components
-│   │   ├── context/           # React Context (Auth, Theme, Socket)
-│   │   ├── pages/             # Route views (Login, Dashboards, Manage)
-│   │   ├── styles/            # Global CSS / Tailwind directives
-│   │   ├── App.jsx            # Core routing & RBAC wrapper
-│   │   └── main.jsx           # React DOM render entry
-│   │
-│   ├── tailwind.config.js     # Custom animations, colors, glass themes
-│   └── vite.config.js         # Build tools and WebSocket local proxy
+├── frontend/                  # React + Vite SPA
+│   └── src/
+│       ├── api/               # Axios instance & interceptors
+│       ├── components/        # Sidebar, Skeleton loaders, Charts, Cards
+│       │   ├── charts/        # Recharts wrappers
+│       │   └── ui/            # Shadcn UI base components
+│       ├── context/           # AuthContext, ThemeContext, SocketContext
+│       ├── pages/             # Login, Student, Admin, Warden, Technician
+│       ├── App.jsx            # Core routing & RBAC wrapper
+│       └── main.jsx           # React DOM entry
 │
-└── .github/workflows/         # CI/CD GitHub Action Pipelines
+└── README.md
 ```
 
 ---
 
-## �🚀 Getting Started (Run it Locally!)
+## 🚀 Getting Started
 
-It only takes 2 commands to spin up the entire application.
+### Prerequisites
+- Node.js ≥ 18
+- MongoDB (local or Atlas)
 
 ### 1. Backend Setup
 ```bash
 cd backend
 npm install
-npm run dev
-# The backend API runs on http://localhost:5000
 ```
-> **Note:** The local in-memory database is heavily seeded with demo users and complaints automatically on startup! No `.env` configuration is strictly required to get a demo running.
+
+Create a `.env` file:
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/complaint-system
+JWT_SECRET=your_jwt_secret
+SMTP_EMAIL=your_email@gmail.com
+SMTP_PASSWORD=your_app_password
+```
+
+```bash
+npm run dev
+# API running at http://localhost:5000
+```
 
 ### 2. Frontend Setup
 ```bash
 cd frontend
 npm install
 npm run dev
-# The frontend UI runs on http://localhost:5173
+# UI running at http://localhost:5173
 ```
 
-### 🔑 Demo Accounts 
-The easiest way to test is clicking the **"Demo Accounts"** buttons on the Login Page, or manually entering:
+> **Tip:** The database auto-seeds demo users and sample complaints on first startup.
+
+---
+
+## 🔑 Demo Accounts
+
+Click the **"Demo Accounts"** buttons on the login page or use:
 
 | Role | Email | Password |
 |------|-------|----------|
-| **Admin** | `admin@campus.edu` | `admin123` |
-| **Student** | `student@campus.edu` | `student123` |
-| **Technician** | `tech@campus.edu` | `tech123` |
-| **Warden** | `warden@campus.edu` | `warden123` |
+| 🛡️ **Admin** | `admin@campus.edu` | `admin123` |
+| 🎓 **Student** | `student@campus.edu` | `student123` |
+| 🔧 **Technician** | `tech@campus.edu` | `tech123` |
+| 🏠 **Warden** | `warden@campus.edu` | `warden123` |
 
 ---
 
-## 🏗️ Core Features & Capabilities
+## 🏗️ Core Features
 
-1. **Role-Based Access Control (RBAC):** Secure routing and dedicated UI elements tailored to 4 completely different user profiles (Admin, Warden, Technician, Student).
-2. **Infinite Theme Toggling:** Flawless transition between Dark and Light mode via CSS variables, instantly saving state to `localStorage`.
-3. **Advanced Loading States:** High-performance perceived load times with custom `SkeletonCard` shimmer placeholders before data fetching queries complete.
-4. **Resilient Data Models:** Extensive Mongo Schemas linking Students, Authorities, Complaint Histories, and detailed audit trails.
-5. **Drag-and-Drop Attachments:** Zero-friction UX for attaching images directly to a complaint payload.
+### 👥 Role-Based Access Control (4 Roles)
+- **Student** — Submit complaints, upload images, track live progress timeline
+- **Admin** — Full analytics dashboard, manage all complaints & users
+- **Warden** — View hostel complaints, assign technicians, update status
+- **Technician** — View assigned work, mark In Progress / Resolved
+
+### 🎨 Premium Login Page
+- Animated floating particle dots on dark mode
+- **EliteCoder Hackathon** badge with purple gradient glow
+- "Live Platform · All Systems Operational" status pill
+- Animated counter stats (1240+ resolved, 98% success rate, 24h response)
+- 4 color-coded feature cards with icon highlights
+- One-click demo account buttons
+- Full dark ↔ light theme toggle
+
+### ⚙️ Bug Fixes & Reliability (Latest Updates)
+- **Fixed:** "Failed to update status" error on first click — caused by a `null` student reference in the email template crashing the server with a 500 error. Now guarded with null checks; email is skipped gracefully when student data is missing.
+- **Fixed:** Technician authorization using correct MongoDB ObjectId string comparison (`toString()`).
+- **Fixed:** Email sending is fully asynchronous (fire-and-forget) so it never blocks or delays status update responses.
+- **Fixed:** Warden "Assign" button works correctly without auto-triggering on dropdown change.
+- **Improved:** Loading states and button disabling on all status update actions to prevent double-clicks.
+
+### 🌙 Dark & Light Theme
+- CSS variable-based theme system (`data-theme` attribute)
+- Persisted to `localStorage`
+- All dashboards, cards, charts, and forms fully themed
+
+### 📡 Real-Time Notifications
+- Socket.io rooms per user (`user:{id}`)
+- Instant toast popups on complaint updates
+- Bell icon with unread count badge
+- Mark-all-read functionality
 
 ---
+
+## 🔐 Security
+
+- JWT access tokens with role payload
+- Bcrypt password hashing (salt rounds: 10)
+- Helmet.js security headers
+- Express Rate Limiter (brute-force protection)
+- Role-based middleware guards on every protected route
+- Technicians can only update complaints assigned to them
+
+---
+
 <div align="center">
-  <i>Built with ❤️ for a better campus experience.</i>
+  <i>Built with ❤️ for a better campus experience — <strong>EliteCoder Hackathon 2026</strong></i>
 </div>
