@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import ComplaintCard from '../components/ComplaintCard';
+import { SkeletonCard } from '../components/SkeletonCard';
 import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { Search, Filter, X, Loader2, Trash2, Save, FileText, Sparkles } from 'lucide-react';
@@ -14,7 +15,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 const STATUSES = ['All', 'Pending', 'In Progress', 'Resolved', 'Rejected'];
-const CATEGORIES = ['All', 'Electricity', 'Water', 'WiFi', 'Cleanliness', 'Maintenance', 'Security', 'Mess/Food', 'Other'];
+const CATEGORIES = ['All', 'Electricity', 'Water', 'Internet', 'Cleanliness', 'Maintenance', 'Security', 'Food', 'Other'];
 
 export default function AdminComplaints() {
     const [complaints, setComplaints] = useState([]);
@@ -33,7 +34,7 @@ export default function AdminComplaints() {
 
     const openModal = (c) => {
         setSelected(c);
-        setForm({ status: c.status, assignedTo: c.assignedTo || '', adminNotes: c.adminNotes || '', priority: c.priority });
+        setForm({ status: c.status, assignedToName: c.assignedToName || (c.assignedTo?.name || ''), adminNotes: c.adminNotes || '', priority: c.priority || 'Medium' });
     };
     const closeModal = () => { setSelected(null); };
 
@@ -67,11 +68,7 @@ export default function AdminComplaints() {
 
     return (
         <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-purple-500/30 transition-colors duration-300">
-            {/* Global Background Orbs */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-100 dark:bg-purple-900/10 rounded-full blur-[120px] animate-float" />
-                <div className="absolute bottom-[20%] left-[-10%] w-[400px] h-[400px] bg-indigo-100 dark:bg-indigo-900/10 rounded-full blur-[120px] animate-float" style={{ animationDelay: '2s' }} />
-            </div>
+
 
             <Sidebar />
             <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
@@ -129,7 +126,7 @@ export default function AdminComplaints() {
                     <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-44 rounded-2xl bg-slate-200/50 dark:bg-card/40 animate-pulse border border-slate-200 dark:border-border/30" />)}
+                                {[1, 2, 3, 4, 5, 6].map(i => <SkeletonCard key={i} lines={3} showImage={false} />)}
                             </div>
                         ) : filtered.length === 0 ? (
                             <div className="text-center py-20 sm:py-32 px-4 rounded-3xl border border-dashed border-slate-300 dark:border-border/50 bg-white/50 dark:bg-secondary/20 backdrop-blur-sm">
@@ -196,11 +193,11 @@ export default function AdminComplaints() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label className="text-sm font-medium text-slate-900 dark:text-foreground">Assign To</Label>
+                                <Label className="text-sm font-medium text-slate-900 dark:text-foreground">Assign To (Name)</Label>
                                 <Input
                                     className="h-11 bg-white dark:bg-background/50 border-slate-200 dark:border-border focus-visible:ring-purple-500/50"
                                     placeholder="e.g. Facilities Management Team"
-                                    value={form.assignedTo} onChange={e => setForm(f => ({ ...f, assignedTo: e.target.value }))}
+                                    value={form.assignedToName} onChange={e => setForm(f => ({ ...f, assignedToName: e.target.value }))}
                                 />
                             </div>
 

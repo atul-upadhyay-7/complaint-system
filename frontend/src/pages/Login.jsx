@@ -233,6 +233,11 @@ export default function Login() {
                                             {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                         </button>
                                     </div>
+                                    <div className="flex justify-end mt-1">
+                                        <Link to="/forgot-password" className={`text-xs font-medium hover:underline transition-colors ${isLight ? 'text-blue-600' : 'text-blue-400'}`}>
+                                            Forgot your password?
+                                        </Link>
+                                    </div>
                                 </div>
 
                                 {/* Submit */}

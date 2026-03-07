@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 import ComplaintCard from '../components/ComplaintCard';
+import { SkeletonCard } from '../components/SkeletonCard';
 import { Plus, Clock, CheckCircle2, Loader, Folder, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -51,8 +52,8 @@ export default function Dashboard() {
                         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-slate-900 dark:text-white">
                             Good Evening, <span className="text-indigo-600 dark:text-indigo-400">{user?.name?.split(' ')[0] || 'User'}</span> <span className="inline-block origin-bottom-right rotate-[-10deg]">👋</span>
                         </h1>
-                        <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base font-medium mb-8">
-                            Roll No: {user?.rollNumber || '2021CS042'} <span className="mx-2 opacity-50 text-slate-300 dark:text-slate-600">•</span> Hostel: {user?.hostel || 'Block A'}
+                        <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base font-medium mb-8">
+                            Roll No: <span className="text-slate-800 dark:text-white">{user?.rollNumber || '2021CS042'}</span> <span className="mx-2 opacity-50 text-slate-400 dark:text-slate-500">•</span> Hostel: <span className="text-slate-800 dark:text-white">{user?.hostel || 'Block A'}</span>
                         </p>
 
                         <Button asChild className="h-11 px-5 rounded-lg bg-indigo-100 dark:bg-indigo-600/20 hover:bg-indigo-200 dark:hover:bg-indigo-600/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 shadow-sm dark:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
@@ -116,7 +117,7 @@ export default function Dashboard() {
                     <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2 mt-10">
-                                {[1, 2].map(i => <div key={i} className="h-40 rounded-xl bg-slate-200 dark:bg-[#121124] animate-pulse border border-slate-300 dark:border-[#1e1e2d]" />)}
+                                {[1, 2].map(i => <SkeletonCard key={i} lines={2} showImage={false} />)}
                             </div>
                         ) : complaints.length > 0 && (
                             <div className="mt-14">

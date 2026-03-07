@@ -29,6 +29,8 @@ const userSchema = new mongoose.Schema({
     hostel: { type: String, trim: true },
     department: { type: String, trim: true }, // for technicians/wardens
     isActive: { type: Boolean, default: true },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
@@ -39,6 +41,14 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
+};
+
+userSchema.methods.createPasswordResetToken = function () {
+    const crypto = require('crypto');
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
+    return resetToken;
 };
 
 module.exports = mongoose.model('User', userSchema);

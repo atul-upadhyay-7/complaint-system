@@ -120,8 +120,8 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                 {isAdmin && (
                     <div className="mt-4 pt-4 border-t border-slate-200 dark:border-blue-900/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 -mx-5 -mb-5 px-5 pb-5 bg-slate-50 dark:bg-blue-950/10 rounded-b-[inherit]">
                         <div className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
-                            {complaint.assignedTo
-                                ? <><span>Assigned to</span><span className="text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-500/20">{complaint.assignedToName || complaint.assignedTo}</span></>
+                            {complaint.assignedTo || complaint.assignedToName
+                                ? <><span>Assigned to</span><span className="text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-200 dark:border-blue-500/20">{complaint.assignedToName || (complaint.assignedTo?.name) || (typeof complaint.assignedTo === 'string' ? complaint.assignedTo : 'Unassigned')}</span></>
                                 : <span className="text-amber-600 dark:text-amber-500/90 flex items-center gap-1"><AlertCircle className="w-3.5 h-3.5" /> Unassigned</span>
                             }
                         </div>
