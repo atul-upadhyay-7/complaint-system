@@ -462,6 +462,4 @@ Made by **Atul Upadhyay** & **Anshika**
 
 ## 📺 Demo Video
 
-<div align="center">
-  <video src="./demo.mp4" width="100%" controls autoplay loop muted></video>
-</div>
+![](./demo.mp4)
