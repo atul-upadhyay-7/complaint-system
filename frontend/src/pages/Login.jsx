@@ -33,42 +33,6 @@ function Particle({ style }) {
     return <div className="absolute rounded-full animate-float" style={style} />;
 }
 
-// Activity feed items
-const ACTIVITIES = [
-    { icon: '✅', text: 'WiFi issue in Block C resolved', time: '2m ago', color: '#10b981' },
-    { icon: '🔔', text: 'New complaint: Broken light in hallway', time: '5m ago', color: '#3b82f6' },
-    { icon: '🛠️', text: 'Suresh Kumar assigned to plumbing task', time: '8m ago', color: '#f59e0b' },
-    { icon: '📧', text: 'Email sent to Anshika for status update', time: '12m ago', color: '#8b5cf6' },
-    { icon: '✅', text: 'Water supply issue marked resolved', time: '15m ago', color: '#10b981' },
-    { icon: '🔔', text: 'Electricity failure in Room 204', time: '18m ago', color: '#ef4444' },
-];
-
-function LiveActivityTicker() {
-    const [index, setIndex] = useState(0);
-    const [visible, setVisible] = useState(true);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setVisible(false);
-            setTimeout(() => {
-                setIndex(i => (i + 1) % ACTIVITIES.length);
-                setVisible(true);
-            }, 400);
-        }, 2500);
-        return () => clearInterval(interval);
-    }, []);
-
-    const item = ACTIVITIES[index];
-    return (
-        <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-            <div className="w-2 h-2 rounded-full animate-pulse flex-shrink-0" style={{ background: item.color, boxShadow: `0 0 8px ${item.color}` }} />
-            <div style={{ transition: 'opacity 0.4s', opacity: visible ? 1 : 0 }} className="flex-1 min-w-0">
-                <p className="text-xs text-slate-300 truncate">{item.icon} {item.text}</p>
-                <p className="text-[10px] text-slate-500 mt-0.5">{item.time}</p>
-            </div>
-        </div>
-    );
-}
 
 function StatCard({ value, suffix, label, icon: Icon, delay, animate, color }) {
     const count = useCountUp(value, 1800, animate);
@@ -96,10 +60,11 @@ function LiveStats() {
     const ref = useRef(null);
     const [visible, setVisible] = useState(false);
     useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setVisible(true); }, { threshold: 0.2 });
-        if (ref.current) observer.observe(ref.current);
-        return () => observer.disconnect();
+        // Trigger after short delay so component has mounted
+        const t = setTimeout(() => setVisible(true), 300);
+        return () => clearTimeout(t);
     }, []);
+
 
     const stats = [
         { value: 1240, suffix: '+', label: 'Resolved', icon: CheckCircle, delay: 0.3, color: '#10b981' },
@@ -241,16 +206,7 @@ export default function Login() {
                         ))}
                     </div>
 
-                    {/* Live Activity Ticker */}
-                    <div className={`rounded-xl overflow-hidden border ${isLight ? 'border-slate-200 bg-slate-50' : 'border-white/8 bg-white/3'}`}>
-                        <div className={`px-4 py-2 border-b flex items-center gap-2 ${isLight ? 'border-slate-200' : 'border-white/8'}`}>
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-500">Live Activity</span>
-                        </div>
-                        <div className="p-3">
-                            <LiveActivityTicker />
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
