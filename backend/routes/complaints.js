@@ -27,7 +27,7 @@ router.post('/', authorize('student'), createRules, validate, createComplaint);
 router.get('/', getComplaints);
 router.get('/:id', getComplaint);
 router.get('/:id/history', getComplaintHistory);                                 // ← NEW: audit trail
-router.patch('/:id', authorize('admin', 'warden'), updateComplaint);
+router.patch('/:id', authorize('admin', 'warden', 'technician'), updateComplaint);
 router.delete('/:id', deleteComplaint);
 
 module.exports = router;

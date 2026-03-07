@@ -19,6 +19,7 @@ exports.getComplaints = asyncHandler(async (req, res) => {
     const filter = {};
 
     if (req.user.role === 'student') filter.student = req.user._id;
+    if (req.user.role === 'technician') filter.assignedTo = req.user._id;
     if (status) filter.status = status;
     if (category) filter.category = category;
     if (priority) filter.priority = priority;
@@ -54,6 +55,20 @@ exports.getComplaint = asyncHandler(async (req, res) => {
 
 // @route PATCH /api/complaints/:id
 exports.updateComplaint = asyncHandler(async (req, res) => {
+    // If technician, ensure they are assigned to this complaint
+    if (req.user.role === 'technician') {
+        const complaint = await Complaint.findById(req.params.id);
+        if (complaint.assignedTo?.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ success: false, message: 'Not authorized to update this specific complaint' });
+        }
+
+        // Technicians can only update the status and notes
+        const allowedTechFields = ['status', 'adminNotes'];
+        Object.keys(req.body).forEach(key => {
+            if (!allowedTechFields.includes(key)) delete req.body[key];
+        });
+    }
+
     const complaint = await complaintService.updateComplaint(req.params.id, req.body, req.user);
     res.json({ success: true, complaint });
 });

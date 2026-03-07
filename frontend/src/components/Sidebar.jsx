@@ -113,18 +113,7 @@ export default function Sidebar() {
 
             {/* Notifications + Logout */}
             <div className="p-4 mt-auto space-y-2">
-                {/* Notifications button */}
-                <button
-                    className="flex items-center gap-3.5 w-full px-4 py-3 rounded-xl text-sm font-bold text-slate-900 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-500/10 border border-slate-200 dark:border-transparent hover:border-blue-400 dark:hover:border-blue-500/20 transition-all duration-300"
-                    onClick={() => {/* future: open notifications panel */ }}
-                >
-                    <div className="relative">
-                        <Bell className="w-5 h-5" />
-                        {/* Unread badge */}
-                        <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-blue-600 border-2 border-slate-50 dark:border-[#060d1a]" />
-                    </div>
-                    <span>Notifications</span>
-                </button>
+
 
                 {/* Secure Logout */}
                 <button onClick={onLinkClick ? () => { onLinkClick(); handleLogout(); } : handleLogout}
