@@ -409,6 +409,21 @@ Click the role buttons on the login page for one-click fill:
 
 ---
 
+## 🏆 Submission Links
+
+| Category | Link |
+|---|---|
+| **GitHub Repository** | [https://github.com/atul-upadhyay-7/EliteCoderHackathon](https://github.com/atul-upadhyay-7/EliteCoderHackathon) |
+| **Interactive Prototype** | [🚀 Landing Page (Live)](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/landing.html) |
+| **Student Hub View** | [🎓 Student Submission Hub](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/student.html) |
+| **Admin Dashboard View** | [🛡️ Admin Command Center](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/admin.html) |
+| **Technician View** | [🔧 Technician Repair Guide](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/tech.html) |
+
+> [!TIP]
+> **To make the prototype links work**: Go to your GitHub Repo Settings → **Pages** → Build and deployment → Branch: **main** → **Save**. This will host your prototype live!
+
+---
+
 ## ️ Future Roadmap
 
 - [ ] AI auto-assignment of technicians based on workload + specialty
