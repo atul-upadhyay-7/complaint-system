@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import {
     LayoutDashboard, PlusCircle, FileText, ShieldCheck, ClipboardList,
-    GraduationCap, Menu, X, ListChecks, Sun, Moon
+    GraduationCap, Menu, X, ListChecks, Sun, Moon, Bell
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
@@ -96,7 +96,7 @@ export default function Sidebar() {
                         end={l.to.endsWith('/dashboard') || l.to === '/dashboard' || l.to === '/technician' || l.to === '/warden'}
                         className={({ isActive }) => cn(
                             'group flex items-center gap-3.5 px-4 py-3 text-sm font-medium transition-all duration-300 relative rounded-xl',
-                            isActive ? accent.active : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            isActive ? accent.active : 'text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/50 dark:hover:bg-white/5'
                         )}>
                         {({ isActive }) => (
                             <>
@@ -109,10 +109,24 @@ export default function Sidebar() {
                 ))}
             </nav>
 
-            {/* Logout */}
-            <div className="p-4 mt-auto">
-                <button onClick={handleLogout}
-                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-300 border border-slate-700/50 bg-[#0a1628]/60 hover:bg-blue-900/20 hover:border-blue-500/30 hover:text-white transition-all duration-300">
+            {/* Notifications + Logout */}
+            <div className="p-4 mt-auto space-y-2">
+                {/* Notifications button */}
+                <button
+                    className="flex items-center gap-3.5 w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-500/10 border border-slate-200 dark:border-transparent hover:border-blue-200 dark:hover:border-blue-500/20 transition-all duration-300"
+                    onClick={() => {/* future: open notifications panel */ }}
+                >
+                    <div className="relative">
+                        <Bell className="w-5 h-5" />
+                        {/* Unread badge */}
+                        <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-blue-500 border-2 border-slate-50 dark:border-[#060d1a]" />
+                    </div>
+                    <span>Notifications</span>
+                </button>
+
+                {/* Secure Logout */}
+                <button onClick={onLinkClick ? () => { onLinkClick(); handleLogout(); } : handleLogout}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700/50 bg-white/50 dark:bg-[#0a1628]/60 hover:bg-red-50 dark:hover:bg-red-900/10 hover:border-red-300 dark:hover:border-red-500/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 shadow-sm">
                     <ShieldCheck className="w-4 h-4" />
                     <span>Secure Logout</span>
                 </button>
