@@ -31,8 +31,10 @@
 ## 📺 Product Walkthrough
 
 <div align="center">
-  <video src="https://github.com/atul-upadhyay-7/EliteCoderHackathon/raw/main/demo.mp4" width="100%" controls autoplay loop muted></video>
-  <p><i>Real-time AI Categorization, Sentiment Analysis, and Technician Workflow</i></p>
+  <a href="https://github.com/atul-upadhyay-7/complaint-system/raw/main/demo.mp4">
+    <img src="./demo.gif" width="100%" alt="UniIssueHub Demo Preview">
+  </a>
+  <p><i><b>Autoplay Preview:</b> Real-time AI Categorization & Technician Workflow. <a href="https://github.com/atul-upadhyay-7/complaint-system/raw/main/demo.mp4">Click here to watch the full 6-min walkthrough.</a></i></p>
 </div>
 
 ---
