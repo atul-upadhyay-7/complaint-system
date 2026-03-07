@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/graduation-cap.svg" width="80" height="80" alt="CampusDesk Logo">
   
-  # 🎓 CampusDesk (UniIssuehub v2.1)
+  # 🎓 UniIssueHub 
   **The Next-Generation Complaint Management & Resolution Platform**
 
   [![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react&logoColor=black)](#)
