@@ -87,17 +87,26 @@ export default function LandingPage() {
             <header className="relative z-10 pt-20 pb-16 px-6 max-w-7xl mx-auto text-center">
 
 
-                <motion.h1
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
+                {/* Line 1: slides in from the LEFT */}
+                <motion.div
+                    initial={{ x: -80, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
+                    className="text-5xl md:text-7xl font-black mb-3 leading-tight"
+                >
+                    Campus Intelligence.
+                </motion.div>
+                {/* Line 2: slides in from the RIGHT */}
+                <motion.div
+                    initial={{ x: 80, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.35, duration: 0.7, ease: 'easeOut' }}
                     className="text-5xl md:text-7xl font-black mb-6 leading-tight"
                 >
-                    Campus Intelligence. <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-amber-400">
                         Human Resolution.
                     </span>
-                </motion.h1>
+                </motion.div>
 
                 <motion.p
                     initial={{ y: 20, opacity: 0 }}
@@ -155,26 +164,40 @@ export default function LandingPage() {
 
             {/* Features Section */}
             <section className="relative z-10 py-32 px-6 max-w-7xl mx-auto">
-                <div className="text-center mb-20">
+                <motion.div
+                    className="text-center mb-20"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
                     <h2 className="text-3xl md:text-5xl font-black mb-4">Elite AI Ecosystem</h2>
                     <p className="text-slate-500 uppercase tracking-widest font-bold text-sm">Powered by locally-trained NLP models</p>
-                </div>
+                </motion.div>
 
                 <div className="grid md:grid-cols-3 gap-6">
                     {features.map((f, i) => (
                         <motion.div
                             key={f.title}
-                            initial="hidden"
-                            whileInView="visible"
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            variants={itemVariants}
-                            className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all hover:bg-white/[0.07] group"
+                            transition={{ delay: i * 0.1, duration: 0.5 }}
+                            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                            className="relative p-8 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-opacity-100 transition-all group overflow-hidden"
+                            style={{ '--hover-color': f.color }}
                         >
-                            <div className={cn("w-12 h-12 rounded-xl mb-6 flex items-center justify-center", f.bg)}>
+                            {/* Glow effect on hover */}
+                            <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl blur-xl", f.bg)} style={{ transform: 'scale(0.8)' }} />
+                            {/* Card number badge */}
+                            <span className="absolute top-4 right-5 text-[10px] font-black text-white/10 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                            <div className={cn("relative z-10 w-12 h-12 rounded-xl mb-6 flex items-center justify-center shadow-lg", f.bg)}>
                                 <f.icon className={cn("w-6 h-6", f.color)} />
                             </div>
-                            <h4 className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">{f.title}</h4>
-                            <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+                            <h4 className={cn("relative z-10 text-xl font-bold mb-3 text-white transition-colors duration-300 group-hover:text-white")}>{f.title}</h4>
+                            <p className="relative z-10 text-slate-400 text-sm leading-relaxed">{f.desc}</p>
+                            {/* Bottom accent line */}
+                            <div className={cn("absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500 rounded-full", f.color.replace('text-', 'bg-'))} />
                         </motion.div>
                     ))}
                 </div>
@@ -183,44 +206,75 @@ export default function LandingPage() {
             {/* Roles Section */}
             <section className="relative z-10 py-24 px-6 bg-white/[0.02] border-y border-white/5">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-                    <div className="flex-1">
+                    <motion.div
+                        className="flex-1"
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <h2 className="text-4xl font-black mb-8 leading-tight">A Central Hub for <br /><span className="text-blue-400">All Stakeholders.</span></h2>
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             {[
-                                { role: "Students", feature: "Live AI Prediction Panel", icon: Users },
-                                { role: "Staff", feature: "AI Repair Protocols", icon: Zap },
-                                { role: "Admins", feature: "Global Sentiment Insights", icon: BarChart3 }
-                            ].map((r) => (
-                                <div key={r.role} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
-                                        <r.icon className="w-5 h-5 text-blue-400" />
+                                { role: "Students", feature: "Live AI Prediction Panel", icon: Users, color: "text-blue-400", bg: "bg-blue-500/20", border: "border-blue-500/30" },
+                                { role: "Staff", feature: "AI Repair Protocols", icon: Zap, color: "text-amber-400", bg: "bg-amber-500/20", border: "border-amber-500/30" },
+                                { role: "Admins", feature: "Global Sentiment Insights", icon: BarChart3, color: "text-violet-400", bg: "bg-violet-500/20", border: "border-violet-500/30" }
+                            ].map((r, i) => (
+                                <motion.div
+                                    key={r.role}
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.15, duration: 0.5 }}
+                                    whileHover={{ x: 6, transition: { duration: 0.2 } }}
+                                    className={cn("flex items-center gap-4 p-4 rounded-2xl bg-white/5 border transition-all cursor-default", r.border)}
+                                >
+                                    <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0", r.bg)}>
+                                        <r.icon className={cn("w-5 h-5", r.color)} />
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{r.role}</p>
-                                        <p className="text-sm font-bold text-white leading-none mt-1">{r.feature}</p>
+                                        <p className={cn("text-sm font-bold leading-none mt-1", r.color)}>{r.feature}</p>
                                     </div>
-                                </div>
+                                    <div className="ml-auto">
+                                        <ArrowRight className={cn("w-4 h-4 opacity-40", r.color)} />
+                                    </div>
+                                </motion.div>
                             ))}
                         </div>
-                    </div>
-                    <div className="flex-1 grid grid-cols-2 gap-4">
-                        <div className="space-y-4 pt-12">
-                            <div className="aspect-square rounded-3xl bg-blue-500/20 border border-blue-500/20 flex items-center justify-center">
-                                <Cpu className="w-12 h-12 text-blue-500 opacity-20" />
-                            </div>
-                            <div className="aspect-square rounded-3xl bg-violet-500/20 border border-violet-500/20 flex items-center justify-center">
-                                <Sparkles className="w-12 h-12 text-violet-500 opacity-20" />
-                            </div>
-                        </div>
-                        <div className="space-y-4">
-                            <div className="aspect-square rounded-3xl bg-amber-500/20 border border-amber-500/20 flex items-center justify-center">
-                                <Globe className="w-12 h-12 text-amber-500 opacity-20" />
-                            </div>
-                            <div className="aspect-square rounded-3xl bg-emerald-500/20 border border-emerald-500/20 flex items-center justify-center">
-                                <Shield className="w-12 h-12 text-emerald-500 opacity-20" />
-                            </div>
-                        </div>
-                    </div>
+                    </motion.div>
+
+                    {/* Right: Stats grid replacing the dull boxes */}
+                    <motion.div
+                        className="flex-1 grid grid-cols-2 gap-4"
+                        initial={{ opacity: 0, x: 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                        {[
+                            { icon: Cpu, label: "AI Engine", stat: "8-Pillar", color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
+                            { icon: Globe, label: "API Cost", stat: "Zero", color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
+                            { icon: Sparkles, label: "AI Features", stat: "100% Local", color: "text-violet-400", bg: "bg-violet-500/10", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
+                            { icon: Shield, label: "Security", stat: "JWT + RBAC", color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
+                        ].map((item, i) => (
+                            <motion.div
+                                key={item.label}
+                                initial={{ opacity: 0, scale: 0.85 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+                                whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
+                                className={cn("aspect-square rounded-3xl border flex flex-col items-center justify-center gap-3 shadow-xl cursor-default", item.bg, item.border, item.glow)}
+                            >
+                                <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center", item.bg)}>
+                                    <item.icon className={cn("w-6 h-6", item.color)} />
+                                </div>
+                                <p className={cn("text-lg font-black", item.color)}>{item.stat}</p>
+                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{item.label}</p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
                 </div>
             </section>
 
