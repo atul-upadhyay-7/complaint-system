@@ -142,10 +142,10 @@ export default function Register() {
                                         type="button"
                                         onClick={() => setForm({ ...form, role })}
                                         className={`flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${form.role === role
-                                                ? 'text-white shadow-sm'
-                                                : isLight
-                                                    ? 'text-slate-500 hover:text-blue-600 hover:bg-blue-100'
-                                                    : 'text-slate-400 hover:text-blue-300 hover:bg-blue-500/10'
+                                            ? 'text-white shadow-sm'
+                                            : isLight
+                                                ? 'text-slate-500 hover:text-blue-600 hover:bg-blue-100'
+                                                : 'text-slate-400 hover:text-blue-300 hover:bg-blue-500/10'
                                             }`}
                                         style={form.role === role ? { background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 0 15px rgba(59,130,246,0.3)' } : {}}
                                     >
@@ -154,7 +154,7 @@ export default function Register() {
                                 ))}
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                                 {/* Full Name */}
                                 <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Full Name</Label>
@@ -166,6 +166,7 @@ export default function Register() {
                                             value={form.name}
                                             onChange={set('name')}
                                             required
+                                            autoComplete="none"
                                         />
                                     </div>
                                 </div>
@@ -182,6 +183,7 @@ export default function Register() {
                                             value={form.email}
                                             onChange={set('email')}
                                             required
+                                            autoComplete="none"
                                         />
                                     </div>
                                 </div>
@@ -198,6 +200,7 @@ export default function Register() {
                                                     className={`pl-10 h-12 transition-all focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 ${isLight ? 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400' : 'bg-white/5 border-white/10 text-white placeholder:text-slate-500'}`}
                                                     value={form.rollNumber}
                                                     onChange={set('rollNumber')}
+                                                    autoComplete="none"
                                                 />
                                             </div>
                                         </div>
@@ -210,6 +213,7 @@ export default function Register() {
                                                     className={`pl-10 h-12 transition-all focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 ${isLight ? 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400' : 'bg-white/5 border-white/10 text-white placeholder:text-slate-500'}`}
                                                     value={form.hostel}
                                                     onChange={set('hostel')}
+                                                    autoComplete="none"
                                                 />
                                             </div>
                                         </div>
@@ -229,6 +233,7 @@ export default function Register() {
                                             onChange={set('password')}
                                             required
                                             minLength={6}
+                                            autoComplete="new-password"
                                         />
                                         <button type="button" onClick={() => setShowPass(!showPass)}
                                             className={`absolute right-3 top-1/2 -translate-y-1/2 transition-colors ${isLight ? 'text-slate-400 hover:text-slate-700' : 'text-slate-500 hover:text-white'}`}>
@@ -249,6 +254,7 @@ export default function Register() {
                                             value={form.confirm}
                                             onChange={set('confirm')}
                                             required
+                                            autoComplete="new-password"
                                         />
                                         <button type="button" onClick={() => setShowConfirm(!showConfirm)}
                                             className={`absolute right-3 top-1/2 -translate-y-1/2 transition-colors ${isLight ? 'text-slate-400 hover:text-slate-700' : 'text-slate-500 hover:text-white'}`}>
@@ -260,8 +266,8 @@ export default function Register() {
                                 {/* Password match indicator */}
                                 {form.password && form.confirm && (
                                     <div className={`flex items-center gap-2 text-xs px-3 py-2 rounded-lg border animate-fade-in ${form.password === form.confirm
-                                            ? 'text-emerald-600 bg-emerald-50 border-emerald-200'
-                                            : 'text-red-500 bg-red-50 border-red-200'
+                                        ? 'text-emerald-600 bg-emerald-50 border-emerald-200'
+                                        : 'text-red-500 bg-red-50 border-red-200'
                                         }`}>
                                         <span>{form.password === form.confirm ? '✓ Passwords match' : '✗ Passwords do not match'}</span>
                                     </div>

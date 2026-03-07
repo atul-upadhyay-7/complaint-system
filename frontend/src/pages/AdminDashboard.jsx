@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Sidebar from '../components/Sidebar';
 import api from '../api/axios';
-import { TrendingUp, AlertCircle, CheckCircle2, Loader, Clock, Tag, Users, LayoutDashboard, PieChart as PieChartIcon, BarChart2, ShieldCheck } from 'lucide-react';
+import { TrendingUp, AlertCircle, CheckCircle2, Loader, Clock, Tag, Users, LayoutDashboard, PieChart as PieChartIcon, BarChart2, ShieldCheck, Sparkles } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -240,8 +240,9 @@ export default function AdminDashboard() {
                                     { label: '😐 Neutral', key: 'Neutral', color: 'text-slate-600', bg: 'bg-slate-100 dark:bg-slate-500/10', border: 'border-slate-200 dark:border-slate-500/20' },
                                     { label: '😊 Polite', key: 'Polite', color: 'text-emerald-600', bg: 'bg-emerald-100 dark:bg-emerald-500/10', border: 'border-emerald-200 dark:border-emerald-500/20' },
                                 ].map(s => {
-                                    const count = (analytics?.recentComplaints || []).filter(c => c.aiSentiment === s.key).length;
-                                    const pct = (analytics?.recentComplaints || []).length > 0 ? Math.round((count / (analytics?.recentComplaints || []).length) * 100) : 0;
+                                    const count = (analytics?.aiSentimentCounts || []).find(s2 => s2._id === s.key)?.count || 0;
+                                    const totalSentiment = (analytics?.aiSentimentCounts || []).reduce((acc, curr) => acc + curr.count, 0) || 1;
+                                    const pct = Math.round((count / totalSentiment) * 100);
                                     return (
                                         <div key={s.key} className={cn('p-4 rounded-2xl border transition-all hover:scale-[1.02]', s.bg, s.border)}>
                                             <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">{s.key}</p>

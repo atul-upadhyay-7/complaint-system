@@ -185,10 +185,11 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
 
 // ─── Analytics aggregation ────────────────────────────────────────────────
 const getAnalytics = async () => {
-    const [statusCounts, categoryCounts, priorityCounts, recentComplaints, resolvedComplaints] = await Promise.all([
+    const [statusCounts, categoryCounts, priorityCounts, sentimentCounts, recentComplaints, resolvedComplaints] = await Promise.all([
         Complaint.aggregate([{ $group: { _id: '$status', count: { $sum: 1 } } }]),
         Complaint.aggregate([{ $group: { _id: '$category', count: { $sum: 1 } } }, { $sort: { count: -1 } }, { $limit: 8 }]),
         Complaint.aggregate([{ $group: { _id: '$priority', count: { $sum: 1 } } }]),
+        Complaint.aggregate([{ $group: { _id: '$aiSentiment', count: { $sum: 1 } } }]),
         Complaint.find().sort({ createdAt: -1 }).limit(10).populate('student', 'name rollNumber hostel'),
         Complaint.find({ status: 'Resolved', resolvedAt: { $ne: null } }).select('createdAt resolvedAt'),
     ]);
@@ -214,6 +215,7 @@ const getAnalytics = async () => {
         avgResolutionTimeHours,
         topCategories: categoryCounts,
         priorityBreakdown: priorityCounts,
+        aiSentimentCounts: sentimentCounts,
         recentComplaints,
     };
 };

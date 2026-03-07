@@ -1,11 +1,15 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { AnimatePresence } from 'framer-motion';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
+import CommandBar from './components/CommandBar';
+import AnimatedPage from './components/AnimatedPage';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/Dashboard';
 import SubmitComplaint from './pages/SubmitComplaint';
 import MyComplaints from './pages/MyComplaints';
@@ -53,36 +57,39 @@ function GuestOnly({ children }) {
 }
 
 function AppRoutes() {
+    const location = useLocation();
     return (
-        <Routes>
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="/login" element={<GuestOnly><Login /></GuestOnly>} />
-            <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
-            <Route path="/forgot-password" element={<GuestOnly><ForgotPassword /></GuestOnly>} />
-            <Route path="/reset-password/:token" element={<GuestOnly><ResetPassword /></GuestOnly>} />
+        <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<GuestOnly><AnimatedPage><LandingPage /></AnimatedPage></GuestOnly>} />
+                <Route path="/login" element={<GuestOnly><AnimatedPage><Login /></AnimatedPage></GuestOnly>} />
+                <Route path="/register" element={<GuestOnly><AnimatedPage><Register /></AnimatedPage></GuestOnly>} />
+                <Route path="/forgot-password" element={<GuestOnly><AnimatedPage><ForgotPassword /></AnimatedPage></GuestOnly>} />
+                <Route path="/reset-password/:token" element={<GuestOnly><AnimatedPage><ResetPassword /></AnimatedPage></GuestOnly>} />
 
-            {/* Shared Authenticated Routes */}
-            <Route path="/notifications" element={<RequireAuth><Notifications /></RequireAuth>} />
+                {/* Shared Authenticated Routes */}
+                <Route path="/notifications" element={<RequireAuth><AnimatedPage><Notifications /></AnimatedPage></RequireAuth>} />
 
-            {/* Student routes */}
-            <Route path="/dashboard" element={<RequireRole roles={['student']}><Dashboard /></RequireRole>} />
-            <Route path="/submit" element={<RequireRole roles={['student']}><SubmitComplaint /></RequireRole>} />
-            <Route path="/my-complaints" element={<RequireRole roles={['student']}><MyComplaints /></RequireRole>} />
+                {/* Student routes */}
+                <Route path="/dashboard" element={<RequireRole roles={['student']}><AnimatedPage><Dashboard /></AnimatedPage></RequireRole>} />
+                <Route path="/submit" element={<RequireRole roles={['student']}><AnimatedPage><SubmitComplaint /></AnimatedPage></RequireRole>} />
+                <Route path="/my-complaints" element={<RequireRole roles={['student']}><AnimatedPage><MyComplaints /></AnimatedPage></RequireRole>} />
 
-            {/* Admin routes */}
-            <Route path="/admin" element={<RequireRole roles={['admin']}><AdminDashboard /></RequireRole>} />
-            <Route path="/admin/dashboard" element={<RequireRole roles={['admin']}><AdminDashboard /></RequireRole>} />
-            <Route path="/admin/complaints" element={<RequireRole roles={['admin']}><AdminComplaints /></RequireRole>} />
+                {/* Admin routes */}
+                <Route path="/admin" element={<RequireRole roles={['admin']}><AnimatedPage><AdminDashboard /></AnimatedPage></RequireRole>} />
+                <Route path="/admin/dashboard" element={<RequireRole roles={['admin']}><AnimatedPage><AdminDashboard /></AnimatedPage></RequireRole>} />
+                <Route path="/admin/complaints" element={<RequireRole roles={['admin']}><AnimatedPage><AdminComplaints /></AnimatedPage></RequireRole>} />
 
-            {/* Technician routes */}
-            <Route path="/technician" element={<RequireRole roles={['technician']}><TechnicianDashboard /></RequireRole>} />
+                {/* Technician routes */}
+                <Route path="/technician" element={<RequireRole roles={['technician']}><AnimatedPage><TechnicianDashboard /></AnimatedPage></RequireRole>} />
 
-            {/* Warden routes */}
-            <Route path="/warden" element={<RequireRole roles={['warden']}><WardenDashboard /></RequireRole>} />
-            <Route path="/warden/complaints" element={<RequireRole roles={['warden']}><WardenDashboard /></RequireRole>} />
+                {/* Warden routes */}
+                <Route path="/warden" element={<RequireRole roles={['warden']}><AnimatedPage><WardenDashboard /></AnimatedPage></RequireRole>} />
+                <Route path="/warden/complaints" element={<RequireRole roles={['warden']}><WardenDashboard /></RequireRole>} />
 
-            <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
+                <Route path="*" element={<Navigate to="/login" replace />} />
+            </Routes>
+        </AnimatePresence>
     );
 }
 
@@ -105,6 +112,7 @@ export default function App() {
                                 error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
                             }}
                         />
+                        <CommandBar />
                         <AppRoutes />
                     </SocketProvider>
                 </AuthProvider>
