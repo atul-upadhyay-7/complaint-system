@@ -15,6 +15,7 @@ import TechnicianDashboard from './pages/TechnicianDashboard';
 import WardenDashboard from './pages/WardenDashboard';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Notifications from './pages/Notifications';
 
 const getHome = (role) => {
     if (role === 'admin') return '/admin';
@@ -59,6 +60,9 @@ function AppRoutes() {
             <Route path="/register" element={<GuestOnly><Register /></GuestOnly>} />
             <Route path="/forgot-password" element={<GuestOnly><ForgotPassword /></GuestOnly>} />
             <Route path="/reset-password/:token" element={<GuestOnly><ResetPassword /></GuestOnly>} />
+
+            {/* Shared Authenticated Routes */}
+            <Route path="/notifications" element={<RequireAuth><Notifications /></RequireAuth>} />
 
             {/* Student routes */}
             <Route path="/dashboard" element={<RequireRole roles={['student']}><Dashboard /></RequireRole>} />
