@@ -30,9 +30,8 @@
 
 ## 🏆 Why This Project Stands Out
 
-| Differentiator | What We Built | Why It Matters |
-|---|---|---|
 | 🤖 **Custom AI Engine** | Built a full NLP pipeline using `natural` — Naive Bayes classifier + TF-IDF similarity + weighted keyword scoring. **Zero paid APIs.** | Proves real ML understanding, not just API wrapping |
+| 🚀 **Futuristic UX** | World-class Landing Page + **Command Palette (Ctrl+K)** + Framer Motion page transitions. | Creates a premium, app-like experience for judges |
 | 🧠 **8 AI Features** | Auto-categorization, Priority, Sentiment, ETA, Duplicates, Live UI, Admin Analytics, Technical Protocols | End-to-end intelligent automation |
 | 📡 **True Real-Time** | Socket.io with user-specific rooms + toast notifications + live bell counter | No polling, instant push updates |
 | 💎 **Production-Grade UI** | Glassmorphism, animated particles, gradient headings, color-coded cards, dual themes | Not a prototype — a shippable product |
@@ -134,6 +133,9 @@ Student types complaint
 - Mark-all-read functionality
 
 ### 🎨 Premium UI/UX
+- **Futuristic Landing Page**: High-conversion entry point with 3D-style animations and feature highlights
+- **Command Palette (Ctrl+K)**: Direct-access navigation and AI command tool for power users
+- **Page Transitions**: Fluid `framer-motion` transitions across every route for a seamless experience
 - **Glassmorphism** design system with CSS custom properties
 - **Dark ↔ Light** theme toggle (persisted to localStorage)
 - Animated floating particles on login page
@@ -240,6 +242,8 @@ complaint-system/
 │   │   │   │   ├── select.jsx
 │   │   │   │   ├── separator.jsx
 │   │   │   │   └── textarea.jsx
+│   │   │   ├── AnimatedPage.jsx      # Framer Motion wrapper for transitions
+│   │   │   ├── CommandBar.jsx        # Ctrl+K Command Palette component
 │   │   │   ├── ComplaintCard.jsx      # Card with AI badges row
 │   │   │   ├── ComplaintTimeline.jsx  # Progress step visualization
 │   │   │   ├── DashboardStats.jsx     # Stats overview component
@@ -256,6 +260,7 @@ complaint-system/
 │   │   │   ├── AdminDashboard.jsx     # Admin: analytics + charts
 │   │   │   ├── Dashboard.jsx          # Student: overview
 │   │   │   ├── ForgotPassword.jsx     # Password reset request
+│   │   │   ├── LandingPage.jsx        # 🚀 Elite Futuristic Entry Page
 │   │   │   ├── Login.jsx              # 💎 Premium login with particles
 │   │   │   ├── MyComplaints.jsx       # Student: complaint list + timeline
 │   │   │   ├── Notifications.jsx      # Notification center
