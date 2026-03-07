@@ -19,14 +19,32 @@ const adminRoutes = require('./routes/admin');
 const app = express();
 const server = http.createServer(app);
 
+// ─── Dynamic CORS origin list ─────────────────────────────────────────────
+const LOCAL_ORIGINS = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:5175',
+    'http://localhost:3000',
+];
+
+function getAllowedOrigins() {
+    const envOrigins = process.env.FRONTEND_URL
+        ? process.env.FRONTEND_URL.split(',').map(u => u.trim()).filter(Boolean)
+        : [];
+    return [...LOCAL_ORIGINS, ...envOrigins];
+}
+
+function corsOriginCheck(origin, callback) {
+    // Allow requests with no origin (server-to-server, curl, mobile apps)
+    if (!origin) return callback(null, true);
+    if (getAllowedOrigins().includes(origin)) return callback(null, true);
+    callback(new Error(`Origin ${origin} not allowed by CORS`));
+}
+
 // ─── Socket.io setup ──────────────────────────────────────────────────────
 const io = new Server(server, {
     cors: {
-        origin: [
-            process.env.FRONTEND_URL || 'http://localhost:5173',
-            'http://localhost:5174',
-            'http://localhost:5175',
-        ],
+        origin: corsOriginCheck,
         credentials: true,
     },
 });
@@ -53,12 +71,7 @@ app.use(helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' }
 }));
 app.use(cors({
-    origin: [
-        process.env.FRONTEND_URL || 'http://localhost:5173',
-        'http://localhost:5174',
-        'http://localhost:5175',
-        'http://localhost:3000'
-    ],
+    origin: corsOriginCheck,
     credentials: true,
 }));
 // Increased limit to 10mb to handle base64 image uploads

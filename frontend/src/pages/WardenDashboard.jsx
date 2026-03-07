@@ -5,6 +5,7 @@ import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 import { ShieldCheck, Users, ClipboardList, CheckCircle2, Loader2, AlertTriangle, UserCheck, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
 
 const STATUS_COLORS = {

@@ -425,11 +425,12 @@ Click the role buttons on the login page for one-click fill:
 
 | Category | Link |
 |---|---|
-| **GitHub Repository** | [https://github.com/atul-upadhyay-7/EliteCoderHackathon](https://github.com/atul-upadhyay-7/EliteCoderHackathon) |
-| **Interactive Prototype** | [🚀 Landing Page (Live)](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/landing.html) |
-| **Student Hub View** | [🎓 Student Submission Hub](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/student.html) |
-| **Admin Dashboard View** | [🛡️ Admin Command Center](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/admin.html) |
-| **Technician View** | [🔧 Technician Repair Guide](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/tech.html) |
+| **Frontend App** | [🚀 Live App (Vercel)](https://uni-issue-hub.vercel.app/) |
+| **Backend API** | [📡 API Server (Render)](https://complaint-system-backend.onrender.com/) |
+| **Interactive Prototype** | [🎨 UI Mockup (GitHub Pages)](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/landing.html) |
+| **Student Hub View** | [🎓 Student Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/student.html) |
+| **Admin View** | [🛡️ Admin Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/admin.html) |
+| **Technician View** | [🔧 Tech Hub prototype](https://atul-upadhyay-7.github.io/EliteCoderHackathon/prototype/tech.html) |
 
 > [!TIP]
 > **To make the prototype links work**: Go to your GitHub Repo Settings → **Pages** → Build and deployment → Branch: **main** → **Save**. This will host your prototype live!
@@ -449,7 +450,14 @@ Click the role buttons on the login page for one-click fill:
 
 ## 📺 Demo Video
 
-[![UniIssueHub Demo Video](https://img.shields.io/badge/Watch_Demo_Video-Play-red?style=for-the-badge&logo=youtube&logoColor=white)](YOUR_VIDEO_LINK_HERE)
+<div align="center">
+  <video src="./demo.webm" width="100%" controls autoplay loop muted></video>
+  <br/>
+  <br/>
+  <a href="https://youtu.be/m9LCOyF1yS8">
+    <img src="https://img.shields.io/badge/Watch_Full_Video_on_YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+  </a>
+</div>
 
 > **Note:** Replace the link above with your actual YouTube or Drive video link.
 

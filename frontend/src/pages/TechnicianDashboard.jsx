@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useSocket } from '../context/SocketContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
 import { Wrench, Clock, CheckCircle2, Loader2, ShieldCheck, BarChart2, ListChecks, Sparkles, Lightbulb, ClipboardList } from 'lucide-react';
