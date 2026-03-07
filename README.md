@@ -488,15 +488,19 @@ Click the role buttons on the login page for one-click fill:
 
 Experience the UI/UX design of UniIssueHub in stunning 4K resolution.
 
-````carousel
-<img src="./assets/prototype_landing.png" width="100%" alt="Landing Page Mockup">
-<!-- slide -->
-<img src="./assets/prototype_student.png" width="100%" alt="Student Hub Mockup">
-<!-- slide -->
-<img src="./assets/prototype_admin.png" width="100%" alt="Admin Hub Mockup">
-<!-- slide -->
-<img src="./assets/prototype_tech.png" width="100%" alt="Technician Hub Mockup">
-````
+<div align="center">
+  <img src="./assets/prototype_landing.png" width="100%" alt="Landing Page Mockup">
+  <p><i><b>Landing Page:</b> Modern, high-conversion entry point.</i></p>
+  <br/>
+  <img src="./assets/prototype_student.png" width="100%" alt="Student Hub Mockup">
+  <p><i><b>Student Hub:</b> Personalized dashboard with real-time status tracking.</i></p>
+  <br/>
+  <img src="./assets/prototype_admin.png" width="100%" alt="Admin Hub Mockup">
+  <p><i><b>Admin Dashboard:</b> Comprehensive analytics and sentiment heatmaps.</i></p>
+  <br/>
+  <img src="./assets/prototype_tech.png" width="100%" alt="Technician Hub Mockup">
+  <p><i><b>Technician Portal:</b> Streamlined task management and technical protocols.</i></p>
+</div>
 
 ---
 
