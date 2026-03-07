@@ -118,7 +118,7 @@ export default function LandingPage() {
                     <Button size="lg" className="h-14 px-8 text-lg font-bold grad-blue min-w-[200px]" onClick={() => navigate('/register')}>
                         Get Started <ArrowRight className="ml-2 w-5 h-5" />
                     </Button>
-                    <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/10 hover:bg-white/5 bg-transparent" onClick={() => navigate('/login')}>
+                    <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/10 hover:bg-white/5 bg-transparent text-white" onClick={() => navigate('/login')}>
                         Admin Demo
                     </Button>
                 </motion.div>
@@ -136,9 +136,9 @@ export default function LandingPage() {
                                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] bg-slate-900/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/5">Dashboard Preview</span>
                             </div>
                             <img
-                                src="https://images.unsplash.com/photo-1551288049-bbbda5366391?auto=format&fit=crop&q=80&w=2000"
+                                src="/dashboard_mockup_landing.png"
                                 className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                                alt="Dashboard Preview"
+                                alt=""
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent" />
                             <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center">
