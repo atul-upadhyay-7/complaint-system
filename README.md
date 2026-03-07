@@ -28,6 +28,24 @@
 
 ---
 
+## 🎯 The Purpose & Vision
+
+### The Problem: "The Administrative Black Hole"
+In most modern campuses, student complaints are a point of friction. Students submit issues via fragmented channels (WhatsApp, paper, or basic forms) and then wait in **silence**. Without transparency, students feel unheard, and without automation, administrators are overwhelmed by manual categorization, duplicate reports, and a lack of situational awareness.
+
+### The Solution: UniIssueHub
+**UniIssueHub** was engineered to Bridge the gap between campus administration and students. Our purpose is to turn **raw frustration into structured data and swift action**. By leveraging a **Local AI Ecosystem**, we've built a system that doesn't just "track" issues—it **understands** them.
+
+| Feature | Yesterday (Legacy Manual) | Today (UniIssueHub AI) |
+|---|---|---|
+| **Categorization** | Manual sorting by busy admins | **Instant AI Auto-Tagging** (Bayes) |
+| **Prioritization** | First-come, first-served (or squeakiest wheel) | **Urgency-First weighted AI scoring** |
+| **Transparency** | Black hole — "We'll look into it" | **Live Resolution Timeline + ETAs** |
+| **Efficiency** | Redundant work on duplicate reports | **TF-IDF Duplicate Audit System** |
+| **Insights** | Anecdotal "vibe" of the campus | **Deep Aggregate Sentiment Heatmaps** |
+
+---
+
 ## 🏆 Why This Project Stands Out
 
 | 🤖 **Custom AI Engine** | Built a full NLP pipeline using `natural` — Naive Bayes classifier + TF-IDF similarity + weighted keyword scoring. **Zero paid APIs.** | Proves real ML understanding, not just API wrapping |
