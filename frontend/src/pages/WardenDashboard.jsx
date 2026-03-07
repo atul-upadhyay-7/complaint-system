@@ -154,6 +154,40 @@ export default function WardenDashboard() {
                                                 {c.assignedToName && (
                                                     <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">👷 Assigned to: {c.assignedToName}</p>
                                                 )}
+
+                                                {/* AI Insight Row */}
+                                                {(c.aiPriority || c.aiSentiment || c.aiEstimatedTime) && (
+                                                    <div className="flex items-center flex-wrap gap-2 mt-2 pt-2 border-t border-slate-100 dark:border-white/5">
+                                                        <span className="flex items-center gap-1 text-[10px] font-bold text-violet-500 bg-violet-100 dark:bg-violet-500/10 px-1.5 py-0.5 rounded shadow-sm">
+                                                            <Sparkles className="w-3 h-3" /> AI
+                                                        </span>
+                                                        {c.aiPriority && (
+                                                            <span className={cn('text-[11px] font-bold px-2 py-0.5 rounded-md border',
+                                                                c.aiPriority === 'Critical' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' :
+                                                                    c.aiPriority === 'High' ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' :
+                                                                        c.aiPriority === 'Low' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
+                                                                            'bg-slate-500/10 text-slate-500 border-slate-500/20'
+                                                            )}>
+                                                                {c.aiPriority === 'Critical' ? '🚨' : c.aiPriority === 'High' ? '🔴' : c.aiPriority === 'Low' ? '🟢' : '🟡'} {c.aiPriority}
+                                                            </span>
+                                                        )}
+                                                        {c.aiSentiment && (
+                                                            <span className={cn('text-[11px] font-semibold px-2 py-0.5 rounded-md border',
+                                                                c.aiSentiment === 'Urgent' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' :
+                                                                    c.aiSentiment === 'Frustrated' ? 'bg-orange-500/10 text-orange-500 border-orange-500/20' :
+                                                                        c.aiSentiment === 'Polite' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20' :
+                                                                            'bg-slate-500/10 text-slate-500 border-slate-500/20'
+                                                            )}>
+                                                                {c.aiSentiment === 'Urgent' ? '🔥' : c.aiSentiment === 'Frustrated' ? '😤' : c.aiSentiment === 'Polite' ? '😊' : '😐'} {c.aiSentiment}
+                                                            </span>
+                                                        )}
+                                                        {c.aiEstimatedTime && (
+                                                            <span className="text-[11px] font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 px-2.5 py-0.5 rounded-md border border-blue-500/20 flex items-center gap-1 shadow-sm">
+                                                                <ClipboardList className="w-3 h-3" /> ETA: {c.aiEstimatedTime}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
                                             {/* Status Actions */}
                                             <div className="flex gap-2 shrink-0 flex-wrap">

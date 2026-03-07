@@ -45,6 +45,8 @@ const complaintSchema = new mongoose.Schema({
     aiPriority: { type: String, default: null },  // AI-predicted priority
     aiSentiment: { type: String, default: null },  // AI sentiment (Urgent/Frustrated/Neutral/Polite)
     aiEstimatedTime: { type: String, default: null },  // AI predicted resolution ETA
+    aiIsDuplicate: { type: Boolean, default: false }, // Flag if AI thinks this is a duplicate
+    aiDuplicateMatch: { type: Number, default: 0 },    // Percentage match to nearest existing complaint
     resolvedAt: { type: Date, default: null },
     adminNotes: {
         type: String,

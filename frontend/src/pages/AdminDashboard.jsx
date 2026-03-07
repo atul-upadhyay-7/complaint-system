@@ -225,6 +225,40 @@ export default function AdminDashboard() {
                         </Card>
                     </div>
 
+                    {/* AI Insights - Sentiment Breakdown */}
+                    <Card className="glass-card border-violet-200 dark:border-violet-900/30 mb-6 animate-slide-up shadow-[0_8px_32px_rgba(139,92,246,0.08)]" style={{ animationDelay: '0.62s' }}>
+                        <CardHeader className="pb-4 border-b border-violet-100 dark:border-violet-900/20">
+                            <CardTitle className="text-base font-bold flex items-center gap-2 text-violet-700 dark:text-violet-400">
+                                <Sparkles className="w-5 h-5" /> AI Sentiment Analysis
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="pt-6">
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {[
+                                    { label: '🔥 Urgent', key: 'Urgent', color: 'text-rose-600', bg: 'bg-rose-100 dark:bg-rose-500/10', border: 'border-rose-200 dark:border-rose-500/20' },
+                                    { label: '😤 Frustrated', key: 'Frustrated', color: 'text-orange-600', bg: 'bg-orange-100 dark:bg-orange-500/10', border: 'border-orange-200 dark:border-orange-500/20' },
+                                    { label: '😐 Neutral', key: 'Neutral', color: 'text-slate-600', bg: 'bg-slate-100 dark:bg-slate-500/10', border: 'border-slate-200 dark:border-slate-500/20' },
+                                    { label: '😊 Polite', key: 'Polite', color: 'text-emerald-600', bg: 'bg-emerald-100 dark:bg-emerald-500/10', border: 'border-emerald-200 dark:border-emerald-500/20' },
+                                ].map(s => {
+                                    const count = (analytics?.recentComplaints || []).filter(c => c.aiSentiment === s.key).length;
+                                    const pct = (analytics?.recentComplaints || []).length > 0 ? Math.round((count / (analytics?.recentComplaints || []).length) * 100) : 0;
+                                    return (
+                                        <div key={s.key} className={cn('p-4 rounded-2xl border transition-all hover:scale-[1.02]', s.bg, s.border)}>
+                                            <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground mb-1">{s.key}</p>
+                                            <div className="flex items-end justify-between">
+                                                <h4 className={cn('text-2xl font-black tabular-nums', s.color)}>{count}</h4>
+                                                <span className="text-xs font-bold opacity-60">{pct}%</span>
+                                            </div>
+                                            <div className="w-full h-1.5 bg-black/5 dark:bg-white/5 rounded-full mt-3 overflow-hidden">
+                                                <div className={cn('h-full bg-current rounded-full transition-all duration-1000', s.color)} style={{ width: `${pct}%` }} />
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </CardContent>
+                    </Card>
+
                     {/* Recent Complaints */}
                     <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.65s' }}>
                         <CardHeader className="pb-3">

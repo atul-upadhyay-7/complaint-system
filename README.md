@@ -20,7 +20,7 @@
 
 <br/>
 
-| 🧠 6 AI Features | ⚡ Real-Time WebSockets | 🎨 Premium Dark/Light UI | 🔐 4-Role RBAC |
+| 🧠 8 AI Pillars | ⚡ Real-Time WebSockets | 🎨 Premium Dark/Light UI | 🔐 4-Role RBAC |
 |:---:|:---:|:---:|:---:|
 | Naive Bayes + TF-IDF + Keyword Scoring | Socket.io per-user rooms | Glassmorphism + animations | Student · Admin · Warden · Technician |
 
@@ -33,7 +33,7 @@
 | Differentiator | What We Built | Why It Matters |
 |---|---|---|
 | 🤖 **Custom AI Engine** | Built a full NLP pipeline using `natural` — Naive Bayes classifier + TF-IDF similarity + weighted keyword scoring. **Zero paid APIs.** | Proves real ML understanding, not just API wrapping |
-| 🧠 **6 AI Features** | Auto-categorization, auto-prioritization, sentiment analysis, resolution ETA, duplicate detection, live AI panel | End-to-end intelligent automation |
+| 🧠 **8 AI Features** | Auto-categorization, Priority, Sentiment, ETA, Duplicates, Live UI, Admin Analytics, Technical Protocols | End-to-end intelligent automation |
 | 📡 **True Real-Time** | Socket.io with user-specific rooms + toast notifications + live bell counter | No polling, instant push updates |
 | 💎 **Production-Grade UI** | Glassmorphism, animated particles, gradient headings, color-coded cards, dual themes | Not a prototype — a shippable product |
 | 🧩 **Clean Architecture** | MVC pattern, service layer, middleware chain, async error handling, audit trail | Industry-standard code organization |
@@ -52,66 +52,68 @@
 Student types complaint
         │
         ▼
-┌─────────────────────────────────────────────────┐
-│            /api/complaints/ai-suggest            │
-│                  (live endpoint)                  │
-├─────────────────────────────────────────────────┤
-│                                                  │
-│  ┌──────────────┐   ┌───────────────────────┐   │
-│  │ Pass 1:      │   │ Pass 2:               │   │
-│  │ Keyword Scan │──▶│ Naive Bayes Fallback  │   │
-│  │ (100+ terms) │   │ (200+ training docs)  │   │
-│  └──────┬───────┘   └───────────┬───────────┘   │
-│         │                       │                │
-│         ▼                       ▼                │
-│  ┌─────────────────────────────────────────┐    │
-│  │        Category Detected                │    │
-│  │   (Electricity/Water/Internet/Food/...) │    │
-│  └─────────────────────────────────────────┘    │
-│                                                  │
-│  ┌──────────────┐   ┌───────────────────────┐   │
-│  │ 60+ Weighted │   │  Urgency Amplifiers   │   │
-│  │ Keywords     │──▶│  ALL-CAPS + !! boost  │   │
-│  └──────┬───────┘   └───────────┬───────────┘   │
-│         │                       │                │
-│         ▼                       ▼                │
-│  ┌─────────────────────────────────────────┐    │
-│  │   Priority: Critical / High / Med / Low │    │
-│  └─────────────────────────────────────────┘    │
-│                                                  │
-│  ┌──────────────┐   ┌───────────────────────┐   │
-│  │ Negative &   │   │  TF-IDF Cosine        │   │
-│  │ Positive     │   │  Similarity vs 50     │   │
-│  │ Word Scoring │   │  existing complaints  │   │
-│  └──────┬───────┘   └───────────┬───────────┘   │
-│         │                       │                │
-│         ▼                       ▼                │
-│  ┌──────────────┐   ┌───────────────────────┐   │
-│  │  Sentiment:  │   │  Duplicate Warning    │   │
-│  │  🔥Urgent    │   │  if >70% match found  │   │
-│  │  😤Frustrated│   └───────────────────────┘   │
-│  │  😐Neutral   │                               │
-│  │  😊Polite    │   ┌───────────────────────┐   │
-│  └──────────────┘   │  ETA: Category ×      │   │
-│                     │  Priority matrix       │   │
-│                     │  (e.g. "4-8 hours")    │   │
-│                     └───────────────────────┘   │
-└─────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────┐
+│            /api/complaints/ai-suggest             │
+│                  (live endpoint)                   │
+├───────────────────────────────────────────────────┤
+│                                                   │
+│  ┌──────────────┐   ┌───────────────────────┐     │
+│  │ Pass 1:      │   │ Pass 2:               │     │
+│  │ Keyword Scan │──▶│ Naive Bayes Fallback  │     │
+│  │ (100+ terms) │   │ (200+ training docs)  │     │
+│  └──────┬───────┘   └───────────┬───────────┘     │
+│         │                       │                 │
+│         ▼                       ▼                 │
+│  ┌──────────────────────────────────────────────┐ │
+│  │        Category Detected → Auto-Route        │ │
+│  └──────────────────────────────────────────────┘ │
+│                                                   │
+│  ┌──────────────┐   ┌───────────────────────┐     │
+│  │ 60+ Weighted │   │  Sentiment & Urgency  │     │
+│  │ AI Scoring   │──▶│  Frustartion Scoring  │     │
+│  └──────┬───────┘   └───────────┬───────────┘     │
+│         │                       │                 │
+│         ▼                       ▼                 │
+│  ┌──────────────────────────────────────────────┐ │
+│  │   Priority & Mood: Critical / Frustrated     │ │
+│  └──────────────────────────────────────────────┘ │
+│                                                   │
+│  ┌──────────────┐   ┌───────────────────────┐     │
+│  │  Resolution  │   │  TF-IDF Cosine        │     │
+│  │  ETA Engine  │   │  Similarity vs DB     │     │
+│  └──────┬───────┘   └───────────┬───────────┘     │
+│         │                       │                 │
+│         ▼                       ▼                 │
+│  ┌──────────────┐   ┌───────────────────────┐     │
+│  │ AI Protocol: │   │  Duplicate Warning    │     │
+│  │  Technical   │   │  is flagged in DB     │     │
+│  │  Directions  │   └───────────────────────┘     │
+│  └──────────────┘                                 │
+└───────────────────────────────────────────────────┘
         │
         ▼
-  Live AI Panel updates in real-time on frontend
+        ┌──────────────────────────────────┐
+        │        THE RECIPIENTS            │
+        ├──────────────────────────────────┤
+        │ 🎓 Student: Live ETA & Warning   │
+        │ 🛡️ Admin: Mood Analytics         │
+        │ 🏠 Warden: Urgency Badges        │
+        │ 🔧 Technician: Repair Protocol   │
+        └──────────────────────────────────┘
 ```
 
-### The 6 AI Features
+### The 8 AI Pillars
 
-| # | Feature | Technique | Input → Output |
+| # | Pillar | Technique | Impact |
 |---|---|---|---|
-| 1 | **Auto-Categorization** | Two-pass: Keyword scan (100+ terms) → Naive Bayes fallback (200+ training docs) | `"WiFi down in hostel"` → `Internet` |
-| 2 | **Auto-Prioritization** | Weighted keyword scoring (60+ terms) + urgency amplifiers (CAPS, `!!`) | `"URGENT no water since 3 days!!"` → `Critical` |
-| 3 | **Sentiment Analysis** | Negative/Positive word classification with frustration amplifiers | `"Disgusting food, pathetic!"` → `🔥 Urgent` |
-| 4 | **Resolution ETA** | Category × Priority matrix (8 categories × 4 levels = 32 ETAs) | `Electricity + High` → `4-8 hours` |
-| 5 | **Duplicate Detection** | TF-IDF vectorization + Cosine similarity against 50 recent complaints | `"Water issue Block A"` → `⚠️ 71% match found` |
-| 6 | **Live AI Panel** | Debounced (800ms) real-time API calls as user types | Updates category, priority, sentiment, ETA live |
+| 1 | **Auto-Categorization** | Two-pass: Keyword scan (150+ terms) → Naive Bayes fallback | Decides routing without admin manual effort |
+| 2 | **Auto-Prioritization** | Weighted keyword scoring (80+ terms) + urgency amplifiers | Ensures safety-critical issues bypass the queue |
+| 3 | **Sentiment Analysis** | Frustration word classification + intensity scoring | Admin can see the collective "mood" of the campus |
+| 4 | **Resolution ETA** | Category × Priority matrix (32 unique timeframes) | Manages student expectations, reducing stress |
+| 5 | **Duplicate Detection** | TF-IDF vectorization + Cosine similarity (vs 50 recent) | Prevents database bloat and redundant work |
+| 6 | **Live AI Suggestions** | Debounced (800ms) real-time API feedback | Acts as an intelligent companion during submission |
+| 7 | **Technical Protocols** | Knowledge-based technical diagnosis mappings | Provides instant repair advice to junior staff |
+| 8 | **Admin Mood Analytics** | Real-time aggregation of sentiment across issues | Predictive insight into campus satisfaction |
 
 ---
 

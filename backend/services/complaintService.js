@@ -2,11 +2,14 @@ const Complaint = require('../models/Complaint');
 const ComplaintHistory = require('../models/ComplaintHistory');
 const notificationService = require('./notificationService');
 const logger = require('../utils/logger');
-const { autoCategorizeComplaint, autoPrioritizeComplaint, analyzeSentiment, estimateResolutionTime } = require('./aiService');
+const { autoCategorizeComplaint, autoPrioritizeComplaint, analyzeSentiment, estimateResolutionTime, detectDuplicates } = require('./aiService');
 const sendEmail = require('../utils/sendEmail');
 
 // ─── Create a new complaint + fire creation event ──────────────────────────
 const createComplaint = async (data, student) => {
+    // 1. Fetch recent complaints for duplicate detection (last 50 open)
+    const recent = await Complaint.find({ status: { $ne: 'Resolved' } }).limit(50).sort({ createdAt: -1 });
+
     // AI: auto-categorize based on title + description
     const predictedCategory = autoCategorizeComplaint(data.title, data.description);
 
@@ -19,6 +22,9 @@ const createComplaint = async (data, student) => {
     // AI: estimated resolution time
     const eta = estimateResolutionTime(predictedCategory, predictedPriority);
 
+    // AI: duplicate detection
+    const { isDuplicate, highestScore } = detectDuplicates(`${data.title} ${data.description}`, recent);
+
     const complaint = await Complaint.create({
         ...data,
         student: student._id,
@@ -27,6 +33,8 @@ const createComplaint = async (data, student) => {
         aiPriority: predictedPriority,
         aiSentiment: sentiment,
         aiEstimatedTime: eta,
+        aiIsDuplicate: isDuplicate,
+        aiDuplicateMatch: highestScore,
     });
     await complaint.populate('student', 'name email rollNumber hostel');
 

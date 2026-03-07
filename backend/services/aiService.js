@@ -439,6 +439,25 @@ const analyzeComplaint = (title, description, existingComplaints = []) => {
     };
 };
 
+/**
+ * Provides a technical suggestion for staff based on category
+ * @param {string} category 
+ * @returns {string}
+ */
+const getRepairSuggestion = (category) => {
+    const suggestions = {
+        'Electricity': 'Check main breaker, test for short circuits, and inspect wiring integrity.',
+        'Water': 'Inspect pipe joints for leaks, check valve functionality, and verify pressure.',
+        'Cleanliness': 'Focus on high-touch surfaces, check drainage blockage, and verify chemical stock.',
+        'Maintenance': 'Inspect for structural wear, verify lubrication points, and check fastener tightness.',
+        'Internet': 'Reboot localized router, check port activity, and scan for signal interference.',
+        'Security': 'Verify camera feed connectivity, check door latch alignment, and inspect lighting.',
+        'Food': 'Review storage temperature, check batch timestamps, and verify ingredient source.',
+        'Other': 'Perform generic inspection and consult specific department protocols.'
+    };
+    return suggestions[category] || suggestions['Other'];
+};
+
 module.exports = {
     autoCategorizeComplaint,
     autoPrioritizeComplaint,
@@ -446,4 +465,5 @@ module.exports = {
     estimateResolutionTime,
     detectDuplicates,
     analyzeComplaint,
+    getRepairSuggestion
 };

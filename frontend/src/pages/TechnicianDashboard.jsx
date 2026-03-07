@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import Sidebar from '../components/Sidebar';
-import { Wrench, Clock, CheckCircle2, Loader2, ShieldCheck, BarChart2, ListChecks } from 'lucide-react';
+import { Wrench, Clock, CheckCircle2, Loader2, ShieldCheck, BarChart2, ListChecks, Sparkles, Lightbulb, ClipboardList } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import toast from 'react-hot-toast';
@@ -21,6 +21,17 @@ const PRIORITY_COLORS = {
     'High': 'bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400',
     'Medium': 'bg-amber-100 text-amber-700 dark:bg-yellow-500/15 dark:text-yellow-400',
     'Low': 'bg-emerald-100 text-emerald-700 dark:bg-green-500/15 dark:text-green-400',
+};
+
+const REPAIR_SUGGESTIONS = {
+    'Electricity': 'Check main breaker, test for short circuits, and inspect wiring integrity.',
+    'Water': 'Inspect pipe joints for leaks, check valve functionality, and verify pressure.',
+    'Cleanliness': 'Focus on high-touch surfaces, check drainage blockage, and verify chemical stock.',
+    'Maintenance': 'Inspect for structural wear, verify lubrication points, and check fastener tightness.',
+    'Internet': 'Reboot localized router, check port activity, and scan for signal interference.',
+    'Security': 'Verify camera feed connectivity, check door latch alignment, and inspect lighting.',
+    'Food': 'Review storage temperature, check batch timestamps, and verify ingredient source.',
+    'Other': 'Perform generic inspection and consult specific department protocols.'
 };
 
 export default function TechnicianDashboard() {
@@ -133,6 +144,38 @@ export default function TechnicianDashboard() {
                                                     Reported by: <span className="text-slate-700 dark:text-slate-300">{c.student?.name}</span>
                                                     {c.location && <> · 📍 {c.location}</>}
                                                 </p>
+
+                                                {/* AI Insight Row */}
+                                                {(c.aiPriority || c.aiSentiment || c.aiEstimatedTime) && (
+                                                    <div className="flex items-center flex-wrap gap-2 mt-3 pt-3 border-t border-slate-100 dark:border-white/5">
+                                                        <span className="flex items-center gap-1 text-[10px] font-bold text-violet-500 bg-violet-100 dark:bg-violet-500/10 px-1.5 py-0.5 rounded shadow-sm shrink-0">
+                                                            <Sparkles className="w-3 h-3" /> AI INSIGHT
+                                                        </span>
+                                                        {c.aiSentiment && (
+                                                            <span className="text-[11px] font-bold text-rose-500 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">
+                                                                {c.aiSentiment === 'Urgent' ? '🔥' : c.aiSentiment === 'Frustrated' ? '😤' : '😐'} {c.aiSentiment}
+                                                            </span>
+                                                        )}
+                                                        {c.aiEstimatedTime && (
+                                                            <span className="text-[11px] font-bold text-blue-500 bg-blue-500/10 px-2.5 py-0.5 rounded-md border border-blue-500/20 flex items-center gap-1 shadow-sm">
+                                                                <ClipboardList className="w-3 h-3" /> ETA: {c.aiEstimatedTime}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                )}
+
+                                                {/* AI Repair Protocol */}
+                                                <div className="mt-4 p-4 rounded-xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 flex items-start gap-4">
+                                                    <div className="w-9 h-9 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+                                                        <Lightbulb className="w-5 h-5 text-blue-500" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-1">AI Repair Protocol</p>
+                                                        <p className="text-sm font-medium text-blue-700 dark:text-blue-300 leading-relaxed italic">
+                                                            "{REPAIR_SUGGESTIONS[c.category] || REPAIR_SUGGESTIONS['Other']}"
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                             {/* Action Buttons */}
                                             <div className="flex gap-2 shrink-0">

@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from 'date-fns';
-import { Clock, MapPin, ArrowUp, AlertCircle, CheckCircle2, Loader, Tag, Image, ChevronDown, ChevronUp, Brain, Sparkles } from 'lucide-react';
+import { Clock, MapPin, ArrowUp, AlertCircle, CheckCircle2, Loader, Tag, Image, ChevronDown, ChevronUp, Brain, Sparkles, AlertTriangle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -58,6 +58,14 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                     </Badge>
                 </div>
 
+                {/* Duplicate Notification Badge */}
+                {complaint.aiIsDuplicate && (
+                    <div className="mb-3 px-3 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center gap-2 animate-pulse overflow-hidden">
+                        <AlertTriangle className="w-3.5 h-3.5 text-orange-500 shrink-0" />
+                        <span className="text-[10px] font-bold text-orange-600 dark:text-orange-400 uppercase tracking-tight">AI Warning: Potential Duplicate ({complaint.aiDuplicateMatch}%)</span>
+                    </div>
+                )}
+
                 {/* Complaint photo thumbnail */}
                 {hasImage && (
                     <div className="mb-3 rounded-xl overflow-hidden border border-slate-200 dark:border-blue-500/15 relative group/img">
@@ -113,9 +121,9 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                         )}
                         {complaint.aiSentiment && (
                             <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${complaint.aiSentiment === 'Urgent' ? 'text-rose-600 dark:text-rose-400 bg-rose-100 dark:bg-rose-500/10' :
-                                    complaint.aiSentiment === 'Frustrated' ? 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-500/10' :
-                                        complaint.aiSentiment === 'Polite' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/10' :
-                                            'text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5'
+                                complaint.aiSentiment === 'Frustrated' ? 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-500/10' :
+                                    complaint.aiSentiment === 'Polite' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/10' :
+                                        'text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5'
                                 }`}>
                                 {complaint.aiSentiment === 'Urgent' ? '🔥' : complaint.aiSentiment === 'Frustrated' ? '😤' : complaint.aiSentiment === 'Polite' ? '😊' : '😐'} {complaint.aiSentiment}
                             </span>
