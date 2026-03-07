@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -8,6 +8,83 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+
+// Animated counter hook
+function useCountUp(target, duration = 1800, start = false) {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        if (!start) return;
+        let startTime = null;
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }, [start, target, duration]);
+    return count;
+}
+
+function StatCard({ value, suffix, label, icon, delay, isLight, animate }) {
+    const count = useCountUp(value, 1800, animate);
+    return (
+        <div
+            className="flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-500 animate-fade-in"
+            style={{
+                animationDelay: `${delay}s`,
+                background: isLight ? 'rgba(255,255,255,0.6)' : 'rgba(37,99,235,0.08)',
+                border: isLight ? '1px solid rgba(59,130,246,0.2)' : '1px solid rgba(59,130,246,0.18)',
+                backdropFilter: 'blur(12px)',
+                boxShadow: isLight ? '0 4px 20px rgba(59,130,246,0.08)' : '0 4px 20px rgba(37,99,235,0.1)',
+            }}
+        >
+            <span className="text-2xl mb-1">{icon}</span>
+            <span
+                className="text-3xl font-bold tabular-nums"
+                style={{ background: 'linear-gradient(135deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+            >
+                {count}{suffix}
+            </span>
+            <span className={`text-xs font-medium mt-1 text-center leading-tight ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{label}</span>
+        </div>
+    );
+}
+
+function LiveStats({ isLight }) {
+    const ref = useRef(null);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+            { threshold: 0.2 }
+        );
+        if (ref.current) observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, []);
+
+    const stats = [
+        { value: 1240, suffix: '+', label: 'Complaints Resolved', icon: '✅', delay: 0.3 },
+        { value: 98, suffix: '%', label: 'Resolution Rate', icon: '🎯', delay: 0.45 },
+        { value: 24, suffix: 'h', label: 'Avg Response Time', icon: '⚡', delay: 0.6 },
+    ];
+
+    return (
+        <div ref={ref} className="mt-10 mb-2">
+            <p className={`text-xs font-semibold uppercase tracking-widest mb-4 ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>
+                Platform at a glance
+            </p>
+            <div className="grid grid-cols-3 gap-3">
+                {stats.map((s) => (
+                    <StatCard key={s.label} {...s} isLight={isLight} animate={visible} />
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default function Login() {
     const [form, setForm] = useState({ email: '', password: '' });
@@ -76,8 +153,12 @@ export default function Login() {
                     <p className={`text-lg max-w-md leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
                         A unified platform bridging the gap between students and administration. Track, manage, and resolve complaints with real-time notifications.
                     </p>
+
+                    {/* Live Stats Counter */}
+                    <LiveStats isLight={isLight} />
+
                     {/* Feature Pills */}
-                    <div className="mt-10 flex flex-wrap gap-3">
+                    <div className="mt-8 flex flex-wrap gap-3">
                         {['⚡ Real-time Notifications', '📊 Analytics Dashboard', '📍 Progress Tracking', '📸 Photo Upload'].map(f => (
                             <span key={f} className={`px-3 py-1.5 rounded-full text-xs font-medium border ${isLight ? 'bg-blue-50 border-blue-200 text-slate-600' : 'bg-white/5 border-white/10 text-slate-300'}`}>{f}</span>
                         ))}
