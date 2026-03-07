@@ -86,8 +86,8 @@ export default function Sidebar() {
                 </div>
                 <h2 className="text-lg font-bold text-slate-800 dark:text-white tracking-wide">{user?.name || 'User Name'}</h2>
                 <div className="flex items-center gap-1.5 mt-1 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">
-                    <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
-                    <span className="text-xs font-medium text-blue-300 lowercase tracking-widest">{user?.role || 'student'}</span>
+                    <GraduationCap className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <span className="text-xs font-medium text-blue-600 dark:text-blue-300 lowercase tracking-widest">{user?.role || 'student'}</span>
                 </div>
             </div>
 
@@ -98,7 +98,7 @@ export default function Sidebar() {
                         end={l.to.endsWith('/dashboard') || l.to === '/dashboard' || l.to === '/technician' || l.to === '/warden'}
                         className={({ isActive }) => cn(
                             'group flex items-center gap-3.5 px-4 py-3 text-sm font-bold transition-all duration-300 relative rounded-xl',
-                            isActive ? accent.active : 'text-slate-900 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/5'
+                            isActive ? accent.active : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/5'
                         )}>
                         {({ isActive }) => (
                             <>
@@ -111,10 +111,8 @@ export default function Sidebar() {
                 ))}
             </nav>
 
-            {/* Notifications + Logout */}
-            <div className="p-4 mt-auto space-y-2">
-
-
+            {/* Logout */}
+            <div className="p-4 mt-auto">
                 {/* Secure Logout */}
                 <button onClick={onLinkClick ? () => { onLinkClick(); handleLogout(); } : handleLogout}
                     className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl text-sm font-bold text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-slate-700/50 bg-white/80 dark:bg-[#0a1628]/60 hover:bg-red-50 dark:hover:bg-red-900/10 hover:border-red-400 dark:hover:border-red-500/30 hover:text-red-700 dark:hover:text-red-400 transition-all duration-300 shadow-sm">
