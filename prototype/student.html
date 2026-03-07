@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#8c2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#020617",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(140, 43, 238, 0.3);
+        }
+        .step-active {
+            @apply text-primary border-primary;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-white/10 px-10 py-4 bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-primary">
+<div class="size-8 bg-primary/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<h2 class="text-slate-100 text-xl font-display font-bold leading-tight tracking-tight">UniIssueHub</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Dashboard</a>
+<a class="text-slate-100 text-sm font-medium border-b-2 border-primary pb-1" href="#">Submit Issue</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">My Issues</a>
+<a class="text-slate-400 hover:text-primary text-sm font-medium transition-colors" href="#">Campus Map</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center bg-white/5 rounded-xl px-3 py-1.5 border border-white/10">
+<span class="material-symbols-outlined text-slate-400 text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-slate-100 w-48 placeholder:text-slate-500" placeholder="Search issues..." type="text"/>
+</div>
+<button class="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:bg-white/10">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full border-2 border-primary/50 p-0.5">
+<img alt="Student Profile" class="rounded-full" data-alt="Student profile picture avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmhApR6VSeReUbzAefuPcyHJ9LlLHD7IJKcbY2Bf2Bh4lYkyALUa1KrIs17l8TsknY2kAPDd06GZYrn15Lmy_iffy_t9Ui7P_QYgsj16mJZOVdJRnxqj4irO9JQ-fIj04La2yYBbPu1kTUPyQU5ZJwQNZhlCCYw4qftQj9ck88ihqqDllbcR6SnR6wmhmT5q0hFa4mDXqszri7SMdEI2PtYKVrogk4vyw46Z03I52b1ngLKtZHKQPu1Qh0n4w-6tNONUD1AayeD_M"/>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto w-full px-6 py-8">
+<!-- Stepper -->
+<div class="mb-12">
+<div class="flex items-center justify-between max-w-2xl mx-auto relative">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-white/10 -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 left-0 w-1/3 h-1 bg-primary -translate-y-1/2 z-0 glow-purple"></div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white ring-4 ring-background-dark shadow-lg shadow-primary/40">
+<span class="material-symbols-outlined text-sm">edit</span>
+</div>
+<span class="text-xs font-bold text-primary tracking-widest uppercase font-display">Step 1: Details</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="size-10 rounded-full bg-slate-800 border-2 border-slate-700 flex items-center justify-center text-slate-500 ring-4 ring-background-dark">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</div>
+<span class="text-xs font-bold text-slate-500 tracking-widest uppercase font-display">Step 2: Review</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="size-10 rounded-full bg-slate-800 border-2 border-slate-700 flex items-center justify-center text-slate-500 ring-4 ring-background-dark">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+</div>
+<span class="text-xs font-bold text-slate-500 tracking-widest uppercase font-display">Step 3: Done</span>
+</div>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Form -->
+<div class="lg:col-span-7 space-y-8">
+<div class="space-y-2">
+<h1 class="text-4xl font-display font-black text-slate-100 tracking-tight">Submit Campus Issue</h1>
+<p class="text-slate-400 text-lg">Help us maintain a better campus environment by reporting issues in real-time.</p>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-slate-300 text-sm font-medium ml-1">Issue Title</label>
+<input class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600" placeholder="e.g. Wi-Fi connection dropping in Central Library" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-slate-300 text-sm font-medium ml-1">Detailed Description</label>
+<textarea class="w-full glass rounded-xl px-4 py-4 text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-slate-600 resize-none" placeholder="Please describe the issue in detail. Be specific about the location..." rows="5"></textarea>
+</div>
+<div class="space-y-2">
+<label class="text-slate-300 text-sm font-medium ml-1">Evidence / Photos</label>
+<div class="border-2 border-dashed border-white/10 rounded-xl p-8 flex flex-col items-center justify-center gap-3 bg-white/[0.02] hover:bg-white/[0.04] transition-all cursor-pointer group">
+<div class="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">cloud_upload</span>
+</div>
+<div class="text-center">
+<p class="text-slate-200 font-medium">Drag and drop images here</p>
+<p class="text-slate-500 text-sm">or click to browse from your device</p>
+</div>
+<p class="text-slate-600 text-xs">Supports: JPG, PNG, HEIC (Max 10MB)</p>
+</div>
+</div>
+<div class="pt-4 flex items-center gap-4">
+<button class="px-8 py-4 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 flex items-center gap-2" type="button">
+                                Next Step
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="px-8 py-4 bg-transparent text-slate-400 font-medium rounded-xl hover:text-slate-200 transition-all" type="button">
+                                Save as Draft
+                            </button>
+</div>
+</form>
+</div>
+<!-- Right Column: AI Intelligence Panel -->
+<div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+<div class="glass rounded-2xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16"></div>
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded-lg bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">auto_awesome</span>
+</div>
+<h3 class="font-display font-bold text-slate-100 text-lg">AI Intelligence Panel</h3>
+</div>
+<div class="space-y-6">
+<!-- AI Status Item 1 -->
+<div class="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">wifi</span>
+<div>
+<p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Predicted Category</p>
+<p class="text-slate-100 font-semibold">Internet &amp; Connectivity</p>
+</div>
+</div>
+<div class="px-2 py-1 rounded bg-primary/20 text-primary text-[10px] font-bold">94% MATCH</div>
+</div>
+<!-- AI Status Item 2 -->
+<div class="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-red-500">priority_high</span>
+<div>
+<p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Estimated Urgency</p>
+<p class="text-slate-100 font-semibold">High Priority</p>
+</div>
+</div>
+<span class="flex size-3 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
+</div>
+<!-- Similar Issue Alert -->
+<div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-3">
+<div class="flex items-center gap-2 text-amber-500">
+<span class="material-symbols-outlined text-sm">warning</span>
+<p class="text-xs font-bold uppercase tracking-wider">Similar Issue Found</p>
+</div>
+<div class="bg-background-dark/40 rounded-lg p-3 border border-white/5">
+<p class="text-sm text-slate-300 font-medium">Floor 3 Router is down</p>
+<p class="text-xs text-slate-500 mt-1">Reported 12 minutes ago in Central Library</p>
+<button class="mt-2 text-amber-500 text-xs font-bold hover:underline flex items-center gap-1">
+                                        Is this yours? Link to existing report
+                                        <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- AI Insight -->
+<div class="pt-2">
+<p class="text-sm text-slate-400 italic">
+<span class="text-primary font-bold">Tip:</span> "Including the room number helps our maintenance team resolve connectivity issues 40% faster."
+                                </p>
+</div>
+</div>
+</div>
+<!-- Campus Map Snippet -->
+<div class="glass rounded-2xl overflow-hidden group cursor-pointer">
+<div class="h-40 relative">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent z-10"></div>
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Stylized dark mode university campus map" data-location="University Campus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXYceVNzYNH_gqCvt8HEGxomaHwsIjX2_Ahj8ja7r0RU8CwJL_ukrxcp7POHPxRnFOLgFdqGXKzyH8MSizUz8IF1wM21ZfGwuL4CEXoFbO-RkqY3MPR9h8FFV1zAGvEOjQCq0u_b1V_eSe84dPs9HfV7_jBD9cx0BRavMoce7-sau0O_EmVHstMgEhjNM2KLcqzc2GjY89MGan0XVFO4lyebH5pMTJ3iIsP0NI6n1aultRMNSNDUi1pK-JA4pao_P0WsAj1hUpwb8"/>
+<div class="absolute top-4 left-4 z-20 px-3 py-1 bg-background-dark/80 backdrop-blur rounded-lg border border-white/10 text-xs font-bold text-slate-300">
+                                CENTRAL LIBRARY
+                            </div>
+<div class="absolute inset-0 flex items-center justify-center z-20">
+<span class="material-symbols-outlined text-primary text-4xl animate-bounce">location_on</span>
+</div>
+</div>
+<div class="p-4 flex items-center justify-between">
+<span class="text-sm font-medium text-slate-300">Auto-detected Location</span>
+<span class="text-primary text-xs font-bold flex items-center gap-1">
+                                CHANGE
+                                <span class="material-symbols-outlined text-sm">edit_location</span>
+</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto border-t border-white/5 px-10 py-6 text-center text-slate-600 text-sm">
+<p>© 2024 UniIssueHub. Powered by University Facilities Management. High-fidelity student portal.</p>
+</footer>
+</div>
+</body></html>

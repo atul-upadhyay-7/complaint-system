@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UniIssueHub Premium Landing Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Outfit:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b6cee",
+                        "accent-purple": "#8b5cf6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#020617",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "outfit": ["Outfit", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-orb {
+            position: absolute;
+            filter: blur(100px);
+            z-index: 0;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased overflow-x-hidden">
+<!-- Background Orbs -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+<div class="glow-orb top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/30 rounded-full"></div>
+<div class="glow-orb bottom-[10%] right-[-5%] w-[600px] h-[600px] bg-accent-purple/20 rounded-full"></div>
+</div>
+<div class="relative z-10">
+<!-- Navigation -->
+<header class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-2xl">layers</span>
+</div>
+<h2 class="text-xl font-outfit font-bold tracking-tight">UniIssueHub</h2>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Features</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Solutions</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">Pricing</a>
+<a class="text-sm font-medium text-slate-400 hover:text-white transition-colors" href="#">About</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-sm font-bold px-5 py-2 text-slate-300 hover:text-white">Login</button>
+<button class="bg-primary hover:bg-primary/90 text-white text-sm font-bold px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-primary/20">
+                    Get Started
+                </button>
+</div>
+</header>
+<!-- Hero Section -->
+<main class="max-w-7xl mx-auto px-6 pt-20 pb-32 text-center">
+<div class="max-w-4xl mx-auto flex flex-col items-center gap-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs font-bold tracking-widest uppercase text-primary border-primary/20">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+                    Next-Gen Campus Intelligence
+                </div>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-outfit font-black leading-[1.1] tracking-tight">
+                    Campus Intelligence. <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent-purple">Human Resolution.</span>
+</h1>
+<p class="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
+                    Experience the future of campus management with our 8-pillar AI engine and real-time synchronization. Engineered for institutional excellence.
+                </p>
+<div class="flex flex-wrap justify-center gap-4 mt-4">
+<button class="flex min-w-[160px] items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold h-14 px-8 rounded-xl transition-all shadow-xl shadow-primary/30">
+                        Get Started <span class="material-symbols-outlined text-xl">arrow_forward</span>
+</button>
+<button class="flex min-w-[160px] items-center justify-center gap-2 glass-card hover:bg-white/10 text-white font-bold h-14 px-8 rounded-xl transition-all">
+<span class="material-symbols-outlined text-xl">play_circle</span> Watch Demo
+                    </button>
+</div>
+</div>
+<!-- Dashboard Preview (Floating Effect) -->
+<div class="mt-24 relative max-w-5xl mx-auto">
+<div class="relative glass-card rounded-2xl p-2 shadow-2xl shadow-primary/10 overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent z-10"></div>
+<img alt="Dashboard Preview" class="rounded-xl w-full object-cover aspect-[16/9] opacity-80 group-hover:scale-[1.02] transition-transform duration-700" data-alt="Futuristic 3D dashboard interface with glowing charts and analytics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWvOR3D8-aVdhej7MDQCKzghQxnh5hUm4nxFiSgEIbvm_cXRHKH3cSgSe-wFdqhgHq433HN88oGMu9V1K9w3SdwbKTHabQUv9ZVpS1M8VgGtaMq5OeCSuGGVlHJ903G6v6LwRw6658E6sA7xa2SyZEbbuncJWKVEAtG5f3Xfs1iTkZYE92AlgFYp_L1uQQWFwcUFhbKlIBRPSh1sr64hja6dcrswdY8Wsf2_8oOnQS4Zvc-So6Jjwy77PTepVKVGF4AJeXG6wkhDI"/>
+<div class="absolute inset-0 flex items-center justify-center z-20">
+<div class="p-6 rounded-full glass-card border-white/20">
+<span class="material-symbols-outlined text-5xl text-white">analytics</span>
+</div>
+</div>
+</div>
+<!-- Floating Elements -->
+<div class="hidden lg:block absolute -top-12 -left-12 glass-card p-4 rounded-xl border-primary/30 shadow-2xl animate-bounce" style="animation-duration: 4s;">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-green-500/20 text-green-400 rounded-lg">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold text-slate-500">System Status</p>
+<p class="text-sm font-bold">100% Operational</p>
+</div>
+</div>
+</div>
+<div class="hidden lg:block absolute -bottom-8 -right-8 glass-card p-4 rounded-xl border-accent-purple/30 shadow-2xl animate-bounce" style="animation-duration: 3s;">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-accent-purple/20 text-accent-purple rounded-lg">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="text-left">
+<p class="text-[10px] uppercase font-bold text-slate-500">AI Processing</p>
+<p class="text-sm font-bold">0.4ms Latency</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Features Section -->
+<section class="max-w-7xl mx-auto px-6 py-32 border-t border-slate-800/50">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="group relative p-8 rounded-2xl glass-card transition-all hover:border-primary/50 overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">memory</span>
+</div>
+<div class="relative z-10 flex flex-col gap-6">
+<div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors shadow-lg shadow-primary/10">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<div class="space-y-3">
+<h3 class="text-xl font-bold font-outfit">8-Pillar AI Engine</h3>
+<p class="text-slate-400 leading-relaxed">Advanced intelligence orchestration designed for comprehensive, multi-departmental campus oversight.</p>
+</div>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="group relative p-8 rounded-2xl glass-card transition-all hover:border-accent-purple/50 overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">sync_alt</span>
+</div>
+<div class="relative z-10 flex flex-col gap-6">
+<div class="size-14 rounded-xl bg-accent-purple/10 flex items-center justify-center text-accent-purple group-hover:bg-accent-purple group-hover:text-white transition-colors shadow-lg shadow-accent-purple/10">
+<span class="material-symbols-outlined text-3xl">cloud_sync</span>
+</div>
+<div class="space-y-3">
+<h3 class="text-xl font-bold font-outfit">Real-time Sync</h3>
+<p class="text-slate-400 leading-relaxed">Instant global data updates across all modules. No delays, no legacy sync issues, just pure performance.</p>
+</div>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="group relative p-8 rounded-2xl glass-card transition-all hover:border-slate-400/50 overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">monetization_on</span>
+</div>
+<div class="relative z-10 flex flex-col gap-6">
+<div class="size-14 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 group-hover:bg-slate-100 group-hover:text-background-dark transition-colors shadow-lg shadow-slate-900/40">
+<span class="material-symbols-outlined text-3xl">price_check</span>
+</div>
+<div class="space-y-3">
+<h3 class="text-xl font-bold font-outfit">Zero API Cost</h3>
+<p class="text-slate-400 leading-relaxed">Scale infinitely without the overhead. Our proprietary engine delivers enterprise power with zero API usage fees.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="max-w-5xl mx-auto px-6 py-20 mb-32">
+<div class="relative p-12 md:p-20 rounded-[2rem] glass-card text-center overflow-hidden border-primary/20">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent-purple/10"></div>
+<div class="relative z-10 max-w-2xl mx-auto space-y-8">
+<h2 class="text-3xl md:text-5xl font-outfit font-bold">Ready to transform your campus?</h2>
+<p class="text-slate-400 text-lg">Join the elite institutions using UniIssueHub intelligence to drive efficiency and resolution.</p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white font-bold h-14 px-10 rounded-xl transition-all shadow-xl shadow-primary/20">
+                            Get Started Now
+                        </button>
+<button class="w-full sm:w-auto text-white font-bold h-14 px-10 rounded-xl border border-white/10 hover:bg-white/5 transition-all">
+                            Talk to Sales
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-800/50">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="p-1.5 bg-primary/20 rounded text-primary">
+<span class="material-symbols-outlined text-lg">layers</span>
+</div>
+<span class="font-outfit font-bold text-lg">UniIssueHub</span>
+</div>
+<div class="flex gap-8 text-sm text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+</div>
+<div class="flex gap-4">
+<a class="p-2 rounded-lg glass-card hover:border-primary/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">public</span>
+</a>
+<a class="p-2 rounded-lg glass-card hover:border-primary/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">share</span>
+</a>
+</div>
+</div>
+<div class="mt-8 text-center text-xs text-slate-600">
+                © 2024 UniIssueHub Inc. All rights reserved.
+            </div>
+</footer>
+</div>
+</body></html>
