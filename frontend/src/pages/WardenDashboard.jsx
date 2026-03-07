@@ -30,6 +30,7 @@ export default function WardenDashboard() {
     const [analytics, setAnalytics] = useState(null);
     const [loading, setLoading] = useState(true);
     const [assigning, setAssigning] = useState(null);
+    const [updating, setUpdating] = useState(null);
     const [selectedAssignee, setSelectedAssignee] = useState({});
 
     const fetchData = async () => {
@@ -48,9 +49,8 @@ export default function WardenDashboard() {
 
     useEffect(() => { fetchData(); }, []);
 
-    const assignComplaint = async (complaintId) => {
-        const staffId = selectedAssignee[complaintId];
-        if (!staffId) return toast.error('Please select a staff member');
+    const assignComplaint = async (complaintId, staffId) => {
+        if (!staffId) return;
         const staffMember = staff.find(s => s._id === staffId);
         setAssigning(complaintId);
         try {
@@ -61,11 +61,12 @@ export default function WardenDashboard() {
     };
 
     const updateStatus = async (id, status, adminNotes = '') => {
+        setUpdating(id);
         try {
             await api.put(`/admin/status/${id}`, { status, adminNotes });
             toast.success(`Status updated to "${status}"`);
             fetchData();
-        } catch { toast.error('Failed to update status'); }
+        } catch { toast.error('Failed to update status'); } finally { setUpdating(null); }
     };
 
     return (
@@ -158,20 +159,23 @@ export default function WardenDashboard() {
                                             <div className="flex gap-2 shrink-0 flex-wrap">
                                                 {c.status === 'Pending' && (
                                                     <button onClick={() => updateStatus(c._id, 'In Progress')}
-                                                        className="px-3 py-1.5 text-xs rounded-lg bg-blue-500/15 text-blue-300 border border-blue-500/25 hover:bg-blue-500/25 transition-all">
-                                                        Start Review
+                                                        disabled={updating === c._id}
+                                                        className="px-3 py-1.5 text-xs rounded-lg bg-blue-500/15 text-blue-300 border border-blue-500/25 hover:bg-blue-500/25 transition-all disabled:opacity-50 min-w-[85px] text-center">
+                                                        {updating === c._id ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'Start Review'}
                                                     </button>
                                                 )}
                                                 {c.status !== 'Resolved' && c.status !== 'Rejected' && (
                                                     <button onClick={() => updateStatus(c._id, 'Resolved')}
-                                                        className="px-3 py-1.5 text-xs rounded-lg bg-green-500/15 text-green-300 border border-green-500/25 hover:bg-green-500/25 transition-all">
-                                                        Resolve
+                                                        disabled={updating === c._id}
+                                                        className="px-3 py-1.5 text-xs rounded-lg bg-green-500/15 text-green-300 border border-green-500/25 hover:bg-green-500/25 transition-all disabled:opacity-50 min-w-[70px] text-center">
+                                                        {updating === c._id ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'Resolve'}
                                                     </button>
                                                 )}
                                                 {c.status !== 'Rejected' && c.status !== 'Resolved' && (
                                                     <button onClick={() => updateStatus(c._id, 'Rejected', 'Rejected by warden')}
-                                                        className="px-3 py-1.5 text-xs rounded-lg bg-red-500/15 text-red-300 border border-red-500/25 hover:bg-red-500/25 transition-all">
-                                                        Reject
+                                                        disabled={updating === c._id}
+                                                        className="px-3 py-1.5 text-xs rounded-lg bg-red-500/15 text-red-300 border border-red-500/25 hover:bg-red-500/25 transition-all disabled:opacity-50 min-w-[60px] text-center">
+                                                        {updating === c._id ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'Reject'}
                                                     </button>
                                                 )}
                                             </div>
@@ -181,20 +185,27 @@ export default function WardenDashboard() {
                                         {c.status !== 'Resolved' && c.status !== 'Rejected' && staff.length > 0 && (
                                             <div className="flex items-center gap-2 mt-2 pt-3 border-t border-slate-200 dark:border-[#1e1e2d] flex-wrap">
                                                 <Users className="w-4 h-4 text-slate-500 shrink-0" />
-                                                <select
-                                                    value={selectedAssignee[c._id] || ''}
-                                                    onChange={e => setSelectedAssignee(prev => ({ ...prev, [c._id]: e.target.value }))}
-                                                    className="flex-1 min-w-0 bg-slate-50 dark:bg-[#0d0d16] border border-slate-200 dark:border-[#1e1e2d] rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-500/40 transition-colors">
-                                                    <option value="">Assign to staff...</option>
-                                                    {staff.map(s => (
-                                                        <option key={s._id} value={s._id}>{s.name} ({s.role}) </option>
-                                                    ))}
-                                                </select>
-                                                <button onClick={() => assignComplaint(c._id)}
-                                                    disabled={assigning === c._id}
-                                                    className="px-3 py-1.5 text-xs rounded-lg bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/25 hover:bg-emerald-200 dark:hover:bg-emerald-500/25 transition-all shrink-0 disabled:opacity-50">
-                                                    {assigning === c._id ? <Loader2 className="w-3 h-3 animate-spin" /> : 'Assign'}
-                                                </button>
+                                                <div className="relative flex-1 min-w-0">
+                                                    <select
+                                                        value={selectedAssignee[c._id] || ''}
+                                                        disabled={assigning === c._id}
+                                                        onChange={e => {
+                                                            const val = e.target.value;
+                                                            setSelectedAssignee(prev => ({ ...prev, [c._id]: val }));
+                                                            if (val) assignComplaint(c._id, val);
+                                                        }}
+                                                        className="w-full bg-slate-50 dark:bg-[#0d0d16] border border-slate-200 dark:border-[#1e1e2d] rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-500/40 transition-colors disabled:opacity-50">
+                                                        <option value="">Assign to staff...</option>
+                                                        {staff.map(s => (
+                                                            <option key={s._id} value={s._id}>{s.name} ({s.role}) </option>
+                                                        ))}
+                                                    </select>
+                                                    {assigning === c._id && (
+                                                        <div className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                            <Loader2 className="w-4 h-4 text-emerald-500 animate-spin" />
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         )}
                                     </div>
