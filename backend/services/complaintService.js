@@ -47,15 +47,11 @@ const createComplaint = async (data, student) => {
         </div>
     `;
 
-    try {
-        await sendEmail({
-            email: student.email,
-            subject: `Complaint Received: ${complaint.title}`,
-            html: pendingEmailHtml
-        });
-    } catch (error) {
-        logger.error(`Failed to send creation email to ${student.email}: ${error.message}`);
-    }
+    sendEmail({
+        email: student.email,
+        subject: `Complaint Received: ${complaint.title}`,
+        html: pendingEmailHtml
+    }).catch(error => logger.error(`Failed to send creation email to ${student.email}: ${error.message}`));
 
     return complaint;
 };
@@ -117,15 +113,11 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
             </div>
         `;
 
-        try {
-            await sendEmail({
-                email: complaint.student.email,
-                subject: `Complaint Update: ${updates.status} - ${complaint.title}`,
-                html: statusEmailHtml
-            });
-        } catch (error) {
-            logger.error(`Failed to send status email to ${complaint.student.email}: ${error.message}`);
-        }
+        sendEmail({
+            email: complaint.student.email,
+            subject: `Complaint Update: ${updates.status} - ${complaint.title}`,
+            html: statusEmailHtml
+        }).catch(error => logger.error(`Failed to send status email to ${complaint.student.email}: ${error.message}`));
     }
 
     if (updates.assignedTo && updates.assignedTo !== String(oldAssignedTo)) {
@@ -158,15 +150,11 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
             </div>
         `;
 
-        try {
-            await sendEmail({
-                email: complaint.student.email,
-                subject: `Technician Assigned: ${complaint.title}`,
-                html: emailHtml
-            });
-        } catch (error) {
-            logger.error(`Failed to send email to ${complaint.student.email}: ${error.message}`);
-        }
+        sendEmail({
+            email: complaint.student.email,
+            subject: `Technician Assigned: ${complaint.title}`,
+            html: emailHtml
+        }).catch(error => logger.error(`Failed to send email to ${complaint.student.email}: ${error.message}`));
     }
 
     logger.info(`Complaint ${complaintId} updated by ${performedBy.email}: ${JSON.stringify(updates)}`);

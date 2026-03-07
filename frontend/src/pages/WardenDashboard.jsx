@@ -189,23 +189,19 @@ export default function WardenDashboard() {
                                                     <select
                                                         value={selectedAssignee[c._id] || ''}
                                                         disabled={assigning === c._id}
-                                                        onChange={e => {
-                                                            const val = e.target.value;
-                                                            setSelectedAssignee(prev => ({ ...prev, [c._id]: val }));
-                                                            if (val) assignComplaint(c._id, val);
-                                                        }}
+                                                        onChange={e => setSelectedAssignee(prev => ({ ...prev, [c._id]: e.target.value }))}
                                                         className="w-full bg-slate-50 dark:bg-[#0d0d16] border border-slate-200 dark:border-[#1e1e2d] rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-500/40 transition-colors disabled:opacity-50">
                                                         <option value="">Assign to staff...</option>
                                                         {staff.map(s => (
                                                             <option key={s._id} value={s._id}>{s.name} ({s.role}) </option>
                                                         ))}
                                                     </select>
-                                                    {assigning === c._id && (
-                                                        <div className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none">
-                                                            <Loader2 className="w-4 h-4 text-emerald-500 animate-spin" />
-                                                        </div>
-                                                    )}
                                                 </div>
+                                                <button onClick={() => assignComplaint(c._id, selectedAssignee[c._id])}
+                                                    disabled={assigning === c._id}
+                                                    className="px-3 py-1.5 text-xs rounded-lg bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/25 hover:bg-emerald-200 dark:hover:bg-emerald-500/25 transition-all shrink-0 disabled:opacity-50">
+                                                    {assigning === c._id ? <Loader2 className="w-3 h-3 animate-spin mx-auto" /> : 'Assign'}
+                                                </button>
                                             </div>
                                         )}
                                     </div>
