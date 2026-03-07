@@ -14,21 +14,17 @@ const linksByRole = {
         { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { to: '/submit', icon: PlusCircle, label: 'Submit Complaint' },
         { to: '/my-complaints', icon: FileText, label: 'My Complaints' },
-        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
     admin: [
         { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
         { to: '/admin/complaints', icon: ClipboardList, label: 'All Complaints' },
-        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
     technician: [
         { to: '/technician', icon: ListChecks, label: 'My Tasks' },
-        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
     warden: [
         { to: '/warden', icon: LayoutDashboard, label: 'Dashboard' },
         { to: '/warden/complaints', icon: ClipboardList, label: 'All Complaints' },
-        { to: '/notifications', icon: Bell, label: 'Notifications' },
     ],
 };
 
