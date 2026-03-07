@@ -462,4 +462,6 @@ Made by **Atul Upadhyay** & **Anshika**
 
 ## 📺 Demo Video
 
-![](./demo.mp4)
+<div align="center">
+  <video src="https://github.com/atul-upadhyay-7/complaint-system/blob/main/demo.mp4?raw=true" width="100%" controls autoplay loop muted></video>
+</div>
