@@ -31,7 +31,7 @@
 ## 📺 Product Walkthrough
 
 <div align="center">
-  <video src="./demo.mp4" width="100%" controls autoplay loop muted></video>
+  <video src="https://github.com/atul-upadhyay-7/EliteCoderHackathon/raw/main/demo.mp4" width="100%" controls autoplay loop muted></video>
   <p><i>Real-time AI Categorization, Sentiment Analysis, and Technician Workflow</i></p>
 </div>
 
