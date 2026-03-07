@@ -70,6 +70,36 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
             newValue: updates.status,
         });
         notificationService.notifyStatusChanged(complaint, oldStatus);
+
+        // Send Email Notification for Status Change
+        const statusColors = { 'In Progress': '#f59e0b', Resolved: '#10b981', Rejected: '#ef4444', Assigned: '#3b82f6' };
+        const color = statusColors[updates.status] || '#3b82f6';
+        const notesHtml = updates.adminNotes ? `<p style="background-color: #f8fafc; padding: 15px; border-left: 4px solid ${color};"><strong>Notes:</strong> ${updates.adminNotes}</p>` : '';
+        const rejectionHtml = updates.rejectionReason ? `<p style="background-color: #fef2f2; padding: 15px; border-left: 4px solid #ef4444; color: #b91c1c;"><strong>Reason:</strong> ${updates.rejectionReason}</p>` : '';
+
+        const statusEmailHtml = `
+            <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
+                <h2 style="color: ${color};">Status Update: ${updates.status}</h2>
+                <p>Hi <strong>${complaint.student.name}</strong>,</p>
+                <p>Your campus complaint <em>"${complaint.title}"</em> has been updated!</p>
+                <div style="font-size: 18px; margin: 20px 0;">New Status: <span style="font-weight: bold; color: ${color};">${updates.status}</span></div>
+                ${notesHtml}
+                ${rejectionHtml}
+                <br/>
+                <p>Check the live progress from your UniIssueHub dashboard.</p>
+                <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.</p>
+            </div>
+        `;
+
+        try {
+            await sendEmail({
+                email: complaint.student.email,
+                subject: `Complaint Update: ${updates.status} - ${complaint.title}`,
+                html: statusEmailHtml
+            });
+        } catch (error) {
+            logger.error(`Failed to send status email to ${complaint.student.email}: ${error.message}`);
+        }
     }
 
     if (updates.assignedTo && updates.assignedTo !== String(oldAssignedTo)) {

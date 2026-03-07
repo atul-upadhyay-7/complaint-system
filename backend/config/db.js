@@ -3,27 +3,17 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 const connectDB = async () => {
   try {
-    let uri = process.env.MONGO_URI;
-
-    if (!uri || uri.includes('127.0.0.1') || uri.includes('localhost')) {
-      console.log('🔄 Local MongoDB not found, starting In-Memory MongoDB Server...');
-      const mongoServer = await MongoMemoryServer.create();
-      uri = mongoServer.getUri();
-
-      // Auto-run seeder if we are using memory server
-      process.env.RUN_SEED = 'true';
-    }
-
-    const conn = await mongoose.connect(uri);
+    const conn = await mongoose.connect(process.env.MONGO_URI);
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
 
-    if (process.env.RUN_SEED === 'true') {
-      try {
-        const seedDB = require('../seed');
-        await seedDB();
-      } catch (err) {
-        console.log('Seed file not found or failed to run:', err.message);
-      }
+    // Only run seed if there are no users at all (first-time setup)
+    const User = require('../models/User');
+    const userCount = await User.countDocuments();
+
+    if (userCount === 0 || process.env.RUN_SEED === 'true') {
+      console.log('🔄 Empty database detected. Running seed script...');
+      const seedDB = require('../seed');
+      await seedDB();
     }
   } catch (error) {
     console.error(`❌ MongoDB Connection Error: ${error.message}`);
