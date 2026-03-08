@@ -36,12 +36,8 @@
 
 ## 📺 Product Walkthrough
 
-<div align="center">
-  <a href="https://github.com/atul-upadhyay-7/complaint-system/raw/main/demo.mp4">
-    <img src="./assets/demo_thumbnail.png" width="100%" alt="UniIssueHub Demo Preview">
-  </a>
-  <p><i><b>Autoplay Preview:</b> Real-time AI Categorization & Technician Workflow. <a href="https://github.com/atul-upadhyay-7/complaint-system/raw/main/demo.mp4">Click here to watch the full 6-min walkthrough.</a></i></p>
-</div>
+[![Demo Video](./assets/demo_thumbnail.png)](https://www.youtube.com/watch?v=7yhNndCdo9s)
+
 
 ---
 
