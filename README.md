@@ -1,7 +1,5 @@
 <div align="center">
 
-![UniIssueHub Banner](./assets/banner.png)
-
 <br/>
 
 <img src="./assets/logo.png" width="120" alt="UniIssueHub Logo">
