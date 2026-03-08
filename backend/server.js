@@ -25,6 +25,7 @@ const LOCAL_ORIGINS = [
     'http://localhost:5174',
     'http://localhost:5175',
     'http://localhost:3000',
+    'https://complaint-system-wine.vercel.app'
 ];
 
 function getAllowedOrigins() {
