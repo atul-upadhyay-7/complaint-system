@@ -500,18 +500,6 @@ Experience the UI/UX design of UniIssueHub in stunning 4K resolution.
 
 ---
 
----
-
-## 📽️ Full Video Demonstration
-
-<div align="center">
-  <a href="https://youtu.be/7yhNndCdo9s">
-    <img src="https://img.youtube.com/vi/7yhNndCdo9s/hqdefault.jpg" width="100%" style="border-radius: 12px;" alt="Watch the video">
-  </a>
-  <p><i><b>Full Project Walkthrough:</b> AI Features, Role-based Access, and Deployment.</i></p>
-</div>
-
----
 
 ## ️ Future Roadmap
 
