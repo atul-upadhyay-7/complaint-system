@@ -254,13 +254,17 @@ Student types complaint
 | Technology | Role |
 |---|---|
 | Node.js 22 + Express.js | RESTful API server |
-| MongoDB + Mongoose | Document store + schema validation |
 | Socket.io | Real-time room-based broadcasting |
 | `natural` (NLP library) | Naive Bayes + TF-IDF + tokenization |
 | JWT + Bcrypt | Authentication + password hashing |
 | Nodemailer | Async email notifications |
 | Winston | Structured logging (file + console) |
 | Helmet + Express Rate Limiter | Security headers + brute-force protection |
+
+### Database
+| Technology | Role |
+|---|---|
+| MongoDB + Mongoose | Document store + schema validation |
 
 ---
 
