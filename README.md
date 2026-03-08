@@ -4,11 +4,11 @@
 
 <img src="./assets/logo.png" width="120" alt="UniIssueHub Logo">
 
-**🏆 Built for Elite Hack 1.0 by Team BYTEELITE**
-
 ### 🎓 UniIssueHub
 
 **AI-Powered Campus Complaint Management & Resolution Platform**
+
+**🏆 Built for Elite Hack 1.0 by Team BYTEELITE**
 
 [![Built for](https://img.shields.io/badge/Built_for-Elite_Hack_1.0-blueviolet?style=for-the-badge&logo=hackthebox&logoColor=white)](#)
 
