@@ -6,9 +6,7 @@
 
 **🏆 Built for Elite Hack 1.0 by Team BYTEELITE**
 
-# 🎓 UniIssueHub
-
-### AI-Powered Campus Complaint Management & Resolution Platform
+# 🎓 UniIssueHub <br/> <sub>AI-Powered Campus Complaint Management & Resolution Platform</sub>
 
 [![Built for](https://img.shields.io/badge/Built_for-Elite_Hack_1.0-blueviolet?style=for-the-badge&logo=hackthebox&logoColor=white)](#)
 
