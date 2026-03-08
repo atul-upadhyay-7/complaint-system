@@ -534,6 +534,6 @@ The core strategy is to pitch the platform directly to University Chancellors, D
 
 **Elite Hack 1.0**
 
-Made by **Team BYTEELITE** (Atul Upadhyay & Anshika)
+Made by **Team BYTEELITE** (Anshika & Atul Upadhyay)
 
 </div>
