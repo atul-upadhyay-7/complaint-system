@@ -8,7 +8,9 @@
 
 ### AI-Powered Campus Complaint Management & Resolution Platform
 
-[![Built for](https://img.shields.io/badge/Built_for-EliteCoder_Hackathon_2026-blueviolet?style=for-the-badge&logo=hackthebox&logoColor=white)](#)
+**🏆 Built for Elite Hack 1.0 by Team BYTEELITE**
+
+[![Built for](https://img.shields.io/badge/Built_for-Elite_Hack_1.0-blueviolet?style=for-the-badge&logo=hackthebox&logoColor=white)](#)
 
 [![React](https://img.shields.io/badge/React_18-61DAFB?style=flat-square&logo=react&logoColor=black)](#)
 [![Vite](https://img.shields.io/badge/Vite_5-646CFF?style=flat-square&logo=vite&logoColor=white)](#)
@@ -513,9 +515,8 @@ Experience the UI/UX design of UniIssueHub in stunning 4K resolution.
 
 ### Built with ❤️ for a smarter campus
 
-**EliteCoder Hackathon 2026**
+**Elite Hack 1.0**
 
-Made by **Atul Upadhyay** & **Anshika**
-
+Made by **Team BYTEELITE** (Atul Upadhyay & Anshika)
 
 </div>
