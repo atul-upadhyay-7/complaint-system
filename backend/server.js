@@ -31,7 +31,8 @@ function getAllowedOrigins() {
     const envOrigins = process.env.FRONTEND_URL
         ? process.env.FRONTEND_URL.split(',').map(u => u.trim()).filter(Boolean)
         : [];
-    return [...LOCAL_ORIGINS, ...envOrigins];
+    const vercelOrigin = process.env.VERCEL_FRONTEND_URL ? [process.env.VERCEL_FRONTEND_URL] : [];
+    return [...LOCAL_ORIGINS, ...envOrigins, ...vercelOrigin];
 }
 
 function corsOriginCheck(origin, callback) {
