@@ -120,9 +120,9 @@ export default function SubmitComplaint() {
     const s = aiSuggestion ? SENTIMENT_BADGE[aiSuggestion.sentiment?.sentiment] : null;
 
     return (
-        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
             <Sidebar />
-            <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
+            <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
                     <div className="mb-8 animate-slide-up">
                         <button onClick={() => navigate(-1)} className="group flex items-center gap-2 text-sm text-slate-500 dark:text-muted-foreground hover:text-slate-900 dark:hover:text-foreground transition-colors mb-6 w-fit h-8 px-3 -ml-3 rounded-lg hover:bg-slate-200 dark:hover:bg-secondary/50">

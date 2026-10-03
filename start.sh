@@ -1,8 +1,8 @@
 #!/bin/bash
-# 🚀 UniIssueHub — Rock-Solid Demo Launcher
+# 🚀 Uniissuehub — Rock-Solid Demo Launcher
 # Use this when Docker/Podman is unavailable on the local machine.
 
-echo "🔥 Launching UniIssueHub — Campus Intelligence Engine..."
+echo "🔥 Launching Uniissuehub — Campus Intelligence Engine..."
 
 # 1. Kill any existing instances to avoid port conflicts
 echo "🧹 Cleaning up previous instances..."
@@ -19,7 +19,7 @@ BACKEND_PID=$!
 
 # 4. Wait for it to initialize
 sleep 3
-if curl -s http://localhost:5000/api/health | grep -q 'UniIssuehub API is running'; then
+if curl -s http://localhost:5000/api/health | grep -q 'Uniissuehub API is running'; then
     echo "✅ [BACKEND] Success: AI Pipeline is online."
 else
     echo "❌ [BACKEND] Error: Failed to start backend within 3 seconds."

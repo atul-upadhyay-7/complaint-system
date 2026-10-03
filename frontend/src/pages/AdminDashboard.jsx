@@ -75,10 +75,10 @@ export default function AdminDashboard() {
     }, [notifications]);
 
     if (loading) return (
-        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 dark:bg-background relative transition-colors duration-300">
 
             <Sidebar />
-            <main className="flex-1 lg:ml-64 p-4 sm:p-6 md:p-8 pt-20 lg:pt-8 w-full z-10">
+            <main className="flex-1 lg:ml-[280px] p-4 sm:p-6 md:p-8 pt-20 lg:pt-8 w-full z-10">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                     {[1, 2, 3, 4].map(i => <SkeletonStatCard key={i} />)}
                 </div>
@@ -100,11 +100,11 @@ export default function AdminDashboard() {
     const avgDays = analytics?.avgResolutionTimeHours != null ? (Number(analytics.avgResolutionTimeHours) / 24).toFixed(1) : 'N/A';
 
     return (
-        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
 
 
             <Sidebar />
-            <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
+            <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
                     {/* Topbar */}
                     <div className="hidden lg:flex items-center justify-end px-8 py-5">

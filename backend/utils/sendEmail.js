@@ -28,7 +28,7 @@ const sendEmail = async (options) => {
     }
 
     const message = {
-        from: `${process.env.FROM_NAME || 'UniIssueHub Support'} <${process.env.FROM_EMAIL || 'noreply@campusdesk.edu'}>`,
+        from: `${process.env.FROM_NAME || 'Uniissuehub Support'} <${process.env.FROM_EMAIL || 'noreply@campusdesk.edu'}>`,
         to: options.email,
         subject: options.subject,
         html: options.html,

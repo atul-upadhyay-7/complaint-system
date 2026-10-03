@@ -28,11 +28,11 @@ export default function MyComplaints() {
     const filtered = filter === 'All' ? complaints : complaints.filter(c => c.status === filter);
 
     return (
-        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-blue-500/30 transition-colors duration-300">
 
 
             <Sidebar />
-            <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
+            <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-5xl mx-auto">
                     {/* Header */}
                     <div className="mb-8 animate-slide-up">

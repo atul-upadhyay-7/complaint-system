@@ -54,7 +54,7 @@ exports.forgotPassword = asyncHandler(async (req, res) => {
         <div style="font-family: Arial, sans-serif; padding: 20px; color: #333; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #2563eb;">Password Reset Request</h2>
             <p>Hi there,</p>
-            <p>You are receiving this email because you (or someone else) have requested the reset of a password for your UniIssueHub account.</p>
+            <p>You are receiving this email because you (or someone else) have requested the reset of a password for your Uniissuehub account.</p>
             <div style="text-align: center; margin: 30px 0;">
                 <a href="${resetUrl}" style="background-color: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Reset Password</a>
             </div>

@@ -1,381 +1,49 @@
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import {
-    Sparkles,
-    Zap,
-    Shield,
-    Users,
-    ArrowRight,
-    MessageSquare,
-    BarChart3,
-    Cpu,
-    Bell,
-    Globe,
-    Lock,
-    Wifi,
-    BrainCircuit,
-    ChartBar
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Check, GraduationCap, MapPin, MessageSquare, ShieldCheck, Clock, Wrench, ArrowRight } from 'lucide-react';
+
+const steps = [
+    { icon: MessageSquare, title: 'Tell us what happened', text: 'Add a description, location and photo. Local AI suggests a category and priority.' },
+    { icon: Wrench, title: 'The right team takes over', text: 'Wardens and administrators assign the issue to a technician and update its status.' },
+    { icon: Check, title: 'Stay in the loop', text: 'Follow the resolution timeline and receive notifications when something changes.' },
+];
 
 export default function LandingPage() {
-    const navigate = useNavigate();
-    const { user } = useAuth();
-    const [scrolled, setScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1
-        }
-    };
-
-    const features = [
-        { icon: Cpu, title: "8-Pillar AI Engine", desc: "Local NLP engine handling categorization, priority, sentiment, and technical protocols.", color: "text-blue-500", bg: "bg-blue-500/10" },
-        { icon: Zap, title: "Real-Time Sync", desc: "Powered by Socket.io for instant notifications and live AI prediction panels.", color: "text-amber-500", bg: "bg-amber-500/10" },
-        { icon: Shield, title: "Secure Guard", desc: "Enterprise-grade JWT auth, RBAC, and rate limiting for maximum security.", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-        { icon: MessageSquare, title: "Smart Feedback", desc: "AI Sentiment analysis ensures urgent needs are heard and handled with care.", color: "text-rose-500", bg: "bg-rose-500/10" },
-        { icon: BarChart3, title: "Admin Analytics", desc: "Comprehensive data visualization of campus trends and staff performance.", color: "text-violet-500", bg: "bg-violet-500/10" },
-        { icon: Globe, title: "Zero API Cost", desc: "All AI features run 100% locally on your infrastructure. No external dependencies.", color: "text-sky-500", bg: "bg-sky-500/10" },
-    ];
-
     return (
-        <div className="min-h-screen bg-[#020617] text-slate-100 overflow-x-hidden selection:bg-blue-500/30">
-            {/* Background Effects */}
-            <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[120px] rounded-full animate-pulse" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
-                <div className="absolute top-[20%] right-[10%] w-[15%] h-[15%] bg-amber-500/10 blur-[100px] rounded-full" />
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
-            </div>
-
-            {/* Sticky Nav */}
-            <nav className={cn(
-                "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-300",
-                scrolled
-                    ? "bg-[#020617]/80 backdrop-blur-xl border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
-                    : "bg-transparent border-b border-white/5"
-            )}>
-                <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <div className="w-10 h-10 rounded-xl grad-blue flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.5)]">
-                            <Sparkles className="w-6 h-6 text-white" />
-                        </div>
-                        <span className="text-xl font-bold tracking-tight text-white uppercase italic">UniIssueHub</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        {user ? (
-                            <>
-                                {/* Notification Bell for logged-in users */}
-                                <button
-                                    onClick={() => navigate('/notifications')}
-                                    className="relative w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center transition-all"
-                                >
-                                    <Bell className="w-4 h-4 text-slate-300" />
-                                    <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-blue-500 text-[9px] font-black text-white flex items-center justify-center">!</span>
-                                </button>
-                                <Button variant="ghost" className="text-white hover:bg-white/10" onClick={() => navigate('/dashboard')}>
-                                    Go to Dashboard
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <Button variant="ghost" className="text-white hover:bg-white/10 hidden md:flex" onClick={() => navigate('/login')}>
-                                    Sign In
-                                </Button>
-                                <Button className="grad-blue text-white border-none shadow-lg shadow-blue-500/20" onClick={() => navigate('/register')}>
-                                    Create Account
-                                </Button>
-                            </>
-                        )}
-                    </div>
-                </div>
+        <div className="landing">
+            <nav className="landing-nav" aria-label="Main navigation">
+                <Link className="brand" to="/" aria-label="Uniissuehub home"><GraduationCap size={26} />Uniissuehub</Link>
+                <div className="landing-nav-actions"><a href="#how-it-works">How it works</a><Link to="/login">Sign in <ArrowUpRight size={16} /></Link></div>
             </nav>
-
-            {/* Hero Section - added pt to offset fixed navbar */}
-            <header className="relative z-10 pt-32 pb-16 px-6 max-w-7xl mx-auto text-center">
-
-
-                {/* Line 1: slides in from the LEFT */}
-                <motion.div
-                    initial={{ x: -80, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
-                    className="text-5xl md:text-7xl font-black mb-3 leading-tight"
-                >
-                    Campus Intelligence.
-                </motion.div>
-                {/* Line 2: slides in from the RIGHT */}
-                <motion.div
-                    initial={{ x: 80, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.35, duration: 0.7, ease: 'easeOut' }}
-                    className="text-5xl md:text-7xl font-black mb-6 leading-tight"
-                >
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-violet-400 to-amber-400">
-                        Human Resolution.
-                    </span>
-                </motion.div>
-
-                <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
-                >
-                    UniIssueHub revolutionizes campus life with a custom local AI engine.
-                    From instant categorization to AI-driven repair protocols, we digitize every step of the resolution journey.
-                </motion.p>
-
-                <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
-                >
-                    <Button
-                        size="lg"
-                        className="h-14 px-8 text-lg font-bold grad-blue min-w-[200px]"
-                        onClick={() => {
-                            if (user) navigate('/dashboard');
-                            else document.getElementById('roles')?.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                    >
-                        Get Started <ArrowRight className="ml-2 w-5 h-5" />
-                    </Button>
-                    <Button size="lg" variant="outline" className="h-14 px-8 text-lg font-bold border-white/10 hover:bg-white/5 bg-transparent text-white" onClick={() => navigate('/login')}>
-                        Admin Demo
-                    </Button>
-                </motion.div>
-
-                {/* Floating Feature Pills */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.6 }}
-                    className="flex flex-wrap items-center justify-center gap-3 mt-10"
-                >
-                    {[
-                        { icon: Lock, label: 'End-to-End Secure', color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
-                        { icon: Zap, label: 'Real-time Notifications', color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
-                        { icon: BrainCircuit, label: 'No Cloud — 100% Local AI', color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
-                        { icon: ChartBar, label: 'Smart Analytics', color: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
-                    ].map((pill, i) => (
-                        <motion.span
-                            key={pill.label}
-                            initial={{ opacity: 0, scale: 0.85 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.65 + i * 0.08 }}
-                            className={cn(
-                                "inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border backdrop-blur-sm",
-                                pill.bg, pill.border, pill.color
-                            )}
-                        >
-                            <pill.icon className="w-3.5 h-3.5" />
-                            {pill.label}
-                        </motion.span>
-                    ))}
-                </motion.div>
-
-                {/* Dashboard Preview */}
-                <motion.div
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.6, type: 'spring', stiffness: 50 }}
-                    className="mt-20 relative px-4"
-                >
-                    <div className="max-w-5xl mx-auto rounded-3xl p-1 bg-gradient-to-tr from-blue-500/50 via-violet-500/50 to-amber-500/50 shadow-[0_0_80px_rgba(59,130,246,0.15)]">
-                        <div className="bg-[#0f172a] rounded-[22px] overflow-hidden border border-white/5 aspect-video flex items-center justify-center relative group">
-                            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
-                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] bg-slate-900/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/5">Dashboard Preview</span>
-                            </div>
-                            <img
-                                src="/dashboard_mockup_landing.png"
-                                className="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                                alt=""
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent" />
-                            <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center">
-                                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-xl flex items-center justify-center mb-4 border border-white/20">
-                                    <Zap className="w-8 h-8 text-amber-500" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-2">Experience Zero Latency</h3>
-                                <p className="text-slate-400 text-sm max-w-sm">Built on 8-Pillar Local AI and Real-time WebSockets.</p>
-                            </div>
+            <main>
+                <section className="landing-hero">
+                    <div className="hero-copy">
+                        <p className="eyebrow"><span /> A better way to care for your campus</p>
+                        <h1>Small issues.<br /><span>Real attention.</span></h1>
+                        <p className="hero-description">The broken tap. The unreliable Wi-Fi. The light that never got fixed. Give every campus issue a place to be heard, tracked and resolved.</p>
+                        <div className="hero-actions"><Link className="primary-link" to="/register">Report an issue <ArrowRight size={18} /></Link><Link className="secondary-link" to="/login">Open your dashboard <ArrowUpRight size={18} /></Link></div>
+                        <p className="hero-note"><ShieldCheck size={16} /> One place for students, wardens and campus teams.</p>
+                    </div>
+                    <div className="issue-preview" aria-label="Illustrative complaint progress, not live data">
+                        <div className="preview-header"><span>THE CAMPUS ISSUE BOARD</span><span className="preview-example">Example</span></div>
+                        <div className="preview-ticket"><span className="ticket-category"><Wrench size={16} /> Maintenance</span><span className="ticket-status">In progress</span></div>
+                        <h2>A tap that won't stop leaking.</h2>
+                        <p className="preview-location"><MapPin size={15} /> Block A · Second floor washroom</p>
+                        <div className="preview-timeline">
+                            <div><span className="step-dot done"><Check size={13} /></span><section><strong>Issue reported</strong><p>Description and location received</p></section></div>
+                            <div><span className="step-dot done"><Check size={13} /></span><section><strong>Assigned to maintenance</strong><p>The right team has your report</p></section></div>
+                            <div><span className="step-dot current"><Clock size={13} /></span><section><strong>Repair in progress</strong><p>You can follow every update here</p></section></div>
                         </div>
+                        <div className="preview-footer"><span className="team-avatar">M</span><div><strong>Campus maintenance</strong><span>Working on this issue</span></div><MessageSquare size={20} /></div>
                     </div>
-                </motion.div>
-            </header>
-
-            {/* Features Section */}
-            <section id="features" className="relative z-10 py-32 px-6 max-w-7xl mx-auto">
-                <motion.div
-                    className="text-center mb-20"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h2 className="text-3xl md:text-5xl font-black mb-4">Elite AI Ecosystem</h2>
-                    <p className="text-slate-500 uppercase tracking-widest font-bold text-sm">Powered by locally-trained NLP models</p>
-                </motion.div>
-
-                <div className="grid md:grid-cols-3 gap-6">
-                    {features.map((f, i) => (
-                        <motion.div
-                            key={f.title}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1, duration: 0.5 }}
-                            whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                            className="relative p-8 rounded-3xl bg-white/[0.04] border border-white/10 hover:border-opacity-100 transition-all group overflow-hidden"
-                            style={{ '--hover-color': f.color }}
-                        >
-                            {/* Glow effect on hover */}
-                            <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl blur-xl", f.bg)} style={{ transform: 'scale(0.8)' }} />
-                            {/* Card number badge */}
-                            <span className="absolute top-4 right-5 text-[10px] font-black text-white/10 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
-                            <div className={cn("relative z-10 w-12 h-12 rounded-xl mb-6 flex items-center justify-center shadow-lg", f.bg)}>
-                                <f.icon className={cn("w-6 h-6", f.color)} />
-                            </div>
-                            <h4 className={cn("relative z-10 text-xl font-bold mb-3 text-white transition-colors duration-300 group-hover:text-white")}>{f.title}</h4>
-                            <p className="relative z-10 text-slate-400 text-sm leading-relaxed">{f.desc}</p>
-                            {/* Bottom accent line */}
-                            <div className={cn("absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-500 rounded-full", f.color.replace('text-', 'bg-'))} />
-                        </motion.div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Roles Section */}
-            <section id="roles" className="relative z-10 py-24 px-6 bg-white/[0.02] border-y border-white/5">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
-                    <motion.div
-                        className="flex-1"
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2 className="text-4xl font-black mb-8 leading-tight">A Central Hub for <br /><span className="text-blue-400">All Stakeholders.</span></h2>
-                        <div className="space-y-4">
-                            {[
-                                { role: "Students", feature: "Live AI Prediction Panel", icon: Users, color: "text-blue-400", bg: "bg-blue-500/20", border: "border-blue-500/30" },
-                                { role: "Staff", feature: "AI Repair Protocols", icon: Zap, color: "text-amber-400", bg: "bg-amber-500/20", border: "border-amber-500/30" },
-                                { role: "Admins", feature: "Global Sentiment Insights", icon: BarChart3, color: "text-violet-400", bg: "bg-violet-500/20", border: "border-violet-500/30" }
-                            ].map((r, i) => (
-                                <motion.div
-                                    key={r.role}
-                                    initial={{ opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.15, duration: 0.5 }}
-                                    whileHover={{ x: 6, transition: { duration: 0.2 } }}
-                                    className={cn("flex items-center gap-4 p-4 rounded-2xl bg-white/5 border transition-all cursor-default", r.border)}
-                                >
-                                    <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0", r.bg)}>
-                                        <r.icon className={cn("w-5 h-5", r.color)} />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{r.role}</p>
-                                        <p className={cn("text-sm font-bold leading-none mt-1", r.color)}>{r.feature}</p>
-                                    </div>
-                                    <div className="ml-auto">
-                                        <ArrowRight className={cn("w-4 h-4 opacity-40", r.color)} />
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Right: Stats grid replacing the dull boxes */}
-                    <motion.div
-                        className="flex-1 grid grid-cols-2 gap-4"
-                        initial={{ opacity: 0, x: 40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                    >
-                        {[
-                            { icon: Cpu, label: "AI Engine", stat: "8-Pillar", color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20", glow: "shadow-blue-500/10" },
-                            { icon: Globe, label: "API Cost", stat: "Zero", color: "text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20", glow: "shadow-amber-500/10" },
-                            { icon: Sparkles, label: "AI Features", stat: "100% Local", color: "text-violet-400", bg: "bg-violet-500/10", border: "border-violet-500/20", glow: "shadow-violet-500/10" },
-                            { icon: Shield, label: "Security", stat: "JWT + RBAC", color: "text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20", glow: "shadow-emerald-500/10" },
-                        ].map((item, i) => (
-                            <motion.div
-                                key={item.label}
-                                initial={{ opacity: 0, scale: 0.85 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
-                                whileHover={{ scale: 1.04, transition: { duration: 0.2 } }}
-                                className={cn("aspect-square rounded-3xl border flex flex-col items-center justify-center gap-3 shadow-xl cursor-default", item.bg, item.border, item.glow)}
-                            >
-                                <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center", item.bg)}>
-                                    <item.icon className={cn("w-6 h-6", item.color)} />
-                                </div>
-                                <p className={cn("text-lg font-black", item.color)}>{item.stat}</p>
-                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{item.label}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Call to Action Section */}
-            <section className="relative z-10 py-24 px-6 text-center">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    className="max-w-4xl mx-auto p-12 rounded-[40px] bg-gradient-to-br from-blue-600/20 to-violet-600/20 border border-white/10 relative overflow-hidden"
-                >
-                    <div className="absolute top-0 right-0 p-8 opacity-10">
-                        <Sparkles className="w-32 h-32" />
-                    </div>
-                    <h2 className="text-4xl font-black mb-4">Ready to Resolve?</h2>
-                    <p className="text-slate-400 mb-8 max-w-lg mx-auto">Join UniIssueHub today and experience the future of campus governance powered by local AI.</p>
-                    <Button size="lg" className="h-14 px-10 text-lg font-bold grad-blue min-w-[220px] shadow-[0_0_30px_rgba(59,130,246,0.4)]" onClick={() => navigate('/register')}>
-                        Create Free Account
-                    </Button>
-                </motion.div>
-            </section>
-
-            {/* Footer */}
-            <footer className="relative z-10 py-16 px-6 text-center border-t border-white/5">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="flex items-center gap-2">
-                        <Sparkles className="w-6 h-6 text-blue-500" />
-                        <span className="text-lg font-black tracking-tighter uppercase italic">UniIssueHub</span>
-                    </div>
-                    <p className="text-slate-500 text-xs">© 2026 EliteCoder Hackathon Entry. All Rights Reserved.</p>
-                    <div className="flex gap-6">
-                        <a href="#" className="text-slate-400 hover:text-white transition-colors"><Zap className="w-5 h-5" /></a>
-                        <a href="#" className="text-slate-400 hover:text-white transition-colors"><Globe className="w-5 h-5" /></a>
-                    </div>
-                </div>
-            </footer>
+                </section>
+                <div className="landing-divider"><span>Less chasing updates.</span><span>More getting things fixed.</span><span>A campus that listens.</span></div>
+                <section className="how-section" id="how-it-works">
+                    <div className="section-heading"><p className="eyebrow">FROM REPORT TO RESOLUTION</p><h2>A clear next step.<br />At every step.</h2><p>No scattered messages or wondering who to ask. Your report stays in one place from the first description to the final update.</p></div>
+                    <div className="steps-grid">{steps.map(({icon: Icon, title, text}, i) => <article key={title}><span className="step-number">0{i + 1}</span><Icon size={25} /><h3>{title}</h3><p>{text}</p></article>)}</div>
+                </section>
+                <section className="landing-cta"><div><p className="eyebrow">YOUR CAMPUS. YOUR VOICE.</p><h2>Something needs fixing?</h2><p>Start with a report. Keep track of what happens next.</p></div><Link className="primary-link" to="/register">Create an account <ArrowRight size={18} /></Link></section>
+            </main>
+            <footer className="landing-footer"><Link className="brand" to="/"><GraduationCap size={22} />Uniissuehub</Link><p>Campus complaint management, with people at the centre.</p><Link to="/login">Sign in <ArrowUpRight size={15} /></Link></footer>
         </div>
     );
 }

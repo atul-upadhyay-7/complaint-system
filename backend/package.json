@@ -1,5 +1,5 @@
 {
-  "name": "complaint-backend",
+  "name": "uniissuehub-backend",
   "version": "1.0.0",
   "description": "College/Hostel Complaint Management System API",
   "main": "server.js",

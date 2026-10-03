@@ -60,8 +60,8 @@ const createComplaint = async (data, student) => {
             </div>
             <p>Our administrative team will review it shortly. You will receive an email as soon as a technician is assigned!</p>
             <br/>
-            <p>Check the live progress from your UniIssueHub dashboard.</p>
-            <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.</p>
+            <p>Check the live progress from your Uniissuehub dashboard.</p>
+            <p style="color: #64748b; font-size: 12px;">This is an automated notification from Uniissuehub.</p>
         </div>
     `;
 
@@ -127,8 +127,8 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
                     ${notesHtml}
                     ${rejectionHtml}
                     <br/>
-                    <p>Check the live progress from your UniIssueHub dashboard.</p>
-                    <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.</p>
+                    <p>Check the live progress from your Uniissuehub dashboard.</p>
+                    <p style="color: #64748b; font-size: 12px;">This is an automated notification from Uniissuehub.</p>
                 </div>
             `;
 
@@ -165,9 +165,9 @@ const updateComplaint = async (complaintId, updates, performedBy) => {
                     <div style="background-color: #f8fafc; padding: 15px; border-left: 4px solid #3b82f6; margin: 20px 0;">
                         <p style="margin: 0;"><strong>Estimated Arrival / Resolution Time:</strong> Within ${eta}</p>
                     </div>
-                    <p>You can check the live progress from your UniIssueHub dashboard.</p>
+                    <p>You can check the live progress from your Uniissuehub dashboard.</p>
                     <br/>
-                    <p style="color: #64748b; font-size: 12px;">This is an automated notification from UniIssueHub.<br/>Happy hacking!</p>
+                    <p style="color: #64748b; font-size: 12px;">This is an automated notification from Uniissuehub.<br/>Happy hacking!</p>
                 </div>
             `;
 

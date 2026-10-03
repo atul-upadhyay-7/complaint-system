@@ -40,7 +40,7 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
 
             <CardContent className="p-5 sm:p-6">
                 {/* Header */}
-                <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-foreground text-sm sm:text-base leading-snug truncate group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors">
                             {complaint.title}

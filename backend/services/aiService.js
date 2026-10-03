@@ -1,6 +1,6 @@
 /**
  * ─────────────────────────────────────────────────────────
- *  UniIssueHub — Local AI Engine (No API required)
+ *  Uniissuehub — Local AI Engine (No API required)
  *  Uses the `natural` NLP library for:
  *    1. Naive Bayes classifier → auto-categorize complaint
  *    2. Weighted keyword scoring → auto-prioritize (High/Medium/Low)

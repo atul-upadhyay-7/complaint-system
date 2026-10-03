@@ -67,11 +67,11 @@ export default function AdminComplaints() {
     });
 
     return (
-        <div className="flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-purple-500/30 transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 dark:bg-background relative selection:bg-purple-500/30 transition-colors duration-300">
 
 
             <Sidebar />
-            <main className="flex-1 lg:ml-64 min-w-0 pt-16 lg:pt-0 relative z-10">
+            <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto z-10">
                     <div className="mb-6 animate-slide-up">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 dark:bg-secondary/50 border border-slate-300/50 dark:border-border/50 text-xs font-medium text-slate-600 dark:text-muted-foreground mb-3 animate-fade-in shadow-sm">

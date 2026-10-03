@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import {
@@ -46,23 +46,47 @@ export default function Sidebar() {
     const navigate = useNavigate();
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    const location = useLocation();
+    const menuButton = useRef(null);
+    const closeButton = useRef(null);
+    useEffect(() => { setMobileOpen(false); }, [location.pathname]);
+    useEffect(() => {
+        if (!mobileOpen) return;
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        closeButton.current?.focus();
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') setMobileOpen(false);
+            if (event.key === 'Tab') {
+                const controls = document.querySelector('.mobile-drawer')?.querySelectorAll('a, button');
+                if (!controls?.length) return;
+                const first = controls[0], last = controls[controls.length - 1];
+                if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+                else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+            }
+        };
+        document.addEventListener('keydown', onKeyDown);
+        return () => { document.body.style.overflow = previousOverflow; document.removeEventListener('keydown', onKeyDown); menuButton.current?.focus(); };
+    }, [mobileOpen]);
+
     const links = linksByRole[user?.role] || linksByRole.student;
     const accent = accentByRole[user?.role] || accentByRole.student;
     const initials = user?.name?.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) || 'U';
     const handleLogout = () => { logout(); navigate('/login'); };
 
     const SidebarContent = ({ onLinkClick }) => (
-        <div className="flex flex-col h-full bg-slate-50 dark:bg-[#060d1a]">
+        <div className="sidebar-panel flex flex-col h-full bg-slate-50 dark:bg-[#060d1a]">
             {/* Logo + controls */}
             <div className="flex items-center justify-between px-5 py-5 pt-7">
                 <div className="flex items-center gap-3">
                     <div className="w-9 h-9 rounded-xl bg-blue-500/15 flex items-center justify-center glow-blue-sm">
                         <GraduationCap className="w-5 h-5 text-blue-400" />
                     </div>
-                    <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></h1>
+                    <h1 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Uniissuehub</h1>
                 </div>
                 <div className="flex items-center gap-1">
                     <NotificationBell />
+                    {onLinkClick && <button ref={closeButton} onClick={onLinkClick} className="mobile-menu-close p-2" aria-label="Close navigation"><X className="w-5 h-5" /></button>}
                     <button
                         onClick={toggleTheme}
                         className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-slate-200 dark:hover:bg-white/5 transition-colors"
@@ -137,13 +161,13 @@ export default function Sidebar() {
                     <div className="w-8 h-8 rounded-lg bg-blue-500/15 flex items-center justify-center">
                         <GraduationCap className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                     </div>
-                    <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">UniIssue<span className="text-blue-500 dark:text-blue-400">Hub</span></span>
+                    <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">Uniissuehub</span>
                 </div>
                 <div className="flex items-center gap-1">
-                    <button onClick={toggleTheme} className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
+                    <button aria-label="Toggle colour theme" onClick={toggleTheme} className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
                         {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-500" />}
                     </button>
-                    <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 -mr-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
+                    <button ref={menuButton} aria-label="Open navigation" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => setMobileOpen(!mobileOpen)} className="p-2 -mr-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/5 transition-colors">
                         {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </button>
                 </div>
@@ -152,7 +176,7 @@ export default function Sidebar() {
             {mobileOpen && (
                 <div className="lg:hidden fixed inset-0 z-40">
                     <div className="absolute inset-0 bg-slate-900/20 dark:bg-[#060d1a]/80 backdrop-blur-sm animate-fade-in" onClick={() => setMobileOpen(false)} />
-                    <aside className="absolute left-0 top-0 h-full w-[280px] bg-slate-50 dark:bg-[#060d1a] border-r border-slate-200 dark:border-blue-900/30 flex flex-col shadow-2xl animate-fade-in">
+                    <aside id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Campus navigation" className="mobile-drawer absolute left-0 top-0 h-full bg-slate-50 dark:bg-[#060d1a] border-r border-slate-200 dark:border-blue-900/30 flex flex-col shadow-2xl animate-fade-in">
                         <SidebarContent onLinkClick={() => setMobileOpen(false)} />
                     </aside>
                 </div>

@@ -2,9 +2,9 @@
 
 <br/>
 
-<img src="./assets/logo.png" width="120" alt="UniIssueHub Logo">
+<img src="./frontend/public/uniissuehub.svg" width="80" alt="Uniissuehub Logo">
 
-### 🎓 UniIssueHub
+### 🎓 Uniissuehub
 
 **AI-Powered Campus Complaint Management & Resolution Platform**
 
@@ -22,13 +22,13 @@
 
 <br/>
 
-> **UniIssueHub** completely digitizes the campus complaint pipeline — from student submission to technician resolution — powered by a **custom-built NLP/AI engine** that auto-categorizes, auto-prioritizes, detects duplicates, and analyzes sentiment in **real-time**, all without any paid API.
+> **Uniissuehub** completely digitizes the campus complaint pipeline — from student submission to technician resolution — powered by a **custom-built NLP/AI engine** that auto-categorizes, auto-prioritizes, detects duplicates, and analyzes sentiment in **real-time**, all without any paid API.
 
 <br/>
 
 | 🧠 8 AI Pillars | ⚡ Real-Time WebSockets | 🎨 Premium Dark/Light UI | 🔐 4-Role RBAC |
 |:---:|:---:|:---:|:---:|
-| Naive Bayes + TF-IDF + Keyword Scoring | Socket.io per-user rooms | Glassmorphism + animations | Student · Admin · Warden · Technician |
+| Naive Bayes + TF-IDF + Keyword Scoring | Socket.io per-user rooms | Responsive, restrained interface | Student · Admin · Warden · Technician |
 
 </div>
 
@@ -47,10 +47,10 @@
 ### The Problem: "The Administrative Black Hole"
 In most modern campuses, student complaints are a point of friction. Students submit issues via fragmented channels (WhatsApp, paper, or basic forms) and then wait in **silence**. Without transparency, students feel unheard, and without automation, administrators are overwhelmed by manual categorization, duplicate reports, and a lack of situational awareness.
 
-### The Solution: UniIssueHub
-**UniIssueHub** was engineered to Bridge the gap between campus administration and students. Our purpose is to turn **raw frustration into structured data and swift action**. By leveraging a **Local AI Ecosystem**, we've built a system that doesn't just "track" issues—it **understands** them.
+### The Solution: Uniissuehub
+**Uniissuehub** was engineered to Bridge the gap between campus administration and students. Our purpose is to turn **raw frustration into structured data and swift action**. By leveraging a **Local AI Ecosystem**, we've built a system that doesn't just "track" issues—it **understands** them.
 
-| Feature | Yesterday (Legacy Manual) | Today (UniIssueHub AI) |
+| Feature | Yesterday (Legacy Manual) | Today (Uniissuehub AI) |
 |---|---|---|
 | **Categorization** | Manual sorting by busy admins | **Instant AI Auto-Tagging** (Bayes) |
 | **Prioritization** | First-come, first-served (or squeakiest wheel) | **Urgency-First weighted AI scoring** |
@@ -81,7 +81,7 @@ This project is engineered for **High Availability** and **Cloud Portability**. 
 
 ### 🏗️ Architecture Overview
 
-UniIssueHub follows a modern **3-Tier Architecture**:
+Uniissuehub follows a modern **3-Tier Architecture**:
 1. **Frontend**: React (Vite) Single Page Application.
 2. **Backend**: Node.js/Express API with Socket.io for real-time events.
 3. **Database**: MongoDB (Local for Dev / Atlas for Prod).
@@ -211,16 +211,14 @@ Student types complaint
 - Bell icon with live unread count badge
 - Mark-all-read functionality
 
-### 🎨 Premium UI/UX
-- **Futuristic Landing Page**: High-conversion entry point with 3D-style animations and feature highlights
-- **Command Palette (Ctrl+K)**: Direct-access navigation and AI command tool for power users
-- **Page Transitions**: Fluid `framer-motion` transitions across every route for a seamless experience
-- **Glassmorphism** design system with CSS custom properties
-- **Dark ↔ Light** theme toggle (persisted to localStorage)
-- Animated floating particles on login page
-- Color-coded feature cards, gradient headings, micro-animations
-- **EliteCoder Hackathon** badge with purple glow
-- Responsive: mobile, tablet, and desktop layouts
+### UI and accessibility
+- A responsive campus issue board with warm neutral surfaces, green accents and clear typography.
+- Mobile navigation with close button, Escape dismissal, focus containment and scroll locking.
+- Consistent 280px desktop sidebar clearance across role workspaces.
+- Phone-safe forms and dialogs; tablet and desktop layouts.
+- Light and dark themes, persisted to localStorage.
+- Reduced-motion support and visible keyboard focus.
+- Command palette (Ctrl+K) and existing role-based routes remain available.
 
 ### 📧 Async Email Notifications
 - **Fire-and-forget** pattern via Nodemailer
@@ -376,8 +374,8 @@ EliteCoderHackathon/
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/atul-upadhyay-7/EliteCoderHackathon.git
-cd EliteCoderHackathon
+git clone https://github.com/atul-upadhyay-7/complaint-system.git
+cd complaint-system
 ```
 
 ### 2. Backend Setup
@@ -478,15 +476,15 @@ Click the role buttons on the login page for one-click fill:
 
 | Category | Link |
 |---|---|
-| **GitHub Repository** | [💻 Source Code (GitHub)](https://github.com/atul-upadhyay-7/EliteCoderHackathon) |
+| **GitHub Repository** | [💻 Source Code (GitHub)](https://github.com/atul-upadhyay-7/complaint-system) |
 | **Frontend App** | [🚀 Live App (Vercel)](https://complaint-system-wine.vercel.app/) |
 | **Backend API** | [📡 API Server (Render)](https://complaint-system-bc1h.onrender.com/) |
 
 ---
 
-## 🖼️ High-Res 4K UI Prototypes
+## 🖼️ Historical UI Prototypes
 
-Experience the UI/UX design of UniIssueHub in stunning 4K resolution.
+These images show the previous design, not the current responsive UI. The application now uses the Uniissuehub name and the updated campus interface.
 
 <div align="center">
   <img src="./assets/prototype_landing.png" width="100%" alt="Landing Page Mockup">
@@ -506,7 +504,7 @@ Experience the UI/UX design of UniIssueHub in stunning 4K resolution.
 
 ## 💼 Business Model & Scaling
 
-UniIssueHub is designed as a **B2B SaaS (Software as a Service) platform** intended to be integrated into educational institutions and large corporate campuses. 
+Uniissuehub is designed as a **B2B SaaS (Software as a Service) platform** intended to be integrated into educational institutions and large corporate campuses.
 
 ### 🤝 Collaborating with Colleges
 The core strategy is to pitch the platform directly to University Chancellors, Dean of Students, or Facilities Management teams as a **cost-saving and student-satisfaction utility**.
@@ -537,3 +535,17 @@ The core strategy is to pitch the platform directly to University Chancellors, D
 Made by **Team BYTEELITE** (Anshika & Atul Upadhyay)
 
 </div>
+
+### Responsive UI checks
+
+The UI smoke checks use synthetic local fixtures, not production accounts or complaint writes. Build and serve the frontend first, then run:
+
+```sh
+cd frontend
+npm run build
+npm run preview
+# In another terminal, from frontend:
+node scripts/check-ui.cjs
+```
+
+Checks cover guest, student, admin, warden and technician routes in both themes at 320, 360, 390, 768, 1024 and 1440px. They check runtime errors, page overflow and mobile navigation dismissal. Screenshots go to `/tmp/uniissuehub-ui` by default. Set `UI_URL`, `UI_SCREENSHOT_DIR` and `CHROME_PATH` to use a different preview, output folder or Chrome installation. These are layout checks, not backend integration tests.

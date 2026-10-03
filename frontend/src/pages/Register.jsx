@@ -37,7 +37,7 @@ export default function Register() {
     const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
     return (
-        <div className="min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
+        <div className="auth-page min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
             {/* Left Hero Panel */}
             <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden"
                 style={{ background: isLight ? 'linear-gradient(135deg, #dbeafe 0%, #eff6ff 60%, #e0f2fe 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
@@ -58,7 +58,7 @@ export default function Register() {
                     <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
                         <GraduationCap className="w-6 h-6 text-blue-400" />
                     </div>
-                    <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>UniIssue<span className="text-blue-500">Hub</span></span>
+                    <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</span>
                 </div>
 
                 {/* Hero Text */}
@@ -80,14 +80,6 @@ export default function Register() {
                     </div>
                 </div>
 
-                {/* Bottom quote */}
-                <div className="relative z-10 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-                    <div className={`p-4 rounded-2xl border ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/30'}`}
-                        style={{ background: isLight ? undefined : 'rgba(59,130,246,0.05)' }}>
-                        <p className={`text-sm italic ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>"UniIssuehub transformed how we handle complaints. Issues that took weeks now get resolved in days."</p>
-                        <p className="text-blue-500 text-xs font-medium mt-2">— Hostel Warden, Block C</p>
-                    </div>
-                </div>
             </div>
 
             {/* Right Sign Up Panel */}
@@ -114,7 +106,7 @@ export default function Register() {
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
                             <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
-                        <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>UniIssue<span className="text-blue-500">Hub</span></h1>
+                        <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</h1>
                         <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Complaint Management Portal</p>
                     </div>
 
@@ -127,7 +119,7 @@ export default function Register() {
                                 </div>
                                 <CardTitle className={`text-2xl font-semibold tracking-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>Create Account</CardTitle>
                             </div>
-                            <CardDescription className={`text-base ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Join UniIssuehub — fill in your details below</CardDescription>
+                            <CardDescription className={`text-base ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Join Uniissuehub — fill in your details below</CardDescription>
                         </CardHeader>
                         <CardContent>
                             {/* Role selector */}

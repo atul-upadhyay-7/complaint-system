@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -8,84 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-
-// Animated counter hook
-function useCountUp(target, duration = 1800, start = false) {
-    const [count, setCount] = useState(0);
-    useEffect(() => {
-        if (!start) return;
-        let startTime = null;
-        const step = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / duration, 1);
-            // Ease-out cubic
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-    }, [start, target, duration]);
-    return count;
-}
-
-// Floating particle dot
-function Particle({ style }) {
-    return <div className="absolute rounded-full animate-float" style={style} />;
-}
-
-
-function StatCard({ value, suffix, label, icon: Icon, delay, animate, color, isLight }) {
-    const count = useCountUp(value, 1800, animate);
-    return (
-        <div
-            className="flex flex-col items-center justify-center p-4 rounded-2xl transition-all duration-500 animate-fade-in relative overflow-hidden group cursor-default"
-            style={{
-                animationDelay: `${delay}s`,
-                background: isLight
-                    ? `linear-gradient(135deg, white 60%, ${color}10)`
-                    : `linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))`,
-                border: isLight ? `1.5px solid ${color}35` : `1px solid ${color}30`,
-                backdropFilter: 'blur(12px)',
-                boxShadow: isLight
-                    ? `0 4px 20px ${color}18, 0 1px 4px rgba(0,0,0,0.06)`
-                    : `0 4px 20px ${color}12, inset 0 1px 0 rgba(255,255,255,0.05)`,
-            }}
-        >
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" style={{ background: `radial-gradient(circle at center, ${color}20, transparent 70%)` }} />
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center mb-2" style={{ background: `${color}20`, border: `1px solid ${color}40` }}>
-                <Icon className="w-4 h-4" style={{ color }} />
-            </div>
-            {/* Use plain color — gradient-text causes rectangle rendering bug in some browsers */}
-            <span className="text-3xl font-bold tabular-nums" style={{ color }}>
-                {count}{suffix}
-            </span>
-            <span className={`text-xs font-medium mt-1 text-center leading-tight ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{label}</span>
-        </div>
-    );
-}
-
-function LiveStats({ isLight }) {
-    const ref = useRef(null);
-    const [visible, setVisible] = useState(false);
-    useEffect(() => {
-        const t = setTimeout(() => setVisible(true), 300);
-        return () => clearTimeout(t);
-    }, []);
-
-    const stats = [
-        { value: 1240, suffix: '+', label: 'Resolved', icon: CheckCircle, delay: 0.3, color: '#10b981' },
-        { value: 98, suffix: '%', label: 'Success Rate', icon: TrendingUp, delay: 0.45, color: '#3b82f6' },
-        { value: 24, suffix: 'h', label: 'Avg Response', icon: Clock, delay: 0.6, color: '#f59e0b' },
-    ];
-
-    return (
-        <div ref={ref} className="mt-8 mb-6">
-            <div className="grid grid-cols-3 gap-3">
-                {stats.map(s => <StatCard key={s.label} {...s} isLight={isLight} animate={visible} />)}
-            </div>
-        </div>
-    );
-}
 
 const FEATURE_CARDS = [
     { icon: Zap, title: 'Real-time Updates', desc: 'Instant status push via WebSockets', color: '#f59e0b' },
@@ -130,18 +52,8 @@ export default function Login() {
         setForm(creds[role] || creds.student);
     };
 
-    // Particles array
-    const particles = [
-        { width: 6, height: 6, top: '12%', left: '8%', background: 'rgba(59,130,246,0.6)', animationDelay: '0s', animationDuration: '4s' },
-        { width: 4, height: 4, top: '22%', left: '78%', background: 'rgba(6,182,212,0.5)', animationDelay: '1s', animationDuration: '5s' },
-        { width: 8, height: 8, top: '55%', left: '15%', background: 'rgba(139,92,246,0.5)', animationDelay: '2s', animationDuration: '6s' },
-        { width: 5, height: 5, top: '75%', left: '70%', background: 'rgba(16,185,129,0.5)', animationDelay: '0.5s', animationDuration: '4.5s' },
-        { width: 3, height: 3, top: '40%', left: '90%', background: 'rgba(245,158,11,0.6)', animationDelay: '1.5s', animationDuration: '5.5s' },
-        { width: 7, height: 7, top: '88%', left: '30%', background: 'rgba(59,130,246,0.4)', animationDelay: '2.5s', animationDuration: '4s' },
-    ];
-
     return (
-        <div className="min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
+        <div className="auth-page min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
             {/* ── LEFT HERO PANEL ── */}
             <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e0eeff 0%, #f0f5ff 40%, #eef2ff 70%, #e8f5ff 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
 
@@ -155,22 +67,17 @@ export default function Login() {
                 {/* Grid pattern - more visible in light mode */}
                 <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(rgba(59,130,246,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
-                {/* Floating particles */}
-                {!isLight && particles.map((p, i) => (
-                    <Particle key={i} style={{ ...p, position: 'absolute', borderRadius: '50%', animationDuration: p.animationDuration, animationDelay: p.animationDelay }} />
-                ))}
-
                 {/* Logo */}
                 <div className="relative z-10 flex items-center justify-between animate-fade-in">
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.35)' }}>
                             <GraduationCap className="w-6 h-6 text-blue-400" />
                         </div>
-                        <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>UniIssue<span className="text-blue-500">Hub</span></span>
+                        <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</span>
                     </div>
                     {/* Hackathon badge */}
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style={isLight ? { background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: 'white', boxShadow: '0 2px 12px rgba(124,58,237,0.35)' } : { background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2))', border: '1px solid rgba(139,92,246,0.3)', color: '#a78bfa' }}>
-                        <Sparkles className="w-3 h-3" /> EliteCoder Hackathon
+                        <Sparkles className="w-3 h-3" /> Campus workspace
                     </div>
                 </div>
 
@@ -179,12 +86,12 @@ export default function Login() {
                     <div className="mb-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5" style={isLight ? { background: 'linear-gradient(135deg, #dcfce7, #d1fae5)', border: '1.5px solid #6ee7b7', color: '#065f46' } : { background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#34d399' }}>
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
-                            Live Platform · All Systems Operational
+                            A shared space for campus issues
                         </div>
                         <h1 className={`text-5xl font-bold tracking-tight mb-5 leading-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>
                             Resolve campus<br />
                             <span style={{ background: 'linear-gradient(135deg, #3b82f6, #06b6d4, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                                issues instantly.
+                                issues together.
                             </span>
                         </h1>
                         <p className={`text-base max-w-md leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
@@ -193,7 +100,7 @@ export default function Login() {
                     </div>
 
                     {/* Live Stats */}
-                    <LiveStats isLight={isLight} />
+
 
                     {/* Feature Cards Grid */}
                     <div className="grid grid-cols-2 gap-3">
@@ -245,7 +152,7 @@ export default function Login() {
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
                             <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
-                        <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>UniIssue<span className="text-blue-500">Hub</span></h1>
+                        <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</h1>
                         <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Complaint Management Portal</p>
                     </div>
 

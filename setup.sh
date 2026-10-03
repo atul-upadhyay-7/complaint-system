@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# --- UniIssueHub Auto-Setup Tool ---
+# --- Uniissuehub Auto-Setup Tool ---
 
 # Colors for pretty output
 GREEN='\033[0;32m'
@@ -9,7 +9,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-echo -e "${PURPLE}🎓 UniIssueHub — EliteCoder Hackathon Setup${NC}"
+echo -e "${PURPLE}🎓 Uniissuehub — EliteCoder Hackathon Setup${NC}"
 echo -e "${CYAN}------------------------------------------${NC}"
 
 # 1. Install root dependencies

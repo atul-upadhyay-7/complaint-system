@@ -41,7 +41,7 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="flex min-h-screen bg-slate-100 dark:bg-[#070710] text-slate-900 dark:text-[#f1f0ff] transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-100 dark:bg-[#070710] text-slate-900 dark:text-[#f1f0ff] transition-colors duration-300">
             <Sidebar />
             <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative">
 
@@ -53,14 +53,14 @@ export default function Dashboard() {
                     </button>
                 </div>
 
-                <div className="p-6 md:p-10 max-w-7xl mx-auto">
+                <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
                     {/* Greeting Section */}
-                    <div className="mb-14 animate-fade-in">
-                        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-slate-900 dark:text-white">
-                            Good Evening, <span className="text-indigo-600 dark:text-indigo-400">{user?.name?.split(' ')[0] || 'User'}</span> <span className="inline-block origin-bottom-right rotate-[-10deg]">👋</span>
+                    <div className="mb-8 animate-fade-in">
+                        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-slate-900 dark:text-white">
+                            Welcome back, <span className="text-indigo-600 dark:text-indigo-400">{user?.name?.split(' ')[0] || 'User'}</span>
                         </h1>
-                        <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base font-medium mb-8">
-                            Roll No: <span className="text-slate-800 dark:text-white">{user?.rollNumber || '2021CS042'}</span> <span className="mx-2 opacity-50 text-slate-400 dark:text-slate-500">•</span> Hostel: <span className="text-slate-800 dark:text-white">{user?.hostel || 'Block A'}</span>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base font-medium mb-4">
+                            Roll No: <span className="text-slate-800 dark:text-white">{user?.rollNumber || 'Not provided'}</span> <span className="mx-2 opacity-50 text-slate-400 dark:text-slate-500">•</span> Hostel: <span className="text-slate-800 dark:text-white">{user?.hostel || 'Not provided'}</span>
                         </p>
 
                         <Button asChild className="h-11 px-5 rounded-lg bg-indigo-100 dark:bg-indigo-600/20 hover:bg-indigo-200 dark:hover:bg-indigo-600/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 shadow-sm dark:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all">
@@ -77,14 +77,14 @@ export default function Dashboard() {
                             <Card className="bg-white dark:bg-[#121124] border-slate-200 dark:border-[#1e1e2d] shadow-sm overflow-hidden relative group">
                                 <div className="absolute right-0 bottom-0 w-40 h-40 bg-indigo-50 dark:bg-indigo-500/10 rounded-tl-full blur-2xl group-hover:bg-indigo-100 dark:group-hover:bg-indigo-500/15 transition-all" />
                                 <div className="absolute right-0 bottom-0 w-full h-full opacity-10 pattern-dots group-hover:opacity-20 transition-all pointer-events-none" />
-                                <CardContent className="p-7 relative z-10">
-                                    <div className="flex items-center gap-4 mb-8">
+                                <CardContent className="p-5 relative z-10">
+                                    <div className="flex items-center gap-4 mb-4">
                                         <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-500/15 flex items-center justify-center border border-indigo-200/50 dark:border-indigo-500/20">
                                             <Folder className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                                         </div>
                                         <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-200">Total</h3>
                                     </div>
-                                    <p className="text-5xl font-bold text-slate-900 dark:text-white tracking-tight">{stats.total}</p>
+                                    <p className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">{stats.total}</p>
                                 </CardContent>
                             </Card>
 
@@ -92,14 +92,14 @@ export default function Dashboard() {
                             <Card className="bg-white dark:bg-[#121124] border-slate-200 dark:border-[#1e1e2d] shadow-sm overflow-hidden relative group">
                                 <div className="absolute right-0 bottom-0 w-40 h-40 bg-orange-50 dark:bg-orange-500/10 rounded-tl-full blur-2xl group-hover:bg-orange-100 dark:group-hover:bg-orange-500/15 transition-all" />
                                 <div className="absolute right-0 bottom-0 w-full h-full opacity-10 pattern-dots group-hover:opacity-20 transition-all pointer-events-none" />
-                                <CardContent className="p-7 relative z-10">
-                                    <div className="flex items-center gap-4 mb-8">
+                                <CardContent className="p-5 relative z-10">
+                                    <div className="flex items-center gap-4 mb-4">
                                         <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-500/15 flex items-center justify-center border border-orange-200/50 dark:border-orange-500/20">
                                             <Clock className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                                         </div>
                                         <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-200">Pending</h3>
                                     </div>
-                                    <p className="text-5xl font-bold text-slate-900 dark:text-white tracking-tight">{stats.pending}</p>
+                                    <p className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">{stats.pending}</p>
                                 </CardContent>
                             </Card>
 
@@ -107,14 +107,14 @@ export default function Dashboard() {
                             <Card className="bg-white dark:bg-[#121124] border-slate-200 dark:border-[#1e1e2d] shadow-sm overflow-hidden relative group">
                                 <div className="absolute right-0 bottom-0 w-40 h-40 bg-blue-50 dark:bg-blue-500/10 rounded-tl-full blur-2xl group-hover:bg-blue-100 dark:group-hover:bg-blue-500/15 transition-all" />
                                 <div className="absolute right-0 bottom-0 w-full h-full opacity-10 pattern-dots group-hover:opacity-20 transition-all pointer-events-none" />
-                                <CardContent className="p-7 relative z-10">
-                                    <div className="flex items-center gap-4 mb-8">
+                                <CardContent className="p-5 relative z-10">
+                                    <div className="flex items-center gap-4 mb-4">
                                         <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/15 flex items-center justify-center border border-blue-200/50 dark:border-blue-500/20">
                                             <Loader className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                                         </div>
                                         <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-200">In Progress</h3>
                                     </div>
-                                    <p className="text-5xl font-bold text-slate-900 dark:text-white tracking-tight">{stats.inProgress}</p>
+                                    <p className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">{stats.inProgress}</p>
                                 </CardContent>
                             </Card>
                         </div>

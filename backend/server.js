@@ -91,7 +91,7 @@ app.use('/api/admin', apiLimiter);
 app.get('/api/health', (req, res) => {
     res.json({
         success: true,
-        message: 'UniIssuehub API is running 🚀',
+        message: 'Uniissuehub API is running 🚀',
         version: '2.1.0',
         timestamp: new Date().toISOString(),
         features: ['real-time-notifications', 'image-upload', 'analytics'],
@@ -111,7 +111,7 @@ connectDB();
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-    logger.info(`🚀 UniIssuehub API v2.1 running on http://localhost:${PORT}`);
+    logger.info(`🚀 Uniissuehub API v2.1 running on http://localhost:${PORT}`);
     logger.info(`📡 Socket.io real-time events enabled (user rooms supported)`);
     logger.info(`📸 Image upload support enabled (base64, 10MB limit)`);
 });

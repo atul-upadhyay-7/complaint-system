@@ -71,7 +71,7 @@ export default function WardenDashboard() {
     };
 
     return (
-        <div className="flex min-h-screen bg-slate-50 text-slate-900 dark:bg-[#070710] dark:text-[#f1f0ff] transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 text-slate-900 dark:bg-[#070710] dark:text-[#f1f0ff] transition-colors duration-300">
             <Sidebar />
             <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0">
                 {/* Topbar */}
