@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { motion, useAnimationControls } from 'framer-motion';
+import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
 const FEATURE_CARDS = [
     { icon: Zap, title: 'Real-time Updates', desc: 'Instant status push via WebSockets', color: '#f59e0b' },
@@ -25,6 +27,8 @@ export default function Login() {
     const navigate = useNavigate();
     const isLight = theme === 'light';
 
+    const shake = useAnimationControls();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -37,6 +41,7 @@ export default function Login() {
             else navigate('/dashboard');
         } catch (err) {
             toast.error(err.response?.data?.message || 'Invalid credentials');
+            shake.start({ x: [0, -9, 9, -6, 6, 0], transition: { duration: 0.35 } });
         } finally {
             setLoading(false);
         }
@@ -68,7 +73,7 @@ export default function Login() {
                 <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(rgba(48,154,92,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px), linear-gradient(90deg, rgba(48,154,92,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
                 {/* Logo */}
-                <div className="relative z-10 flex items-center justify-between animate-fade-in">
+                <motion.div className="relative z-10 flex items-center justify-between" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.35)' }}>
                             <GraduationCap className="w-6 h-6 text-blue-400" />
@@ -79,10 +84,10 @@ export default function Login() {
                     <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style={isLight ? { background: 'linear-gradient(135deg, #125335, #1d7447)', color: 'white', boxShadow: '0 2px 12px rgba(124,58,237,0.35)' } : { background: 'linear-gradient(135deg, rgba(29,116,71,0.2), rgba(48,154,92,0.2))', border: '1px solid rgba(29,116,71,0.3)', color: '#76c78c' }}>
                         <Sparkles className="w-3 h-3" /> Campus workspace
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Hero Text + Content */}
-                <div className="relative z-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                <motion.div className="relative z-10" variants={fadeUp} initial="hidden" animate="show" custom={0.2}>
                     <div className="mb-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5" style={isLight ? { background: 'linear-gradient(135deg, #dcfce7, #d1fae5)', border: '1.5px solid #6ee7b7', color: '#065f46' } : { background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#34d399' }}>
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
@@ -128,7 +133,7 @@ export default function Login() {
                     </div>
 
 
-                </div>
+                </motion.div>
             </div>
 
             {/* ── RIGHT LOGIN PANEL ── */}
@@ -148,22 +153,22 @@ export default function Login() {
 
                 <div className="w-full max-w-[420px] relative z-10">
                     {/* Mobile Brand */}
-                    <div className="text-center mb-8 lg:hidden animate-fade-in">
+                    <motion.div className="text-center mb-8 lg:hidden" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                             <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
                         <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</h1>
                         <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Complaint Management Portal</p>
-                    </div>
+                    </motion.div>
 
-                    <Card className={`animate-fade-in ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
+                    <MCard className={` ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)' }} variants={fadeIn} initial="hidden" animate="show" custom={0.1}>
                         <CardHeader className="pb-4 text-center lg:text-left">
                             <CardTitle className={`text-2xl font-semibold tracking-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>Sign In</CardTitle>
                             <CardDescription className={`text-base ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Enter your campus credentials to continue</CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                            <motion.form animate={shake} onSubmit={handleSubmit} className="space-y-4">
+                                <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.2}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Email Address</Label>
                                     <div className="relative group">
                                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
@@ -171,9 +176,9 @@ export default function Login() {
                                             className={`pl-10 h-12 transition-all focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 ${isLight ? 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400' : 'bg-white/5 border-white/10 text-white placeholder:text-slate-500'}`}
                                             value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
                                     </div>
-                                </div>
+                                </motion.div>
 
-                                <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                                <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.3}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Password</Label>
                                     <div className="relative group">
                                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
@@ -190,7 +195,7 @@ export default function Login() {
                                             Forgot your password?
                                         </Link>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 <Button type="submit"
                                     className="w-full h-12 mt-2 font-semibold text-base transition-all duration-300 animate-slide-up hover:-translate-y-0.5 text-white"
@@ -198,10 +203,10 @@ export default function Login() {
                                     disabled={loading}>
                                     {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Signing in...</> : 'Sign In →'}
                                 </Button>
-                            </form>
+                            </motion.form>
 
                             {/* Demo credentials */}
-                            <div className={`mt-6 p-4 rounded-xl border animate-slide-up ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/40'}`} style={{ background: isLight ? undefined : 'rgba(48,154,92,0.05)', animationDelay: '0.5s' }}>
+                            <motion.div className={`mt-6 p-4 rounded-xl border ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/40'}`} style={{ background: isLight ? undefined : 'rgba(48,154,92,0.05)' }} variants={fadeUp} initial="hidden" animate="show" custom={0.5}>
                                 <p className={`text-xs font-medium mb-3 text-center tracking-widest uppercase ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>Demo Accounts</p>
                                 <div className="grid grid-cols-2 gap-2">
                                     {[
@@ -210,13 +215,13 @@ export default function Login() {
                                         { role: 'technician', icon: Wrench, label: 'Technician' },
                                         { role: 'warden', icon: UserCheck, label: 'Warden' },
                                     ].map(({ role, icon: Icon, label }) => (
-                                        <button key={role} onClick={() => fillDemo(role)}
+                                        <motion.button whileTap={{ scale: 0.95 }} key={role} type="button" onClick={() => fillDemo(role)}
                                             className={`flex items-center justify-center gap-2 rounded-lg py-2.5 px-3 text-sm font-medium border transition-all duration-300 hover:-translate-y-0.5 ${isLight ? 'border-slate-200 text-slate-500 hover:border-blue-400 hover:bg-blue-50 hover:text-blue-600' : 'border-white/10 text-slate-400 hover:border-blue-500/40 hover:bg-blue-500/10 hover:text-blue-300'}`}>
                                             <Icon className="w-4 h-4" /> {label}
-                                        </button>
+                                        </motion.button>
                                     ))}
                                 </div>
-                            </div>
+                            </motion.div>
 
                             <p className={`text-center text-sm mt-6 animate-slide-up ${isLight ? 'text-slate-500' : 'text-slate-500'}`} style={{ animationDelay: '0.6s' }}>
                                 No account?{' '}
@@ -225,7 +230,7 @@ export default function Login() {
                                 </Link>
                             </p>
                         </CardContent>
-                    </Card>
+                    </MCard>
                 </div>
             </div>
         </div>

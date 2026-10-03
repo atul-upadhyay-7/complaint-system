@@ -4,6 +4,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { Bell, CheckCircle2, Loader2, AlertCircle, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTheme } from '../context/ThemeContext';
+import { motion } from 'framer-motion';
+import { Stagger, Item, MCard, fadeUp, fadeIn } from '@/lib/motion';
 
 const notifIcon = {
     created: <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />,
@@ -21,7 +23,7 @@ export default function Notifications() {
     }, [clearNotifications]);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 animate-fade-in pb-12">
+        <motion.div className="max-w-4xl mx-auto space-y-6 pb-12" variants={fadeIn} initial="hidden" animate="show" custom={0}>
             <div>
                 <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Notifications</h1>
                 <p className="text-slate-500 dark:text-slate-400">View all your recent alerts and updates here.</p>
@@ -36,9 +38,9 @@ export default function Notifications() {
                             <p className="text-sm text-slate-500 dark:text-slate-500 mt-2">You're all caught up! New updates will appear here.</p>
                         </div>
                     ) : (
-                        <div className="divide-y divide-slate-100 dark:divide-white/5">
+                        <Stagger className="divide-y divide-slate-100 dark:divide-white/5">
                             {notifications.map((n, i) => (
-                                <div key={i} className="flex items-start gap-4 p-5 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                                <Item key={i} className="flex items-start gap-4 p-5 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                                     <div className="p-2 rounded-full bg-slate-100 dark:bg-[#12281a]">
                                         {notifIcon[n.type] || <Bell className="w-5 h-5 text-slate-400" />}
                                     </div>
@@ -49,12 +51,12 @@ export default function Notifications() {
                                             {formatDistanceToNow(new Date(n.time), { addSuffix: true })}
                                         </p>
                                     </div>
-                                </div>
+                                </Item>
                             ))}
-                        </div>
+                        </Stagger>
                     )}
                 </CardContent>
             </Card>
-        </div>
+        </motion.div>
     );
 }

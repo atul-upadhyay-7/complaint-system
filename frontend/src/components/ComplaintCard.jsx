@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import ComplaintTimeline from './ComplaintTimeline';
+import { motion, AnimatePresence } from 'framer-motion';
+import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
 const statusConfig = {
     'Pending': { variant: 'pending', icon: AlertCircle, label: 'Pending' },
@@ -31,7 +33,7 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
     const hasImage = complaint.attachments && complaint.attachments.length > 0;
 
     return (
-        <Card className={cn(
+        <MCard whileHover={{ y: -3 }} transition={{ type: "spring", stiffness: 400, damping: 30 }} className={cn(
             'group border border-slate-200 dark:border-blue-900/30 glass-card card-hover transition-all duration-300 overflow-hidden relative',
             'hover:border-blue-300 dark:hover:border-blue-500/40'
         )}>
@@ -146,11 +148,15 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                         {expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                 )}
-                {!isAdmin && expanded && (
-                    <div className="mt-1 pt-3 border-t border-slate-200 dark:border-blue-900/30 animate-fade-in">
-                        <ComplaintTimeline status={complaint.status} />
-                    </div>
-                )}
+                <AnimatePresence initial={false}>
+                    {!isAdmin && expanded && (
+                        <motion.div key="timeline" className="overflow-hidden" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
+                            <div className="mt-1 pt-3 border-t border-slate-200 dark:border-blue-900/30">
+                                <ComplaintTimeline status={complaint.status} />
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* Admin manage section */}
                 {isAdmin && (
@@ -168,6 +174,6 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                     </div>
                 )}
             </CardContent>
-        </Card>
+        </MCard>
     );
 }

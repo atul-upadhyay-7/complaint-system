@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { Bell, CheckCircle2, Loader2, AlertCircle, Clock } from 'lucide-react';
 import { useSocket } from '../context/SocketContext';
@@ -25,7 +26,7 @@ export default function NotificationBell() {
 
     return (
         <div className="relative" ref={ref}>
-            <button
+            <motion.button whileTap={{ scale: 0.9 }}
                 onClick={handleOpen}
                 className="relative w-9 h-9 flex items-center justify-center rounded-xl hover:bg-white/5 transition-colors"
             >
@@ -35,10 +36,11 @@ export default function NotificationBell() {
                         {unreadCount > 9 ? '9+' : unreadCount}
                     </span>
                 )}
-            </button>
+            </motion.button>
 
+            <AnimatePresence>
             {open && (
-                <div className="absolute left-full top-0 ml-3 w-80 glass-card border border-blue-500/20 rounded-2xl shadow-2xl shadow-blue-900/30 z-50 overflow-hidden animate-fade-in">
+                <motion.div initial={{ opacity: 0, x: -8, scale: 0.97 }} animate={{ opacity: 1, x: 0, scale: 1 }} exit={{ opacity: 0, x: -6, scale: 0.98 }} transition={{ duration: 0.18 }} style={{ transformOrigin: "left top" }} className="absolute left-full top-0 ml-3 w-80 glass-card border border-blue-500/20 rounded-2xl shadow-2xl shadow-blue-900/30 z-50 overflow-hidden">
                     <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
                         <span className="text-sm font-semibold text-foreground">Notifications</span>
                         <span className="text-xs text-muted-foreground">{notifications.length} total</span>
@@ -64,8 +66,9 @@ export default function NotificationBell() {
                             ))
                         )}
                     </div>
-                </div>
+                </motion.div>
             )}
+            </AnimatePresence>
         </div>
     );
 }

@@ -8,6 +8,8 @@ import { ShieldCheck, Users, ClipboardList, CheckCircle2, Loader2, AlertTriangle
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
+import { Stagger, Item, MCard, fadeUp, fadeIn } from '@/lib/motion';
 
 const STATUS_COLORS = {
     'Pending': 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-yellow-500/15 dark:text-yellow-400 dark:border-yellow-500/25',
@@ -85,7 +87,7 @@ export default function WardenDashboard() {
 
                 <div className="p-6 md:p-10 max-w-7xl mx-auto">
                     {/* Header */}
-                    <div className="mb-10 animate-fade-in">
+                    <motion.div className="mb-10" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                         <div className="flex items-center gap-3 mb-2">
                             <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-500/15 flex items-center justify-center border border-emerald-200 dark:border-emerald-500/20">
                                 <UserCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
@@ -97,31 +99,31 @@ export default function WardenDashboard() {
                         <p className="text-slate-600 dark:text-slate-400 text-sm">
                             Welcome, <span className="text-slate-900 dark:text-white font-medium">{user?.name}</span> · {user?.hostel || user?.department || 'Hostel Administration'}
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Analytics Stats */}
                     {analytics && (
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                        <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" variants={fadeIn} initial="hidden" animate="show" custom={0.1}>
                             {[
                                 { label: 'Total', value: analytics.total, color: 'purple', icon: ClipboardList },
                                 { label: 'Pending', value: analytics.pending, color: 'yellow', icon: AlertTriangle },
                                 { label: 'In Progress', value: analytics.inProgress, color: 'blue', icon: Loader2 },
                                 { label: 'Resolved', value: analytics.resolved, color: 'green', icon: CheckCircle2 },
                             ].map(({ label, value, color, icon: Icon }) => (
-                                <Card key={label} className="bg-white dark:bg-[#0c1f14] border-slate-200 dark:border-[#1d3a28] overflow-hidden relative">
+                                <MCard key={label} variants={fadeUp} whileHover={{ y: -3 }} className="bg-white dark:bg-[#0c1f14] border-slate-200 dark:border-[#1d3a28] overflow-hidden relative">
                                     <div className={`absolute right-0 bottom-0 w-24 h-24 bg-${color}-100 dark:bg-${color}-500/10 rounded-tl-full blur-2xl`} />
                                     <CardContent className="p-5 relative z-10">
                                         <Icon className={`w-4 h-4 text-${color}-600 dark:text-${color}-400 mb-3`} />
                                         <p className="text-3xl font-bold text-slate-900 dark:text-white"><CountUp to={Number(value) || 0} duration={1.2} /></p>
                                         <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">{label}</p>
                                     </CardContent>
-                                </Card>
+                                </MCard>
                             ))}
-                        </div>
+                        </motion.div>
                     )}
 
                     {/* Complaints Management */}
-                    <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <motion.div className="" variants={fadeIn} initial="hidden" animate="show" custom={0.2}>
                         <div className="flex items-center justify-between mb-5">
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white">All Hostel Complaints</h2>
                             <span className="text-sm text-slate-500 dark:text-slate-400">{complaints.length} complaints</span>
@@ -132,9 +134,9 @@ export default function WardenDashboard() {
                                 <Loader2 className="w-8 h-8 animate-spin text-emerald-600 dark:text-emerald-400" />
                             </div>
                         ) : (
-                            <div className="space-y-3">
+                            <Stagger className="space-y-3">
                                 {complaints.map(c => (
-                                    <div key={c._id} className="bg-white dark:bg-[#0c1f14] border border-slate-200 dark:border-[#1d3a28] rounded-xl p-5 hover:border-emerald-300 dark:hover:border-emerald-500/20 transition-all">
+                                    <Item key={c._id} className="bg-white dark:bg-[#0c1f14] border border-slate-200 dark:border-[#1d3a28] rounded-xl p-5 hover:border-emerald-300 dark:hover:border-emerald-500/20 transition-all">
                                         <div className="flex items-start justify-between gap-4 flex-wrap mb-3">
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -240,11 +242,11 @@ export default function WardenDashboard() {
                                                 </button>
                                             </div>
                                         )}
-                                    </div>
+                                    </Item>
                                 ))}
-                            </div>
+                            </Stagger>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </main>
         </div>

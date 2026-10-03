@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
 export default function ResetPassword() {
     const [password, setPassword] = useState('');
@@ -50,13 +52,13 @@ export default function ResetPassword() {
             </div>
 
             <div className="w-full max-w-[420px] relative z-10">
-                <div className="text-center mb-8 animate-fade-in">
+                <motion.div className="text-center mb-8" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                     <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                         <GraduationCap className="w-7 h-7 text-blue-400" />
                     </div>
-                </div>
+                </motion.div>
 
-                <Card className={`animate-slide-up ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)' }}>
+                <MCard className={` ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)' }} variants={fadeUp} initial="hidden" animate="show" custom={0}>
                     <CardHeader className="text-center pb-4">
                         <CardTitle className={`text-2xl font-semibold tracking-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>Create New Password</CardTitle>
                         <CardDescription className={`text-base mt-2 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Secure your account with a fresh password.</CardDescription>
@@ -107,7 +109,7 @@ export default function ResetPassword() {
                             </Button>
                         </form>
                     </CardContent>
-                </Card>
+                </MCard>
             </div>
         </div>
     );

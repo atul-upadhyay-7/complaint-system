@@ -13,7 +13,7 @@ const Card = React.forwardRef(({ className, onMouseMove, ...props }, ref) => {
         <div
             ref={ref}
             onMouseMove={handleMove}
-            className={cn("card-spot relative rounded-xl border border-border bg-card text-card-foreground shadow-card animate-fade-in", className)}
+            className={cn("card-spot relative rounded-xl border border-border bg-card text-card-foreground shadow-card", className)}
             {...props}
         />
     )

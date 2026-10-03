@@ -1,4 +1,5 @@
 import { TrendingDown, Clock, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Stagger, Item } from '@/lib/motion';
 
 const stats = [
     {
@@ -49,9 +50,9 @@ export default function DashboardStats({ analytics, loading }) {
     }
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Stagger className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {stats.map(({ key, label, icon: Icon, color, bg }) => (
-                <div key={key} className="stat-card hover:border-purple-600/30 transition-colors">
+                <Item key={key} whileHover={{ y: -3 }} className="stat-card hover:border-purple-600/30 transition-colors">
                     <div className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 ${bg}`}>
                         <Icon className={`w-5 h-5 ${color}`} />
                     </div>
@@ -61,11 +62,11 @@ export default function DashboardStats({ analytics, loading }) {
                             {analytics?.[key] ?? 0}
                         </p>
                     </div>
-                </div>
+                </Item>
             ))}
 
             {analytics?.avgResolutionTimeHours !== undefined && (
-                <div className="stat-card col-span-2 lg:col-span-4 hover:border-purple-600/30 transition-colors">
+                <Item className="stat-card col-span-2 lg:col-span-4 hover:border-purple-600/30 transition-colors">
                     <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 bg-purple-600/10 border border-purple-600/20">
                         <Clock className="w-5 h-5 text-purple-400" />
                     </div>
@@ -85,8 +86,8 @@ export default function DashboardStats({ analytics, loading }) {
                             ))}
                         </div>
                     )}
-                </div>
+                </Item>
             )}
-        </div>
+        </Stagger>
     );
 }

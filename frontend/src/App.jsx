@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, MotionConfig } from 'framer-motion';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
@@ -98,6 +98,7 @@ function AppRoutes() {
 export default function App() {
     const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return (
+        <MotionConfig reducedMotion="user">
         <BrowserRouter>
             <ThemeProvider>
                 <AuthProvider>
@@ -130,5 +131,6 @@ export default function App() {
                 </AuthProvider>
             </ThemeProvider>
         </BrowserRouter>
+        </MotionConfig>
     );
 }

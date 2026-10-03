@@ -11,6 +11,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
+import { motion, AnimatePresence } from 'framer-motion';
+import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
 const CATEGORIES = ['Electricity', 'Water', 'Internet', 'Cleanliness', 'Maintenance', 'Security', 'Food', 'Other'];
 
@@ -124,33 +126,33 @@ export default function SubmitComplaint() {
             <Sidebar />
             <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-3xl mx-auto">
-                    <div className="mb-8 animate-slide-up">
+                    <motion.div className="mb-8" variants={fadeUp} initial="hidden" animate="show" custom={0}>
                         <button onClick={() => navigate(-1)} className="group flex items-center gap-2 text-sm text-slate-500 dark:text-muted-foreground hover:text-slate-900 dark:hover:text-foreground transition-colors mb-6 w-fit h-8 px-3 -ml-3 rounded-lg hover:bg-slate-200 dark:hover:bg-secondary/50">
                             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> Back
                         </button>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/20 text-xs font-medium text-violet-600 dark:text-violet-400 mb-3 animate-fade-in">
+                        <motion.div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-500/10 border border-violet-200 dark:border-violet-500/20 text-xs font-medium text-violet-600 dark:text-violet-400 mb-3" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                             <Brain className="w-3.5 h-3.5" /> AI-Powered Submission
-                        </div>
+                        </motion.div>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">Submit a Complaint</h1>
                         <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">Describe your issue — our AI engine will automatically detect <strong>category</strong>, <strong>priority</strong>, <strong>sentiment</strong>, and <strong>estimated resolution time</strong>.</p>
-                    </div>
+                    </motion.div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* ── FORM (2/3) ── */}
-                        <Card className="lg:col-span-2 glass-card border-slate-200 dark:border-blue-900/30 shadow-[0_8px_32px_rgba(48,154,92,0.08)] animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                        <MCard className="lg:col-span-2 glass-card border-slate-200 dark:border-blue-900/30 shadow-[0_8px_32px_rgba(48,154,92,0.08)]" variants={fadeUp} initial="hidden" animate="show" custom={0.1}>
                             <CardContent className="p-6 sm:p-8">
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     {/* Title */}
-                                    <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                                    <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.2}>
                                         <Label className="text-base">Complaint Title <span className="text-red-500 dark:text-red-400">*</span></Label>
                                         <div className="relative group">
                                             <FileText className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 dark:text-muted-foreground group-focus-within:text-blue-500 dark:group-focus-within:text-blue-400 transition-colors" />
                                             <Input placeholder="Brief description of the issue" className="pl-10 h-12 transition-all duration-300 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 bg-white dark:bg-secondary/30" value={form.title} onChange={setE('title')} required />
                                         </div>
-                                    </div>
+                                    </motion.div>
 
                                     {/* Category + Location */}
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                                    <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6" variants={fadeUp} initial="hidden" animate="show" custom={0.3}>
                                         <div className="space-y-2">
                                             <Label className="text-base flex items-center gap-2">
                                                 Category <span className="text-red-500 dark:text-red-400">*</span>
@@ -177,10 +179,10 @@ export default function SubmitComplaint() {
                                                 <Input placeholder="e.g. Block A - Room 203" className="pl-10 h-12 transition-all duration-300 focus-visible:ring-blue-500/50 focus-visible:border-blue-500/50 bg-white dark:bg-secondary/30" value={form.location} onChange={setE('location')} />
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
 
                                     {/* Description */}
-                                    <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                                    <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.4}>
                                         <Label className="text-base">Detailed Description <span className="text-red-500 dark:text-red-400">*</span></Label>
                                         <Textarea
                                             placeholder="Describe the problem in detail — when it started, how severe it is, anything you've already tried..."
@@ -188,10 +190,10 @@ export default function SubmitComplaint() {
                                             value={form.description} onChange={setE('description')} required
                                         />
                                         <p className="text-xs font-medium text-slate-500 dark:text-muted-foreground text-right tracking-wide">{form.description.length} CHARACTERS</p>
-                                    </div>
+                                    </motion.div>
 
                                     {/* Image Upload */}
-                                    <div className="space-y-3 animate-slide-up" style={{ animationDelay: '0.45s' }}>
+                                    <motion.div className="space-y-3" variants={fadeUp} initial="hidden" animate="show" custom={0.45}>
                                         <Label className="text-base flex items-center gap-2">
                                             <Image className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                                             Attach Photo
@@ -230,21 +232,25 @@ export default function SubmitComplaint() {
                                             </div>
                                         )}
                                         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-                                    </div>
+                                    </motion.div>
 
                                     {/* Actions */}
-                                    <div className="flex flex-col-reverse sm:flex-row gap-3 pt-4 animate-slide-up" style={{ animationDelay: '0.5s' }}>
+                                    <motion.div className="flex flex-col-reverse sm:flex-row gap-3 pt-4" variants={fadeUp} initial="hidden" animate="show" custom={0.5}>
                                         <Button type="button" variant="outline" onClick={() => navigate(-1)} className="sm:flex-1 h-12 text-base font-medium border-slate-300 dark:border-border/60 hover:bg-slate-100 dark:hover:bg-secondary/80 transition-colors">Cancel</Button>
                                         <Button type="submit" className="sm:flex-[2] h-12 text-base font-semibold glow-blue-sm hover:glow-blue transition-all duration-300 hover:-translate-y-0.5 bg-blue-600 hover:bg-blue-500 text-white" disabled={loading}>
-                                            {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Analyzing & Submitting...</> : <><Send className="w-4 h-4 mr-2 -ml-1 text-white" /> Submit Complaint</>}
+                                            <AnimatePresence mode="wait" initial={false}>
+                                                <motion.span key={loading ? 'busy' : 'idle'} className="inline-flex items-center" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}>
+                                                    {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Analyzing & Submitting...</> : <><Send className="w-4 h-4 mr-2 -ml-1 text-white" /> Submit Complaint</>}
+                                                </motion.span>
+                                            </AnimatePresence>
                                         </Button>
-                                    </div>
+                                    </motion.div>
                                 </form>
                             </CardContent>
-                        </Card>
+                        </MCard>
 
                         {/* ── AI INSIGHT PANEL (1/3) ── */}
-                        <div className="space-y-4 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                        <motion.div className="space-y-4" variants={fadeUp} initial="hidden" animate="show" custom={0.3}>
                             <div className="flex items-center gap-2 mb-1">
                                 <div className="w-7 h-7 rounded-lg bg-violet-100 dark:bg-violet-500/15 flex items-center justify-center">
                                     <Brain className="w-4 h-4 text-violet-500" />
@@ -345,7 +351,7 @@ export default function SubmitComplaint() {
                                     )}
                                 </>
                             )}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </main>

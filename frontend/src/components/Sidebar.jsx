@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
@@ -128,9 +129,9 @@ export default function Sidebar() {
                         )}>
                         {({ isActive }) => (
                             <>
-                                {isActive && <div className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-full ${accent.bar}`} />}
+                                {isActive && <motion.div initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.25 }} className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-full ${accent.bar}`} />}
                                 <l.icon className={cn('w-5 h-5 transition-all duration-300 group-hover:scale-110', isActive ? accent.icon : 'text-slate-700 dark:text-slate-400')} />
-                                <span>{l.label}</span>
+                                <motion.span whileHover={{ x: 3 }} transition={{ type: 'spring', stiffness: 400, damping: 28 }}>{l.label}</motion.span>
                             </>
                         )}
                     </NavLink>
@@ -173,14 +174,18 @@ export default function Sidebar() {
                 </div>
             </div>
 
-            {mobileOpen && (
-                <div className="lg:hidden fixed inset-0 z-40">
-                    <div className="absolute inset-0 bg-slate-900/20 dark:bg-[#0a1a10]/80 backdrop-blur-sm animate-fade-in" onClick={() => setMobileOpen(false)} />
-                    <aside id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Campus navigation" className="mobile-drawer absolute left-0 top-0 h-full bg-slate-50 dark:bg-[#0a1a10] border-r border-slate-200 dark:border-blue-900/30 flex flex-col shadow-2xl animate-fade-in">
-                        <SidebarContent onLinkClick={() => setMobileOpen(false)} />
-                    </aside>
-                </div>
-            )}
+            <AnimatePresence>
+                {mobileOpen && (
+                    <div className="lg:hidden fixed inset-0 z-40">
+                        <motion.div className="absolute inset-0 bg-slate-900/20 dark:bg-[#0a1a10]/80 backdrop-blur-sm" onClick={() => setMobileOpen(false)}
+                            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} />
+                        <motion.aside id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Campus navigation" className="mobile-drawer absolute left-0 top-0 h-full bg-slate-50 dark:bg-[#0a1a10] border-r border-slate-200 dark:border-blue-900/30 flex flex-col shadow-2xl"
+                            initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ type: 'tween', duration: 0.25, ease: [0.22, 1, 0.36, 1] }}>
+                            <SidebarContent onLinkClick={() => setMobileOpen(false)} />
+                        </motion.aside>
+                    </div>
+                )}
+            </AnimatePresence>
         </>
     );
 }

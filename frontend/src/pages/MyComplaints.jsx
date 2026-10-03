@@ -6,6 +6,8 @@ import { AlertCircle, CheckCircle2, Clock, Loader, ListFilter, LayoutDashboard }
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { SkeletonCard } from '../components/SkeletonCard';
+import { motion } from 'framer-motion';
+import { fadeUp, fadeIn, MCard, Stagger, Item } from '@/lib/motion';
 
 const FILTERS = ['All', 'Pending', 'In Progress', 'Resolved', 'Rejected'];
 
@@ -35,23 +37,22 @@ export default function MyComplaints() {
             <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-5xl mx-auto">
                     {/* Header */}
-                    <div className="mb-8 animate-slide-up">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3 animate-fade-in">
+                    <motion.div className="mb-8" variants={fadeUp} initial="hidden" animate="show" custom={0}>
+                        <motion.div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                             <LayoutDashboard className="w-3.5 h-3.5" /> Your History
-                        </div>
+                        </motion.div>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">My Complaints</h1>
                         <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">Track, manage, and view the status of all your submitted issues.</p>
-                    </div>
+                    </motion.div>
 
                     {/* Mini stat cards */}
                     <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8">
                         {statConfig.map((s, i) => {
                             const Icon = s.icon;
                             return (
-                                <Card key={s.key}
-                                    className="cursor-pointer group glass-card border-slate-200 dark:border-blue-900/30 hover:border-blue-300 dark:hover:border-blue-500/40 card-hover animate-slide-up"
-                                    style={{ animationDelay: `${0.1 + i * 0.1}s` }}
-                                    onClick={() => setFilter(filter === s.key ? 'All' : s.key)}>
+                                <MCard key={s.key}
+                                    className="cursor-pointer group glass-card border-slate-200 dark:border-blue-900/30 hover:border-blue-300 dark:hover:border-blue-500/40 card-hover"
+                                    onClick={() => setFilter(filter === s.key ? 'All' : s.key)} variants={fadeUp} initial="hidden" animate="show" custom={0.1 + i * 0.1}>
                                     <CardContent className="p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
                                         <div className={cn('w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110', s.bg)}>
                                             <Icon className={cn('w-5 h-5 sm:w-6 sm:h-6', s.color)} />
@@ -61,13 +62,13 @@ export default function MyComplaints() {
                                             <p className="text-xs sm:text-sm font-medium text-slate-500 dark:text-muted-foreground">{s.label}</p>
                                         </div>
                                     </CardContent>
-                                </Card>
+                                </MCard>
                             );
                         })}
                     </div>
 
                     {/* Filter tabs */}
-                    <div className="flex overflow-x-auto pb-2 scrollbar-hide mb-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                    <motion.div className="flex overflow-x-auto pb-2 scrollbar-hide mb-6" variants={fadeUp} initial="hidden" animate="show" custom={0.4}>
                         <div className="flex items-center gap-1 p-1 bg-white dark:glass-card border border-slate-200 dark:border-blue-900/30 rounded-xl w-fit min-w-max shadow-sm">
                             <ListFilter className="w-4 h-4 text-slate-400 dark:text-muted-foreground mx-2 shrink-0" />
                             {FILTERS.map(f => (
@@ -85,10 +86,10 @@ export default function MyComplaints() {
                                 </button>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Complaints */}
-                    <div className="animate-slide-up" style={{ animationDelay: '0.5s' }}>
+                    <motion.div className="" variants={fadeUp} initial="hidden" animate="show" custom={0.5}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2">
                                 {[1, 2, 3, 4].map(i => <SkeletonCard key={i} lines={3} showImage={i % 2 === 0} />)}
@@ -104,15 +105,15 @@ export default function MyComplaints() {
                                 </p>
                             </div>
                         ) : (
-                            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                                {filtered.map((c, i) => (
-                                    <div key={c._id} className="animate-slide-up" style={{ animationDelay: `${0.1 + i * 0.05}s` }}>
+                            <Stagger key={filter} className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                {filtered.map((c) => (
+                                    <Item key={c._id}>
                                         <ComplaintCard complaint={c} />
-                                    </div>
+                                    </Item>
                                 ))}
-                            </div>
+                            </Stagger>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </main>
         </div>

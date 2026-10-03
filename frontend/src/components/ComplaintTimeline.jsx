@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { CheckCircle2, Clock, Wrench, Send } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -19,9 +20,10 @@ export default function ComplaintTimeline({ status }) {
                 {/* Connecting line - base (inactive) */}
                 <div className="absolute top-5 left-0 right-0 h-[2px] bg-slate-200 dark:bg-white/10 mx-8" />
                 {/* Connecting line - progress fill */}
-                <div
-                    className="absolute top-5 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-blue-400/50 mx-8 transition-all duration-1000 ease-out"
-                    style={{ width: `calc(${(currentIdx / 3) * 100}% - 64px * ${currentIdx / 3})` }}
+                <motion.div
+                    className="absolute top-5 left-0 h-[2px] bg-gradient-to-r from-blue-500 to-blue-400/50 mx-8"
+                    initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                    style={{ transformOrigin: 'left', width: `calc(${(currentIdx / 3) * 100}% - 64px * ${currentIdx / 3})` }}
                 />
 
                 {STEPS.map((step, i) => {
@@ -30,7 +32,7 @@ export default function ComplaintTimeline({ status }) {
                     const isActive = i === currentIdx;
 
                     return (
-                        <div key={step.label} className="flex flex-col items-center gap-2 flex-1 relative">
+                        <motion.div key={step.label} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, delay: 0.05 * i }} className="flex flex-col items-center gap-2 flex-1 relative">
                             <div className={cn(
                                 'w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 z-10',
                                 isDone
@@ -45,7 +47,7 @@ export default function ComplaintTimeline({ status }) {
                             <p className={cn('text-[10px] sm:text-xs font-medium text-center transition-colors duration-500 leading-tight', isDone ? 'text-foreground' : 'text-muted-foreground/40')}>
                                 {step.label}
                             </p>
-                        </div>
+                        </motion.div>
                     );
                 })}
             </div>

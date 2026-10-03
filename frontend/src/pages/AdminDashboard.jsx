@@ -13,10 +13,12 @@ import { cn } from '@/lib/utils';
 import { SkeletonStatCard, SkeletonChart } from '../components/SkeletonCard';
 import CategoryPieChart from '../components/charts/CategoryPieChart';
 import WeeklyBarChart from '../components/charts/WeeklyBarChart';
+import { motion } from 'framer-motion';
+import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
 function StatCard({ label, value, icon: Icon, color, bg, sub, delay }) {
     return (
-        <Card className="group glass-card border-slate-200 dark:border-blue-900/30 hover:border-blue-500/40 card-hover animate-slide-up" style={{ animationDelay: `${delay}s` }}>
+        <MCard className="group glass-card border-slate-200 dark:border-blue-900/30 hover:border-blue-500/40 card-hover" variants={fadeUp} initial="hidden" animate="show" custom={delay}>
             <CardContent className="p-5">
                 <div className="flex items-center justify-between mb-3">
                     <p className="text-sm text-muted-foreground font-medium">{label}</p>
@@ -27,7 +29,7 @@ function StatCard({ label, value, icon: Icon, color, bg, sub, delay }) {
                 <p className="text-3xl font-bold text-foreground drop-shadow-sm"><CountUp to={Number(value) || 0} duration={1.2} /></p>
                 {sub && <p className="text-xs text-muted-foreground mt-1.5 font-medium">{sub}</p>}
             </CardContent>
-        </Card>
+        </MCard>
     );
 }
 
@@ -114,13 +116,13 @@ export default function AdminDashboard() {
                             <ShieldCheck className="w-4 h-4" /> Secure Logout
                         </button>
                     </div>        {/* Header */}
-                    <div className="mb-8 animate-slide-up">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3 animate-fade-in">
+                    <motion.div className="mb-8" variants={fadeUp} initial="hidden" animate="show" custom={0}>
+                        <motion.div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-xs font-medium text-blue-600 dark:text-blue-400 mb-3" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                             <LayoutDashboard className="w-3.5 h-3.5" /> Command Center
-                        </div>
+                        </motion.div>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">System Overview</h1>
                         <p className="text-slate-500 dark:text-muted-foreground text-sm sm:text-base mt-2">Comprehensive analytics of all campus complaint activity</p>
-                    </div>
+                    </motion.div>
 
                     {/* Stats grid */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mb-8">
@@ -132,7 +134,7 @@ export default function AdminDashboard() {
 
                     <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
                         {/* Pie Chart */}
-                        <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.45s' }}>
+                        <MCard className="glass-card border-slate-200 dark:border-blue-900/30" variants={fadeUp} initial="hidden" animate="show" custom={0.45}>
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-base font-semibold flex items-center gap-2">
                                     <PieChartIcon className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400" /> Category Distribution
@@ -141,10 +143,10 @@ export default function AdminDashboard() {
                             <CardContent>
                                 <CategoryPieChart data={analytics?.topCategories || []} />
                             </CardContent>
-                        </Card>
+                        </MCard>
 
                         {/* Bar Chart */}
-                        <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.5s' }}>
+                        <MCard className="glass-card border-slate-200 dark:border-blue-900/30" variants={fadeUp} initial="hidden" animate="show" custom={0.5}>
                             <CardHeader className="pb-2">
                                 <CardTitle className="text-base font-semibold flex items-center gap-2">
                                     <BarChart2 className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400" /> Weekly Activity
@@ -153,13 +155,13 @@ export default function AdminDashboard() {
                             <CardContent>
                                 <WeeklyBarChart data={weeklyData} />
                             </CardContent>
-                        </Card>
+                        </MCard>
                     </div>
 
                     {/* Resolution + Categories Row */}
                     <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 mb-6">
                         {/* Resolution Rate */}
-                        <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.55s' }}>
+                        <MCard className="glass-card border-slate-200 dark:border-blue-900/30" variants={fadeUp} initial="hidden" animate="show" custom={0.55}>
                             <CardHeader className="pb-4">
                                 <CardTitle className="text-base font-semibold flex items-center gap-2">
                                     <TrendingUp className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400" /> Resolution Efficiency
@@ -196,10 +198,10 @@ export default function AdminDashboard() {
                                     <span className="font-bold text-slate-900 dark:text-foreground px-2.5 py-1 rounded-md bg-white dark:glass-card border border-blue-200 dark:border-blue-500/15">{avgDays} days</span>
                                 </div>
                             </CardContent>
-                        </Card>
+                        </MCard>
 
                         {/* Top Categories */}
-                        <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+                        <MCard className="glass-card border-slate-200 dark:border-blue-900/30" variants={fadeUp} initial="hidden" animate="show" custom={0.6}>
                             <CardHeader className="pb-4">
                                 <CardTitle className="text-base font-semibold flex items-center gap-2">
                                     <Tag className="w-4.5 h-4.5 text-blue-600 dark:text-blue-400" /> Most Frequent Issues
@@ -232,11 +234,11 @@ export default function AdminDashboard() {
                                     </div>
                                 )}
                             </CardContent>
-                        </Card>
+                        </MCard>
                     </div>
 
                     {/* AI Insights - Sentiment Breakdown */}
-                    <Card className="glass-card border-violet-200 dark:border-violet-900/30 mb-6 animate-slide-up shadow-[0_8px_32px_rgba(29,116,71,0.08)]" style={{ animationDelay: '0.62s' }}>
+                    <MCard className="glass-card border-violet-200 dark:border-violet-900/30 mb-6 shadow-[0_8px_32px_rgba(29,116,71,0.08)]" variants={fadeUp} initial="hidden" animate="show" custom={0.62}>
                         <CardHeader className="pb-4 border-b border-violet-100 dark:border-violet-900/20">
                             <CardTitle className="text-base font-bold flex items-center gap-2 text-violet-700 dark:text-violet-400">
                                 <Sparkles className="w-5 h-5" /> AI Sentiment Analysis
@@ -268,10 +270,10 @@ export default function AdminDashboard() {
                                 })}
                             </div>
                         </CardContent>
-                    </Card>
+                    </MCard>
 
                     {/* Recent Complaints */}
-                    <Card className="glass-card border-slate-200 dark:border-blue-900/30 animate-slide-up" style={{ animationDelay: '0.65s' }}>
+                    <MCard className="glass-card border-slate-200 dark:border-blue-900/30" variants={fadeUp} initial="hidden" animate="show" custom={0.65}>
                         <CardHeader className="pb-3">
                             <CardTitle className="text-base font-semibold">Latest Submissions</CardTitle>
                         </CardHeader>
@@ -300,7 +302,7 @@ export default function AdminDashboard() {
                                 )}
                             </div>
                         </CardContent>
-                    </Card>
+                    </MCard>
                 </div>
             </main>
         </div>

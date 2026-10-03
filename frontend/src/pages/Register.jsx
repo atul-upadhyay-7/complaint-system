@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
 export default function Register() {
     const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '', role: 'student', rollNumber: '', hostel: '' });
@@ -54,15 +56,15 @@ export default function Register() {
                 <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(48,154,92,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(48,154,92,0.4) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
                 {/* Logo */}
-                <div className="relative z-10 flex items-center gap-3 animate-fade-in">
+                <motion.div className="relative z-10 flex items-center gap-3" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                     <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                         <GraduationCap className="w-6 h-6 text-blue-400" />
                     </div>
                     <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</span>
-                </div>
+                </motion.div>
 
                 {/* Hero Text */}
-                <div className="relative z-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                <motion.div className="relative z-10" variants={fadeUp} initial="hidden" animate="show" custom={0.2}>
                     <h1 className={`text-5xl font-bold tracking-tight mb-6 leading-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>
                         Your campus,<br />
                         <span style={{ background: 'linear-gradient(135deg, #309a5c, #76c78c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
@@ -78,7 +80,7 @@ export default function Register() {
                             <span key={f} className={`px-3 py-1.5 rounded-full text-xs font-medium border ${isLight ? 'bg-blue-50 border-blue-200 text-slate-600' : 'bg-white/5 border-white/10 text-slate-300'}`}>{f}</span>
                         ))}
                     </div>
-                </div>
+                </motion.div>
 
             </div>
 
@@ -102,16 +104,16 @@ export default function Register() {
 
                 <div className="w-full max-w-[440px] relative z-10 py-8">
                     {/* Mobile Brand */}
-                    <div className="text-center mb-8 lg:hidden animate-fade-in">
+                    <motion.div className="text-center mb-8 lg:hidden" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                         <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                             <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
                         <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</h1>
                         <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Complaint Management Portal</p>
-                    </div>
+                    </motion.div>
 
-                    <Card className={`animate-fade-in ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`}
-                        style={{ background: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
+                    <MCard className={` ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`}
+                        style={{ background: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)' }} variants={fadeIn} initial="hidden" animate="show" custom={0.1}>
                         <CardHeader className="pb-4">
                             <div className="flex items-center gap-3 mb-1">
                                 <div className="w-8 h-8 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
@@ -123,13 +125,13 @@ export default function Register() {
                         </CardHeader>
                         <CardContent>
                             {/* Role selector */}
-                            <div className={`grid grid-cols-2 gap-2 mb-5 p-1 rounded-xl border animate-slide-up ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/30'}`}
-                                style={{ background: isLight ? undefined : 'rgba(48,154,92,0.05)', animationDelay: '0.15s' }}>
+                            <motion.div className={`grid grid-cols-2 gap-2 mb-5 p-1 rounded-xl border ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/30'}`}
+                                style={{ background: isLight ? undefined : 'rgba(48,154,92,0.05)' }} variants={fadeUp} initial="hidden" animate="show" custom={0.15}>
                                 {[
                                     { role: 'student', icon: GraduationCap, label: 'Student' },
                                     { role: 'admin', icon: ShieldCheck, label: 'Admin' },
                                 ].map(({ role, icon: Icon, label }) => (
-                                    <button
+                                    <motion.button whileTap={{ scale: 0.95 }}
                                         key={role}
                                         type="button"
                                         onClick={() => setForm({ ...form, role })}
@@ -142,13 +144,13 @@ export default function Register() {
                                         style={form.role === role ? { background: 'linear-gradient(135deg, #1d7447, #125335)', boxShadow: '0 0 15px rgba(48,154,92,0.3)' } : {}}
                                     >
                                         <Icon className="w-4 h-4" /> {label}
-                                    </button>
+                                    </motion.button>
                                 ))}
-                            </div>
+                            </motion.div>
 
                             <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                                 {/* Full Name */}
-                                <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                                <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.2}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Full Name</Label>
                                     <div className="relative group">
                                         <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
@@ -161,10 +163,10 @@ export default function Register() {
                                             autoComplete="none"
                                         />
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Email */}
-                                <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.25s' }}>
+                                <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.25}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Email Address</Label>
                                     <div className="relative group">
                                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
@@ -178,11 +180,11 @@ export default function Register() {
                                             autoComplete="none"
                                         />
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Student-only fields */}
                                 {form.role === 'student' && (
-                                    <div className="grid grid-cols-2 gap-3 animate-slide-up" style={{ animationDelay: '0.3s' }}>
+                                    <motion.div className="grid grid-cols-2 gap-3" variants={fadeUp} initial="hidden" animate="show" custom={0.3}>
                                         <div className="space-y-2">
                                             <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Roll No.</Label>
                                             <div className="relative group">
@@ -209,11 +211,11 @@ export default function Register() {
                                                 />
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 )}
 
                                 {/* Password */}
-                                <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.35s' }}>
+                                <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.35}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Password</Label>
                                     <div className="relative group">
                                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
@@ -232,10 +234,10 @@ export default function Register() {
                                             {showPass ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                         </button>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Confirm Password */}
-                                <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+                                <motion.div className="space-y-2" variants={fadeUp} initial="hidden" animate="show" custom={0.4}>
                                     <Label className={isLight ? 'text-slate-700' : 'text-slate-300'}>Confirm Password</Label>
                                     <div className="relative group">
                                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
@@ -253,16 +255,16 @@ export default function Register() {
                                             {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                         </button>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Password match indicator */}
                                 {form.password && form.confirm && (
-                                    <div className={`flex items-center gap-2 text-xs px-3 py-2 rounded-lg border animate-fade-in ${form.password === form.confirm
+                                    <motion.div className={`flex items-center gap-2 text-xs px-3 py-2 rounded-lg border ${form.password === form.confirm
                                         ? 'text-emerald-600 bg-emerald-50 border-emerald-200'
                                         : 'text-red-500 bg-red-50 border-red-200'
-                                        }`}>
+                                        }`} variants={fadeIn} initial="hidden" animate="show" custom={0}>
                                         <span>{form.password === form.confirm ? '✓ Passwords match' : '✗ Passwords do not match'}</span>
-                                    </div>
+                                    </motion.div>
                                 )}
 
                                 {/* Submit */}
@@ -283,7 +285,7 @@ export default function Register() {
                                 </Link>
                             </p>
                         </CardContent>
-                    </Card>
+                    </MCard>
                 </div>
             </div>
         </div>

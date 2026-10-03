@@ -13,6 +13,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
+import { fadeUp, fadeIn, MCard, Stagger, Item } from '@/lib/motion';
 
 const STATUSES = ['All', 'Pending', 'In Progress', 'Resolved', 'Rejected'];
 const CATEGORIES = ['All', 'Electricity', 'Water', 'Internet', 'Cleanliness', 'Maintenance', 'Security', 'Food', 'Other'];
@@ -73,18 +75,18 @@ export default function AdminComplaints() {
             <Sidebar />
             <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0 relative z-10">
                 <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto z-10">
-                    <div className="mb-6 animate-slide-up">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 dark:bg-secondary/50 border border-slate-300/50 dark:border-border/50 text-xs font-medium text-slate-600 dark:text-muted-foreground mb-3 animate-fade-in shadow-sm">
+                    <motion.div className="mb-6" variants={fadeUp} initial="hidden" animate="show" custom={0}>
+                        <motion.div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 dark:bg-secondary/50 border border-slate-300/50 dark:border-border/50 text-xs font-medium text-slate-600 dark:text-muted-foreground mb-3 shadow-sm" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                             <FileText className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" /> Administrative View
-                        </div>
+                        </motion.div>
                         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-foreground">All Complaints</h1>
                         <p className="text-slate-600 dark:text-muted-foreground text-sm sm:text-base mt-2">
                             Showing <span className="font-semibold text-slate-900 dark:text-foreground">{filtered.length}</span> of {complaints.length} complaints
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Search + Filters */}
-                    <Card className="mb-8 border-slate-200 dark:border-border/50 shadow-glass bg-card/60 backdrop-blur-sm animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                    <MCard className="mb-8 border-slate-200 dark:border-border/50 shadow-glass bg-card/60 backdrop-blur-sm" variants={fadeUp} initial="hidden" animate="show" custom={0.1}>
                         <CardContent className="p-4 sm:p-5">
                             <div className="flex flex-col md:flex-row gap-4">
                                 <div className="relative flex-1 group">
@@ -120,10 +122,10 @@ export default function AdminComplaints() {
                                 </div>
                             </div>
                         </CardContent>
-                    </Card>
+                    </MCard>
 
                     {/* Complaints grid */}
-                    <div className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                    <motion.div className="" variants={fadeUp} initial="hidden" animate="show" custom={0.2}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                                 {[1, 2, 3, 4, 5, 6].map(i => <SkeletonCard key={i} lines={3} showImage={false} />)}
@@ -137,15 +139,15 @@ export default function AdminComplaints() {
                                 <p className="text-slate-500 dark:text-muted-foreground max-w-sm mx-auto">Try adjusting your search criteria or modifying the selected filters.</p>
                             </div>
                         ) : (
-                            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                                {filtered.map((c, i) => (
-                                    <div key={c._id} className="animate-slide-up" style={{ animationDelay: `${0.1 + (i * 0.05)}s` }}>
+                            <Stagger className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                {filtered.map((c) => (
+                                    <Item key={c._id}>
                                         <ComplaintCard complaint={c} isAdmin onManage={openModal} />
-                                    </div>
+                                    </Item>
                                 ))}
-                            </div>
+                            </Stagger>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </main>
 

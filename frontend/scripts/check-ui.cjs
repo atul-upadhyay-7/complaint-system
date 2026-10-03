@@ -23,7 +23,7 @@ for(const width of [320,360,390,768,1024,1440]){
  if(sizes.scroll>sizes.width+1)console.log(await page.evaluate(()=>Array.from(document.querySelectorAll('body *')).filter(e=>e.getBoundingClientRect().right>innerWidth+1).map(e=>({tag:e.tagName,cls:e.className})).slice(0,20)));assert.ok(sizes.scroll<=sizes.width+1,`${path} ${theme} ${width}: overflow ${sizes.scroll}`);
  if(role==='student'&&path==='/dashboard'&&width===390&&theme==='light'){
  await page.getByRole('button',{name:'Open navigation'}).click();await page.getByRole('dialog',{name:'Campus navigation'}).waitFor();
- assert.equal(await page.evaluate(()=>document.body.style.overflow),'hidden');await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);
+ assert.equal(await page.evaluate(()=>document.body.style.overflow),'hidden');await page.keyboard.press('Escape');await page.getByRole('dialog').waitFor({state:'detached'});
  }
  if((width===390||width===1440)&&process.env.UI_ALL_SHOTS)await page.screenshot({path:`${process.env.UI_SCREENSHOT_DIR || '/tmp/uniissuehub-ui'}/${theme}-${width}-${role}-${path.replace(/\W/g,'_')||'home'}.png`});
  if(width===390&&theme==='light'&&['/dashboard','/submit','/login'].includes(path))await page.screenshot({path:`${process.env.UI_SCREENSHOT_DIR || '/tmp/uniissuehub-ui'}/after-${path.slice(1)}-mobile.png`,fullPage:true});

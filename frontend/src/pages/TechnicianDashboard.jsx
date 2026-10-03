@@ -9,6 +9,8 @@ import { Wrench, Clock, CheckCircle2, Loader2, ShieldCheck, BarChart2, ListCheck
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import toast from 'react-hot-toast';
+import { motion } from 'framer-motion';
+import { Stagger, Item, MCard, fadeUp, fadeIn } from '@/lib/motion';
 
 const STATUS_COLORS = {
     'Pending': 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-yellow-500/15 dark:text-yellow-400 dark:border-yellow-500/25',
@@ -89,7 +91,7 @@ export default function TechnicianDashboard() {
 
                 <div className="p-6 md:p-10 max-w-7xl mx-auto">
                     {/* Header */}
-                    <div className="mb-10 animate-fade-in">
+                    <motion.div className="mb-10" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                         <div className="flex items-center gap-3 mb-2">
                             <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-500/15 flex items-center justify-center border border-blue-200 dark:border-blue-500/20">
                                 <Wrench className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -101,16 +103,16 @@ export default function TechnicianDashboard() {
                         <p className="text-slate-600 dark:text-slate-400 text-sm ml-13">
                             Welcome, <span className="text-slate-900 dark:text-white font-medium">{user?.name}</span> · {user?.department || 'Maintenance'}
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-3 gap-5 mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    <motion.div className="grid grid-cols-3 gap-5 mb-10" variants={fadeIn} initial="hidden" animate="show" custom={0.1}>
                         {[
                             { label: 'My Tasks', value: stats.total, icon: ListChecks, color: 'blue' },
                             { label: 'In Progress', value: stats.inProgress, icon: Clock, color: 'indigo' },
                             { label: 'Resolved', value: stats.resolved, icon: CheckCircle2, color: 'green' },
                         ].map(({ label, value, icon: Icon, color }) => (
-                            <Card key={label} className={`bg-white dark:bg-[#0c1f14] border-slate-200 dark:border-[#1d3a28] overflow-hidden relative group`}>
+                            <MCard key={label} variants={fadeUp} whileHover={{ y: -3 }} className={`bg-white dark:bg-[#0c1f14] border-slate-200 dark:border-[#1d3a28] overflow-hidden relative group`}>
                                 <div className={`absolute right-0 bottom-0 w-32 h-32 bg-${color}-100 dark:bg-${color}-500/10 rounded-tl-full blur-2xl`} />
                                 <CardContent className="p-6 relative z-10">
                                     <div className={`w-9 h-9 rounded-xl bg-${color}-100 dark:bg-${color}-500/15 flex items-center justify-center border border-${color}-200 dark:border-${color}-500/20 mb-4`}>
@@ -119,12 +121,12 @@ export default function TechnicianDashboard() {
                                     <p className="text-4xl font-bold text-slate-900 dark:text-white mb-1"><CountUp to={Number(value) || 0} duration={1.2} /></p>
                                     <p className="text-slate-500 dark:text-slate-400 text-sm">{label}</p>
                                 </CardContent>
-                            </Card>
+                            </MCard>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Task List */}
-                    <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <motion.div className="" variants={fadeIn} initial="hidden" animate="show" custom={0.2}>
                         <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-5">Assigned Complaints</h2>
                         {loading ? (
                             <div className="flex items-center justify-center h-40">
@@ -136,9 +138,9 @@ export default function TechnicianDashboard() {
                                 <p>No tasks assigned yet</p>
                             </div>
                         ) : (
-                            <div className="space-y-3">
+                            <Stagger className="space-y-3">
                                 {complaints.map(c => (
-                                    <div key={c._id} className="bg-white dark:bg-[#0c1f14] border border-slate-200 dark:border-[#1d3a28] rounded-xl p-5 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all group">
+                                    <Item key={c._id} className="bg-white dark:bg-[#0c1f14] border border-slate-200 dark:border-[#1d3a28] rounded-xl p-5 hover:border-blue-300 dark:hover:border-blue-500/30 transition-all group">
                                         <div className="flex items-start justify-between gap-4 flex-wrap">
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -205,11 +207,11 @@ export default function TechnicianDashboard() {
                                                 )}
                                             </div>
                                         </div>
-                                    </div>
+                                    </Item>
                                 ))}
-                            </div>
+                            </Stagger>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </main>
         </div>

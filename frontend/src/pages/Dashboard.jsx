@@ -10,6 +10,8 @@ import { SkeletonCard } from '../components/SkeletonCard';
 import { Plus, Clock, CheckCircle2, Loader, Folder, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { motion } from 'framer-motion';
+import { Stagger, Item, MCard, fadeUp, fadeIn } from '@/lib/motion';
 
 export default function Dashboard() {
     const { user, logout } = useAuth();
@@ -56,7 +58,7 @@ export default function Dashboard() {
 
                 <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
                     {/* Greeting Section */}
-                    <div className="mb-8 animate-fade-in">
+                    <motion.div className="mb-8" variants={fadeIn} initial="hidden" animate="show" custom={0}>
                         <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-slate-900 dark:text-white">
                             Welcome back, <span className="text-indigo-600 dark:text-indigo-400">{user?.name?.split(' ')[0] || 'User'}</span>
                         </h1>
@@ -67,10 +69,10 @@ export default function Dashboard() {
                         <Button asChild className="h-11 px-5 rounded-lg bg-indigo-100 dark:bg-indigo-600/20 hover:bg-indigo-200 dark:hover:bg-indigo-600/30 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30 shadow-sm dark:shadow-[0_0_20px_rgba(29,116,71,0.15)] transition-all">
                             <Link to="/submit"><Plus className="w-4 h-4 mr-2" /> New Complaint</Link>
                         </Button>
-                    </div>
+                    </motion.div>
 
                     {/* Stats */}
-                    <div className="mb-10 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    <motion.div className="mb-10" variants={fadeIn} initial="hidden" animate="show" custom={0.1}>
                         <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-6">Complaint Statistics</h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
@@ -119,10 +121,10 @@ export default function Dashboard() {
                                 </CardContent>
                             </Card>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Check if there are recent complaints */}
-                    <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <motion.div className="" variants={fadeIn} initial="hidden" animate="show" custom={0.2}>
                         {loading ? (
                             <div className="grid gap-4 sm:grid-cols-2 mt-10">
                                 {[1, 2].map(i => <SkeletonCard key={i} lines={2} showImage={false} />)}
@@ -135,12 +137,12 @@ export default function Dashboard() {
                                         <Link to="/my-complaints">View All</Link>
                                     </Button>
                                 </div>
-                                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                                    {complaints.slice(0, 3).map(c => <ComplaintCard key={c._id} complaint={c} />)}
-                                </div>
+                                <Stagger className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                                    {complaints.slice(0, 3).map(c => <Item key={c._id}><ComplaintCard complaint={c} /></Item>)}
+                                </Stagger>
                             </div>
                         )}
-                    </div>
+                    </motion.div>
 
                 </div>
             </main>
