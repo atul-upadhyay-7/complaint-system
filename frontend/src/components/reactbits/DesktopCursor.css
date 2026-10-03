@@ -1,0 +1,9 @@
+.nyric-pointer { position:fixed; inset:0; pointer-events:none; z-index:9999; }
+.nyric-pointer-dot,.nyric-pointer-ring { position:absolute; left:0; top:0; border-radius:50%; opacity:0; pointer-events:none; }
+.nyric-pointer-dot { width:6px; height:6px; background:#309a5c; }
+.nyric-pointer-ring { width:36px; height:36px; border:1px solid #1d744780; transition:width .2s,height .2s,background-color .2s,border-color .2s; }
+.dark .nyric-pointer-ring { border-color:#76c78c80; }
+.nyric-pointer .is-visible { opacity:1; }
+.nyric-pointer-ring.is-hover { width:80px; height:80px; border-color:#309a5c; background:#309a5c19; }
+/* Defense in depth: no cursor pixels even before React handles a change. */
+@media (max-width:768px),(hover:none),(any-pointer:coarse),(prefers-reduced-motion:reduce) { .nyric-pointer,[data-cursor-fluid] { display:none!important; } }

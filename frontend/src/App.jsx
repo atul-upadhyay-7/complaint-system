@@ -6,7 +6,8 @@ import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
 import CommandBar from './components/CommandBar';
 import AnimatedPage from './components/AnimatedPage';
-import TargetCursor from './components/reactbits/TargetCursor';
+import DesktopCursor from './components/reactbits/DesktopCursor';
+import MobileViewportNotice from './components/MobileViewportNotice';
 import ClickSpark from './components/reactbits/ClickSpark';
 
 import Login from './pages/Login';
@@ -96,7 +97,6 @@ function AppRoutes() {
 }
 
 export default function App() {
-    const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return (
         <MotionConfig reducedMotion="user">
         <BrowserRouter>
@@ -117,13 +117,8 @@ export default function App() {
                             }}
                         />
                         <CommandBar />
-                        {!reduceMotion && (
-                            <TargetCursor
-                                targetSelector="button, a, [role='button'], select, label[for], .cursor-target"
-                                spinDuration={3}
-                                hideDefaultCursor={false}
-                            />
-                        )}
+                        <MobileViewportNotice />
+                        <DesktopCursor />
                         <ClickSpark sparkColor="#309a5c" sparkCount={8} sparkRadius={16} duration={450}>
                             <AppRoutes />
                         </ClickSpark>

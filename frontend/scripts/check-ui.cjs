@@ -5,7 +5,7 @@ require('node:fs').mkdirSync(process.env.UI_SCREENSHOT_DIR || '/tmp/uniissuehub-
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH || '/usr/bin/google-chrome',headless:true,args:['--no-sandbox']});
 const complaints=[{_id:'test-issue',title:'Leaking tap in second floor washroom',description:'A sample complaint for layout testing only.',category:'Water',priority:'Medium',status:'In Progress',location:'Block A',createdAt:'2026-10-01T10:00:00Z',student:{name:'Test Student'},aiAnalysis:{}}];
 let count=0;
-for(const width of [320,360,390,768,1024,1440]){
+for(const width of (process.env.UI_WIDTHS || '320,360,390,768,1024,1440').split(',').map(Number)){
  for(const theme of ['light','dark']){
  for(const [role,paths] of [['guest',['/','/login','/register','/forgot-password']],['student',['/dashboard','/my-complaints','/submit','/notifications']],['admin',['/admin','/admin/complaints']],['warden',['/warden']],['technician',['/technician']]]){
  const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});

@@ -325,3 +325,6 @@
 .card-spot > :not(.absolute):not(.fixed) { position:relative; z-index:1; }
 @media (hover:none) { .card-spot::before { display:none; } }
 @media (prefers-reduced-motion:reduce) { .card-spot::before { transition:none; } }
+/* A wide viewport on a small touch screen can mean browser Desktop site mode. */
+.mobile-viewport-notice { position:fixed; inset:0 0 auto; z-index:10000; padding:20px 24px; display:flex; gap:24px; align-items:center; background:#e4f6e6; color:#0c331e; border-bottom:2px solid #309a5c; font-size:22px; line-height:1.4; box-shadow:0 4px 16px #0c331e20; }
+.mobile-viewport-notice button { flex-shrink:0; padding:10px 16px; background:#125335; color:#f4faf4; border-radius:8px; }
