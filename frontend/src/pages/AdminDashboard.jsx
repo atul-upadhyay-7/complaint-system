@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CountUp from '@/components/reactbits/CountUp';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
@@ -23,7 +24,7 @@ function StatCard({ label, value, icon: Icon, color, bg, sub, delay }) {
                         <Icon className={cn('w-5 h-5', color)} />
                     </div>
                 </div>
-                <p className="text-3xl font-bold text-foreground drop-shadow-sm">{value}</p>
+                <p className="text-3xl font-bold text-foreground drop-shadow-sm"><CountUp to={Number(value) || 0} duration={1.2} /></p>
                 {sub && <p className="text-xs text-muted-foreground mt-1.5 font-medium">{sub}</p>}
             </CardContent>
         </Card>
@@ -109,7 +110,7 @@ export default function AdminDashboard() {
                     {/* Topbar */}
                     <div className="hidden lg:flex items-center justify-end px-8 py-5">
                         <button onClick={(e) => { e.preventDefault(); logout(); navigate('/login'); }}
-                            className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:border-[#1e1e2d] dark:text-slate-300 dark:hover:bg-[#121124] hover:text-slate-900 dark:hover:text-white transition-colors">
+                            className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:border-[#1d3a28] dark:text-slate-300 dark:hover:bg-[#0c1f14] hover:text-slate-900 dark:hover:text-white transition-colors">
                             <ShieldCheck className="w-4 h-4" /> Secure Logout
                         </button>
                     </div>        {/* Header */}
@@ -235,7 +236,7 @@ export default function AdminDashboard() {
                     </div>
 
                     {/* AI Insights - Sentiment Breakdown */}
-                    <Card className="glass-card border-violet-200 dark:border-violet-900/30 mb-6 animate-slide-up shadow-[0_8px_32px_rgba(139,92,246,0.08)]" style={{ animationDelay: '0.62s' }}>
+                    <Card className="glass-card border-violet-200 dark:border-violet-900/30 mb-6 animate-slide-up shadow-[0_8px_32px_rgba(29,116,71,0.08)]" style={{ animationDelay: '0.62s' }}>
                         <CardHeader className="pb-4 border-b border-violet-100 dark:border-violet-900/20">
                             <CardTitle className="text-base font-bold flex items-center gap-2 text-violet-700 dark:text-violet-400">
                                 <Sparkles className="w-5 h-5" /> AI Sentiment Analysis

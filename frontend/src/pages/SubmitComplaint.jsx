@@ -137,7 +137,7 @@ export default function SubmitComplaint() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         {/* ── FORM (2/3) ── */}
-                        <Card className="lg:col-span-2 glass-card border-slate-200 dark:border-blue-900/30 shadow-[0_8px_32px_rgba(59,130,246,0.08)] animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                        <Card className="lg:col-span-2 glass-card border-slate-200 dark:border-blue-900/30 shadow-[0_8px_32px_rgba(48,154,92,0.08)] animate-slide-up" style={{ animationDelay: '0.1s' }}>
                             <CardContent className="p-6 sm:p-8">
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     {/* Title */}

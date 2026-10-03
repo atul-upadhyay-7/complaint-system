@@ -40,22 +40,22 @@ export default function Register() {
         <div className="auth-page min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
             {/* Left Hero Panel */}
             <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden"
-                style={{ background: isLight ? 'linear-gradient(135deg, #dbeafe 0%, #eff6ff 60%, #e0f2fe 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
+                style={{ background: isLight ? 'linear-gradient(135deg, #e4f6e6 0%, #f4faf4 60%, #e4f6e6 100%)' : 'linear-gradient(135deg, #07140c 0%, #0a1a10 60%, #0a1a10 100%)' }}>
                 {/* Animated orbs */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-[15%] left-[10%] w-[450px] h-[450px] rounded-full blur-[110px] animate-float"
-                        style={{ background: isLight ? 'rgba(59,130,246,0.12)' : 'rgba(37,99,235,0.15)' }} />
+                        style={{ background: isLight ? 'rgba(48,154,92,0.12)' : 'rgba(29,116,71,0.15)' }} />
                     <div className="absolute bottom-[10%] right-[5%] w-[350px] h-[350px] rounded-full blur-[100px] animate-float"
-                        style={{ background: isLight ? 'rgba(6,182,212,0.08)' : 'rgba(6,182,212,0.12)', animationDelay: '2s' }} />
+                        style={{ background: isLight ? 'rgba(118,199,140,0.08)' : 'rgba(118,199,140,0.12)', animationDelay: '2s' }} />
                     <div className="absolute top-[60%] left-[40%] w-[200px] h-[200px] rounded-full blur-[80px] animate-float"
-                        style={{ background: isLight ? 'rgba(59,130,246,0.06)' : 'rgba(59,130,246,0.08)', animationDelay: '1s' }} />
+                        style={{ background: isLight ? 'rgba(48,154,92,0.06)' : 'rgba(48,154,92,0.08)', animationDelay: '1s' }} />
                 </div>
                 {/* Grid pattern */}
-                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(59,130,246,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.4) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(48,154,92,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(48,154,92,0.4) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
 
                 {/* Logo */}
                 <div className="relative z-10 flex items-center gap-3 animate-fade-in">
-                    <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
+                    <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                         <GraduationCap className="w-6 h-6 text-blue-400" />
                     </div>
                     <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</span>
@@ -65,7 +65,7 @@ export default function Register() {
                 <div className="relative z-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                     <h1 className={`text-5xl font-bold tracking-tight mb-6 leading-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>
                         Your campus,<br />
-                        <span style={{ background: 'linear-gradient(135deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        <span style={{ background: 'linear-gradient(135deg, #309a5c, #76c78c)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                             resolved faster.
                         </span>
                     </h1>
@@ -83,7 +83,7 @@ export default function Register() {
             </div>
 
             {/* Right Sign Up Panel */}
-            <div className="flex items-center justify-center p-6 relative" style={{ background: isLight ? '#f0f7ff' : '#030e1c' }}>
+            <div className="flex items-center justify-center p-6 relative" style={{ background: isLight ? '#f4faf4' : '#07140c' }}>
 
                 {/* Theme toggle - top right */}
                 <button
@@ -103,7 +103,7 @@ export default function Register() {
                 <div className="w-full max-w-[440px] relative z-10 py-8">
                     {/* Mobile Brand */}
                     <div className="text-center mb-8 lg:hidden animate-fade-in">
-                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
+                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                             <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
                         <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</h1>
@@ -111,7 +111,7 @@ export default function Register() {
                     </div>
 
                     <Card className={`animate-fade-in ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`}
-                        style={{ background: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(8, 20, 40, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
+                        style={{ background: isLight ? 'rgba(255,255,255,0.95)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
                         <CardHeader className="pb-4">
                             <div className="flex items-center gap-3 mb-1">
                                 <div className="w-8 h-8 rounded-xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center">
@@ -124,7 +124,7 @@ export default function Register() {
                         <CardContent>
                             {/* Role selector */}
                             <div className={`grid grid-cols-2 gap-2 mb-5 p-1 rounded-xl border animate-slide-up ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/30'}`}
-                                style={{ background: isLight ? undefined : 'rgba(59,130,246,0.05)', animationDelay: '0.15s' }}>
+                                style={{ background: isLight ? undefined : 'rgba(48,154,92,0.05)', animationDelay: '0.15s' }}>
                                 {[
                                     { role: 'student', icon: GraduationCap, label: 'Student' },
                                     { role: 'admin', icon: ShieldCheck, label: 'Admin' },
@@ -139,7 +139,7 @@ export default function Register() {
                                                 ? 'text-slate-500 hover:text-blue-600 hover:bg-blue-100'
                                                 : 'text-slate-400 hover:text-blue-300 hover:bg-blue-500/10'
                                             }`}
-                                        style={form.role === role ? { background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 0 15px rgba(59,130,246,0.3)' } : {}}
+                                        style={form.role === role ? { background: 'linear-gradient(135deg, #1d7447, #125335)', boxShadow: '0 0 15px rgba(48,154,92,0.3)' } : {}}
                                     >
                                         <Icon className="w-4 h-4" /> {label}
                                     </button>
@@ -269,7 +269,7 @@ export default function Register() {
                                 <Button
                                     type="submit"
                                     className="w-full h-12 mt-2 font-semibold text-base transition-all duration-300 animate-slide-up hover:-translate-y-0.5 text-white"
-                                    style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 0 20px rgba(59,130,246,0.3)', animationDelay: '0.45s' }}
+                                    style={{ background: 'linear-gradient(135deg, #1d7447, #125335)', boxShadow: '0 0 20px rgba(48,154,92,0.3)', animationDelay: '0.45s' }}
                                     disabled={loading}
                                 >
                                     {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Creating account...</> : 'Create Account →'}

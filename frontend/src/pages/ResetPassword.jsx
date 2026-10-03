@@ -43,7 +43,7 @@ export default function ResetPassword() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden" style={{ background: isLight ? '#f0f7ff' : '#030e1c' }}>
+        <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden" style={{ background: isLight ? '#f4faf4' : '#07140c' }}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/15 rounded-full blur-[100px] animate-float" />
                 <div className="absolute top-[20%] right-[10%] w-[350px] h-[350px] bg-cyan-600/10 rounded-full blur-[100px] animate-float" style={{ animationDelay: '1.5s' }} />
@@ -51,12 +51,12 @@ export default function ResetPassword() {
 
             <div className="w-full max-w-[420px] relative z-10">
                 <div className="text-center mb-8 animate-fade-in">
-                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
+                    <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                         <GraduationCap className="w-7 h-7 text-blue-400" />
                     </div>
                 </div>
 
-                <Card className={`animate-slide-up ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(8, 20, 40, 0.7)', backdropFilter: 'blur(20px)' }}>
+                <Card className={`animate-slide-up ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)' }}>
                     <CardHeader className="text-center pb-4">
                         <CardTitle className={`text-2xl font-semibold tracking-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>Create New Password</CardTitle>
                         <CardDescription className={`text-base mt-2 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Secure your account with a fresh password.</CardDescription>
@@ -100,7 +100,7 @@ export default function ResetPassword() {
                             <Button
                                 type="submit"
                                 className="w-full h-12 mt-6 font-semibold text-base transition-all duration-300 animate-slide-up hover:-translate-y-0.5 text-white"
-                                style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}
+                                style={{ background: 'linear-gradient(135deg, #1d7447, #125335)', boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}
                                 disabled={loading}
                             >
                                 {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Saving...</> : 'Reset Password'}

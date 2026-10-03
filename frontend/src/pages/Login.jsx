@@ -11,8 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 
 const FEATURE_CARDS = [
     { icon: Zap, title: 'Real-time Updates', desc: 'Instant status push via WebSockets', color: '#f59e0b' },
-    { icon: Bell, title: 'Email Alerts', desc: 'Auto-notifications on every change', color: '#3b82f6' },
-    { icon: Sparkles, title: 'AI Categorization', desc: 'Smart complaint auto-tagging', color: '#8b5cf6' },
+    { icon: Bell, title: 'Email Alerts', desc: 'Auto-notifications on every change', color: '#309a5c' },
+    { icon: Sparkles, title: 'AI Categorization', desc: 'Smart complaint auto-tagging', color: '#1d7447' },
     { icon: Users, title: 'Role-based Access', desc: 'Student, Warden, Tech, Admin', color: '#10b981' },
 ];
 
@@ -55,28 +55,28 @@ export default function Login() {
     return (
         <div className="auth-page min-h-screen grid lg:grid-cols-2 bg-background relative overflow-hidden" data-theme={theme}>
             {/* ── LEFT HERO PANEL ── */}
-            <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e0eeff 0%, #f0f5ff 40%, #eef2ff 70%, #e8f5ff 100%)' : 'linear-gradient(135deg, #020b18 0%, #040f1e 60%, #050d1c 100%)' }}>
+            <div className="hidden lg:flex relative flex-col justify-between p-12 overflow-hidden" style={{ background: isLight ? 'linear-gradient(135deg, #e4f6e6 0%, #f4faf4 40%, #e4f6e6 70%, #e4f6e6 100%)' : 'linear-gradient(135deg, #07140c 0%, #0a1a10 60%, #0a1a10 100%)' }}>
 
                 {/* Background orbs */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-[5%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[120px] animate-float" style={{ background: isLight ? 'rgba(59,130,246,0.18)' : 'rgba(37,99,235,0.18)' }} />
-                    <div className="absolute bottom-[-5%] right-[-5%] w-[400px] h-[400px] rounded-full blur-[110px] animate-float" style={{ background: isLight ? 'rgba(139,92,246,0.14)' : 'rgba(139,92,246,0.14)', animationDelay: '2s' }} />
-                    <div className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[100px] animate-float" style={{ background: isLight ? 'rgba(6,182,212,0.12)' : 'rgba(6,182,212,0.10)', animationDelay: '3s' }} />
+                    <div className="absolute top-[5%] left-[-5%] w-[500px] h-[500px] rounded-full blur-[120px] animate-float" style={{ background: isLight ? 'rgba(48,154,92,0.18)' : 'rgba(29,116,71,0.18)' }} />
+                    <div className="absolute bottom-[-5%] right-[-5%] w-[400px] h-[400px] rounded-full blur-[110px] animate-float" style={{ background: isLight ? 'rgba(29,116,71,0.14)' : 'rgba(29,116,71,0.14)', animationDelay: '2s' }} />
+                    <div className="absolute top-[40%] left-[40%] w-[300px] h-[300px] rounded-full blur-[100px] animate-float" style={{ background: isLight ? 'rgba(118,199,140,0.12)' : 'rgba(118,199,140,0.10)', animationDelay: '3s' }} />
                 </div>
 
                 {/* Grid pattern - more visible in light mode */}
-                <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(rgba(59,130,246,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
+                <div className="absolute inset-0" style={{ backgroundImage: `linear-gradient(rgba(48,154,92,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px), linear-gradient(90deg, rgba(48,154,92,${isLight ? '0.07' : '0.04'}) 1px, transparent 1px)`, backgroundSize: '60px 60px' }} />
 
                 {/* Logo */}
                 <div className="relative z-10 flex items-center justify-between animate-fade-in">
                     <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.35)' }}>
+                        <div className="w-12 h-12 rounded-2xl bg-blue-500/15 border border-blue-500/30 flex items-center justify-center" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.35)' }}>
                             <GraduationCap className="w-6 h-6 text-blue-400" />
                         </div>
                         <span className={`text-2xl font-bold ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</span>
                     </div>
                     {/* Hackathon badge */}
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style={isLight ? { background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: 'white', boxShadow: '0 2px 12px rgba(124,58,237,0.35)' } : { background: 'linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2))', border: '1px solid rgba(139,92,246,0.3)', color: '#a78bfa' }}>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style={isLight ? { background: 'linear-gradient(135deg, #125335, #1d7447)', color: 'white', boxShadow: '0 2px 12px rgba(124,58,237,0.35)' } : { background: 'linear-gradient(135deg, rgba(29,116,71,0.2), rgba(48,154,92,0.2))', border: '1px solid rgba(29,116,71,0.3)', color: '#76c78c' }}>
                         <Sparkles className="w-3 h-3" /> Campus workspace
                     </div>
                 </div>
@@ -90,7 +90,7 @@ export default function Login() {
                         </div>
                         <h1 className={`text-5xl font-bold tracking-tight mb-5 leading-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>
                             Resolve campus<br />
-                            <span style={{ background: 'linear-gradient(135deg, #3b82f6, #06b6d4, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            <span style={{ background: 'linear-gradient(135deg, #309a5c, #76c78c, #1d7447)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                                 issues together.
                             </span>
                         </h1>
@@ -132,7 +132,7 @@ export default function Login() {
             </div>
 
             {/* ── RIGHT LOGIN PANEL ── */}
-            <div className="flex items-center justify-center p-6 relative" style={{ background: isLight ? '#f0f7ff' : '#030e1c' }}>
+            <div className="flex items-center justify-center p-6 relative" style={{ background: isLight ? '#f4faf4' : '#07140c' }}>
                 {/* Theme toggle */}
                 <button onClick={toggleTheme}
                     className={`absolute top-5 right-5 z-20 w-10 h-10 flex items-center justify-center rounded-xl border transition-all duration-300 hover:scale-105 ${isLight ? 'bg-white border-blue-200 text-amber-500 hover:bg-blue-50 shadow-sm' : 'bg-white/5 border-white/10 text-amber-400 hover:bg-white/10'}`}
@@ -149,14 +149,14 @@ export default function Login() {
                 <div className="w-full max-w-[420px] relative z-10">
                     {/* Mobile Brand */}
                     <div className="text-center mb-8 lg:hidden animate-fade-in">
-                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(59,130,246,0.3)' }}>
+                        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-500/15 border border-blue-500/30 mb-4 animate-float" style={{ boxShadow: '0 0 20px rgba(48,154,92,0.3)' }}>
                             <GraduationCap className="w-7 h-7 text-blue-400" />
                         </div>
                         <h1 className={`text-3xl font-bold mb-1 ${isLight ? 'text-slate-800' : 'text-white'}`}>Uniissuehub</h1>
                         <p className={`text-sm ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Complaint Management Portal</p>
                     </div>
 
-                    <Card className={`animate-fade-in ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(8, 20, 40, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
+                    <Card className={`animate-fade-in ${isLight ? 'border-blue-200 shadow-lg' : 'border-blue-900/40'}`} style={{ background: isLight ? 'rgba(255,255,255,0.9)' : 'rgba(12, 31, 20, 0.7)', backdropFilter: 'blur(20px)', animationDelay: '0.1s' }}>
                         <CardHeader className="pb-4 text-center lg:text-left">
                             <CardTitle className={`text-2xl font-semibold tracking-tight ${isLight ? 'text-slate-800' : 'text-white'}`}>Sign In</CardTitle>
                             <CardDescription className={`text-base ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Enter your campus credentials to continue</CardDescription>
@@ -194,14 +194,14 @@ export default function Login() {
 
                                 <Button type="submit"
                                     className="w-full h-12 mt-2 font-semibold text-base transition-all duration-300 animate-slide-up hover:-translate-y-0.5 text-white"
-                                    style={{ background: 'linear-gradient(135deg, #2563eb, #1d4ed8)', boxShadow: '0 0 20px rgba(59,130,246,0.3)', animationDelay: '0.4s' }}
+                                    style={{ background: 'linear-gradient(135deg, #1d7447, #125335)', boxShadow: '0 0 20px rgba(48,154,92,0.3)', animationDelay: '0.4s' }}
                                     disabled={loading}>
                                     {loading ? <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Signing in...</> : 'Sign In →'}
                                 </Button>
                             </form>
 
                             {/* Demo credentials */}
-                            <div className={`mt-6 p-4 rounded-xl border animate-slide-up ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/40'}`} style={{ background: isLight ? undefined : 'rgba(59,130,246,0.05)', animationDelay: '0.5s' }}>
+                            <div className={`mt-6 p-4 rounded-xl border animate-slide-up ${isLight ? 'border-blue-200 bg-blue-50/50' : 'border-blue-900/40'}`} style={{ background: isLight ? undefined : 'rgba(48,154,92,0.05)', animationDelay: '0.5s' }}>
                                 <p className={`text-xs font-medium mb-3 text-center tracking-widest uppercase ${isLight ? 'text-slate-400' : 'text-slate-500'}`}>Demo Accounts</p>
                                 <div className="grid grid-cols-2 gap-2">
                                     {[

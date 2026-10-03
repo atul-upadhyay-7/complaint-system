@@ -1,13 +1,23 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 
-const Card = React.forwardRef(({ className, ...props }, ref) => (
-    <div
-        ref={ref}
-        className={cn("rounded-xl border border-border bg-card text-card-foreground shadow-card animate-fade-in", className)}
-        {...props}
-    />
-))
+// Cursor spotlight adapted from React Bits SpotlightCard (reactbits.dev)
+const Card = React.forwardRef(({ className, onMouseMove, ...props }, ref) => {
+    const handleMove = (e) => {
+        const r = e.currentTarget.getBoundingClientRect()
+        e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - r.left}px`)
+        e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - r.top}px`)
+        onMouseMove?.(e)
+    }
+    return (
+        <div
+            ref={ref}
+            onMouseMove={handleMove}
+            className={cn("card-spot relative rounded-xl border border-border bg-card text-card-foreground shadow-card animate-fade-in", className)}
+            {...props}
+        />
+    )
+})
 Card.displayName = "Card"
 
 const CardHeader = React.forwardRef(({ className, ...props }, ref) => (

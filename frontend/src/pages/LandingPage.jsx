@@ -1,3 +1,4 @@
+import FadeContent from '@/components/reactbits/FadeContent';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Check, GraduationCap, MapPin, MessageSquare, ShieldCheck, Clock, Wrench, ArrowRight } from 'lucide-react';
 
@@ -39,9 +40,9 @@ export default function LandingPage() {
                 <div className="landing-divider"><span>Less chasing updates.</span><span>More getting things fixed.</span><span>A campus that listens.</span></div>
                 <section className="how-section" id="how-it-works">
                     <div className="section-heading"><p className="eyebrow">FROM REPORT TO RESOLUTION</p><h2>A clear next step.<br />At every step.</h2><p>No scattered messages or wondering who to ask. Your report stays in one place from the first description to the final update.</p></div>
-                    <div className="steps-grid">{steps.map(({icon: Icon, title, text}, i) => <article key={title}><span className="step-number">0{i + 1}</span><Icon size={25} /><h3>{title}</h3><p>{text}</p></article>)}</div>
+                    <FadeContent blur duration={900}><div className="steps-grid">{steps.map(({icon: Icon, title, text}, i) => <article key={title}><span className="step-number">0{i + 1}</span><Icon size={25} /><h3>{title}</h3><p>{text}</p></article>)}</div></FadeContent>
                 </section>
-                <section className="landing-cta"><div><p className="eyebrow">YOUR CAMPUS. YOUR VOICE.</p><h2>Something needs fixing?</h2><p>Start with a report. Keep track of what happens next.</p></div><Link className="primary-link" to="/register">Create an account <ArrowRight size={18} /></Link></section>
+                <FadeContent blur duration={900}><section className="landing-cta"><div><p className="eyebrow">YOUR CAMPUS. YOUR VOICE.</p><h2>Something needs fixing?</h2><p>Start with a report. Keep track of what happens next.</p></div><Link className="primary-link" to="/register">Create an account <ArrowRight size={18} /></Link></section></FadeContent>
             </main>
             <footer className="landing-footer"><Link className="brand" to="/"><GraduationCap size={22} />Uniissuehub</Link><p>Campus complaint management, with people at the centre.</p><Link to="/login">Sign in <ArrowUpRight size={15} /></Link></footer>
         </div>

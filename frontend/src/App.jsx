@@ -6,6 +6,8 @@ import { ThemeProvider } from './context/ThemeContext';
 import { SocketProvider } from './context/SocketContext';
 import CommandBar from './components/CommandBar';
 import AnimatedPage from './components/AnimatedPage';
+import TargetCursor from './components/reactbits/TargetCursor';
+import ClickSpark from './components/reactbits/ClickSpark';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -94,6 +96,7 @@ function AppRoutes() {
 }
 
 export default function App() {
+    const reduceMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     return (
         <BrowserRouter>
             <ThemeProvider>
@@ -103,17 +106,26 @@ export default function App() {
                             position="top-right"
                             toastOptions={{
                                 style: {
-                                    background: 'rgba(10,20,40,0.85)',
-                                    color: '#e2e8f0',
-                                    border: '1px solid rgba(59,130,246,0.2)',
+                                    background: 'rgba(12,51,30,0.96)',
+                                    color: '#e4f6e6',
+                                    border: '1px solid rgba(48,154,92,0.2)',
                                     backdropFilter: 'blur(16px)',
                                 },
-                                success: { iconTheme: { primary: '#3b82f6', secondary: '#fff' } },
+                                success: { iconTheme: { primary: '#309a5c', secondary: '#fff' } },
                                 error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
                             }}
                         />
                         <CommandBar />
-                        <AppRoutes />
+                        {!reduceMotion && (
+                            <TargetCursor
+                                targetSelector="button, a, [role='button'], select, label[for], .cursor-target"
+                                spinDuration={3}
+                                hideDefaultCursor={false}
+                            />
+                        )}
+                        <ClickSpark sparkColor="#309a5c" sparkCount={8} sparkRadius={16} duration={450}>
+                            <AppRoutes />
+                        </ClickSpark>
                     </SocketProvider>
                 </AuthProvider>
             </ThemeProvider>

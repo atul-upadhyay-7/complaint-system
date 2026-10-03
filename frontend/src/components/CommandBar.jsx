@@ -116,7 +116,7 @@ export default function CommandBar() {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="max-w-2xl p-0 overflow-hidden bg-slate-50/80 dark:bg-[#0d0d16]/95 backdrop-blur-2xl border-slate-200 dark:border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
+            <DialogContent className="max-w-2xl p-0 overflow-hidden bg-slate-50/80 dark:bg-[#0c1f14]/95 backdrop-blur-2xl border-slate-200 dark:border-white/10 shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)]">
                 <div className="flex items-center border-b border-slate-200 dark:border-white/5 px-4 h-14">
                     <Search className="w-5 h-5 text-muted-foreground mr-3" />
                     <input

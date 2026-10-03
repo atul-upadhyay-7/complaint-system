@@ -29,12 +29,12 @@ export default function WeeklyBarChart({ data = [] }) {
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                 <XAxis
                     dataKey="day"
-                    tick={{ fill: '#64748b', fontSize: 11 }}
+                    tick={{ fill: '#5f7a65', fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                 />
                 <YAxis
-                    tick={{ fill: '#64748b', fontSize: 11 }}
+                    tick={{ fill: '#5f7a65', fontSize: 11 }}
                     axisLine={false}
                     tickLine={false}
                     allowDecimals={false}
@@ -43,9 +43,9 @@ export default function WeeklyBarChart({ data = [] }) {
                 <Legend
                     iconType="circle"
                     iconSize={8}
-                    formatter={(value) => <span style={{ color: '#94a3b8', fontSize: '11px' }}>{value}</span>}
+                    formatter={(value) => <span style={{ color: '#86a08b', fontSize: '11px' }}>{value}</span>}
                 />
-                <Bar dataKey="Resolved" fill="#3b82f6" radius={[4, 4, 0, 0]} maxBarSize={28} />
+                <Bar dataKey="Resolved" fill="#309a5c" radius={[4, 4, 0, 0]} maxBarSize={28} />
                 <Bar dataKey="Pending" fill="#f59e0b" radius={[4, 4, 0, 0]} maxBarSize={28} />
             </BarChart>
         </ResponsiveContainer>

@@ -25,6 +25,7 @@ for(const width of [320,360,390,768,1024,1440]){
  await page.getByRole('button',{name:'Open navigation'}).click();await page.getByRole('dialog',{name:'Campus navigation'}).waitFor();
  assert.equal(await page.evaluate(()=>document.body.style.overflow),'hidden');await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);
  }
+ if((width===390||width===1440)&&process.env.UI_ALL_SHOTS)await page.screenshot({path:`${process.env.UI_SCREENSHOT_DIR || '/tmp/uniissuehub-ui'}/${theme}-${width}-${role}-${path.replace(/\W/g,'_')||'home'}.png`});
  if(width===390&&theme==='light'&&['/dashboard','/submit','/login'].includes(path))await page.screenshot({path:`${process.env.UI_SCREENSHOT_DIR || '/tmp/uniissuehub-ui'}/after-${path.slice(1)}-mobile.png`,fullPage:true});
  if(width===1440&&theme==='light'&&path==='/dashboard')await page.screenshot({path:(process.env.UI_SCREENSHOT_DIR || '/tmp/uniissuehub-ui')+'/after-dashboard-desktop.png',fullPage:true});
  count++;await page.close();

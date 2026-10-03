@@ -1,6 +1,6 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const ELECTRIC_BLUE_COLORS = ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#6366f1'];
+const ELECTRIC_BLUE_COLORS = ['#309a5c', '#76c78c', '#1d7447', '#10b981', '#f59e0b', '#ef4444', '#9adaa8', '#1d7447'];
 
 const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
@@ -65,7 +65,7 @@ export default function CategoryPieChart({ data = [] }) {
                 <Legend
                     iconType="circle"
                     iconSize={8}
-                    formatter={(value) => <span style={{ color: '#94a3b8', fontSize: '11px' }}>{value}</span>}
+                    formatter={(value) => <span style={{ color: '#86a08b', fontSize: '11px' }}>{value}</span>}
                 />
             </PieChart>
         </ResponsiveContainer>

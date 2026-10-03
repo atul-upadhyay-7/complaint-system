@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CountUp from '@/components/reactbits/CountUp';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
@@ -71,13 +72,13 @@ export default function WardenDashboard() {
     };
 
     return (
-        <div className="workspace flex min-h-screen bg-slate-50 text-slate-900 dark:bg-[#070710] dark:text-[#f1f0ff] transition-colors duration-300">
+        <div className="workspace flex min-h-screen bg-slate-50 text-slate-900 dark:bg-[#07140c] dark:text-[#e4f6e6] transition-colors duration-300">
             <Sidebar />
             <main className="flex-1 lg:ml-[280px] min-w-0 pt-20 lg:pt-0">
                 {/* Topbar */}
                 <div className="hidden lg:flex items-center justify-end px-8 py-5">
                     <button onClick={(e) => { e.preventDefault(); logout(); navigate('/login'); }}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:border-[#1e1e2d] dark:text-slate-300 dark:hover:bg-[#121124] hover:text-slate-900 dark:hover:text-white transition-colors">
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:border-[#1d3a28] dark:text-slate-300 dark:hover:bg-[#0c1f14] hover:text-slate-900 dark:hover:text-white transition-colors">
                         <ShieldCheck className="w-4 h-4" /> Secure Logout
                     </button>
                 </div>
@@ -107,11 +108,11 @@ export default function WardenDashboard() {
                                 { label: 'In Progress', value: analytics.inProgress, color: 'blue', icon: Loader2 },
                                 { label: 'Resolved', value: analytics.resolved, color: 'green', icon: CheckCircle2 },
                             ].map(({ label, value, color, icon: Icon }) => (
-                                <Card key={label} className="bg-white dark:bg-[#121124] border-slate-200 dark:border-[#1e1e2d] overflow-hidden relative">
+                                <Card key={label} className="bg-white dark:bg-[#0c1f14] border-slate-200 dark:border-[#1d3a28] overflow-hidden relative">
                                     <div className={`absolute right-0 bottom-0 w-24 h-24 bg-${color}-100 dark:bg-${color}-500/10 rounded-tl-full blur-2xl`} />
                                     <CardContent className="p-5 relative z-10">
                                         <Icon className={`w-4 h-4 text-${color}-600 dark:text-${color}-400 mb-3`} />
-                                        <p className="text-3xl font-bold text-slate-900 dark:text-white">{value}</p>
+                                        <p className="text-3xl font-bold text-slate-900 dark:text-white"><CountUp to={Number(value) || 0} duration={1.2} /></p>
                                         <p className="text-slate-500 dark:text-slate-400 text-xs mt-1">{label}</p>
                                     </CardContent>
                                 </Card>
@@ -133,7 +134,7 @@ export default function WardenDashboard() {
                         ) : (
                             <div className="space-y-3">
                                 {complaints.map(c => (
-                                    <div key={c._id} className="bg-white dark:bg-[#121124] border border-slate-200 dark:border-[#1e1e2d] rounded-xl p-5 hover:border-emerald-300 dark:hover:border-emerald-500/20 transition-all">
+                                    <div key={c._id} className="bg-white dark:bg-[#0c1f14] border border-slate-200 dark:border-[#1d3a28] rounded-xl p-5 hover:border-emerald-300 dark:hover:border-emerald-500/20 transition-all">
                                         <div className="flex items-start justify-between gap-4 flex-wrap mb-3">
                                             <div className="flex-1 min-w-0">
                                                 <div className="flex items-center gap-2 mb-1 flex-wrap">
@@ -218,14 +219,14 @@ export default function WardenDashboard() {
 
                                         {/* Assign to Technician */}
                                         {c.status !== 'Resolved' && c.status !== 'Rejected' && staff.length > 0 && (
-                                            <div className="flex items-center gap-2 mt-2 pt-3 border-t border-slate-200 dark:border-[#1e1e2d] flex-wrap">
+                                            <div className="flex items-center gap-2 mt-2 pt-3 border-t border-slate-200 dark:border-[#1d3a28] flex-wrap">
                                                 <Users className="w-4 h-4 text-slate-500 shrink-0" />
                                                 <div className="relative flex-1 min-w-0">
                                                     <select
                                                         value={selectedAssignee[c._id] || ''}
                                                         disabled={assigning === c._id}
                                                         onChange={e => setSelectedAssignee(prev => ({ ...prev, [c._id]: e.target.value }))}
-                                                        className="w-full bg-slate-50 dark:bg-[#0d0d16] border border-slate-200 dark:border-[#1e1e2d] rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-500/40 transition-colors disabled:opacity-50">
+                                                        className="w-full bg-slate-50 dark:bg-[#0c1f14] border border-slate-200 dark:border-[#1d3a28] rounded-lg px-3 py-1.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-emerald-400 dark:focus:border-emerald-500/40 transition-colors disabled:opacity-50">
                                                         <option value="">Assign to staff...</option>
                                                         {staff.map(s => (
                                                             <option key={s._id} value={s._id}>{s.name} ({s.role}) </option>

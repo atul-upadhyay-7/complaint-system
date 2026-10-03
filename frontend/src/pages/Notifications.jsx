@@ -39,7 +39,7 @@ export default function Notifications() {
                         <div className="divide-y divide-slate-100 dark:divide-white/5">
                             {notifications.map((n, i) => (
                                 <div key={i} className="flex items-start gap-4 p-5 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-                                    <div className="p-2 rounded-full bg-slate-100 dark:bg-[#0a1628]">
+                                    <div className="p-2 rounded-full bg-slate-100 dark:bg-[#12281a]">
                                         {notifIcon[n.type] || <Bell className="w-5 h-5 text-slate-400" />}
                                     </div>
                                     <div className="flex-1 min-w-0">
