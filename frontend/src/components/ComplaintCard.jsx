@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import ComplaintTimeline from './ComplaintTimeline';
+import AiReviewBadges from './AiReviewBadges';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeUp, fadeIn, MCard } from '@/lib/motion';
 
@@ -111,17 +112,18 @@ export default function ComplaintCard({ complaint, isAdmin = false, onManage }) 
                 </div>
 
                 {/* AI Insights Row */}
-                {(complaint.aiCategory || complaint.aiSentiment || complaint.aiEstimatedTime) && (
+                {(complaint.aiCategory || complaint.aiSentiment || complaint.aiEstimatedTime || complaint.aiNeedsReview) && (
                     <div className="flex items-center flex-wrap gap-2 mt-2 pt-2 border-t border-slate-100 dark:border-white/5">
                         <span className="flex items-center gap-1 text-[10px] font-bold text-violet-500 bg-violet-100 dark:bg-violet-500/10 px-1.5 py-0.5 rounded">
                             <Brain className="w-3 h-3" /> AI
                         </span>
+                        {isAdmin && <AiReviewBadges complaint={complaint} />}
                         {complaint.aiCategory && (
                             <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-md">
                                 {complaint.aiCategory}
                             </span>
                         )}
-                        {complaint.aiSentiment && (
+                        {complaint.aiSentiment && !(complaint.aiSentiment === 'Neutral' && complaint.aiSentimentBasis === 'none') && (
                             <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${complaint.aiSentiment === 'Urgent' ? 'text-rose-600 dark:text-rose-400 bg-rose-100 dark:bg-rose-500/10' :
                                 complaint.aiSentiment === 'Frustrated' ? 'text-orange-600 dark:text-orange-400 bg-orange-100 dark:bg-orange-500/10' :
                                     complaint.aiSentiment === 'Polite' ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/10' :

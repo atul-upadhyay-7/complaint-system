@@ -459,6 +459,8 @@ const getRepairSuggestion = (category) => {
 };
 
 module.exports = {
+    // Exposed for aiAssessment.js and the evaluation harness only.
+    _internals: { classifier, CATEGORY_KEYWORDS, PRIORITY_WEIGHTS, NEGATIVE_WORDS, POSITIVE_WORDS },
     autoCategorizeComplaint,
     autoPrioritizeComplaint,
     analyzeSentiment,

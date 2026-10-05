@@ -44,6 +44,15 @@ const complaintSchema = new mongoose.Schema({
     aiCategory: { type: String, default: null },  // AI auto-classification result
     aiPriority: { type: String, default: null },  // AI-predicted priority
     aiSentiment: { type: String, default: null },  // AI sentiment (Urgent/Frustrated/Neutral/Polite)
+    aiConfidence: {                                   // 0-1 heuristic confidence per AI output (null when AI is off)
+        category: { type: Number, default: null },
+        priority: { type: Number, default: null },
+        sentiment: { type: Number, default: null },
+    },
+    aiSentimentBasis: { type: String, enum: ['cue', 'none'], default: null }, // 'none' = no cue word, label is a guess
+    aiNeedsReview: { type: Boolean, default: false }, // a human should look at this complaint's triage
+    aiReviewReasons: [{ type: String }],
+    aiSafetyFlag: { type: Boolean, default: false },  // a deterministic safety rule matched
     aiEstimatedTime: { type: String, default: null },  // AI predicted resolution ETA
     aiIsDuplicate: { type: Boolean, default: false }, // Flag if AI thinks this is a duplicate
     aiDuplicateMatch: { type: Number, default: 0 },    // Percentage match to nearest existing complaint
@@ -59,5 +68,6 @@ const complaintSchema = new mongoose.Schema({
 // Index for fast queries
 complaintSchema.index({ student: 1, status: 1 });
 complaintSchema.index({ status: 1, createdAt: -1 });
+complaintSchema.index({ aiNeedsReview: 1, status: 1 });
 
 module.exports = mongoose.model('Complaint', complaintSchema);

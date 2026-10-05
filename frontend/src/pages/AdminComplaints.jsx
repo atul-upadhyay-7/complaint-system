@@ -25,6 +25,7 @@ export default function AdminComplaints() {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState('All');
     const [catFilter, setCatFilter] = useState('All');
+    const [reviewOnly, setReviewOnly] = useState(false);
     const [selected, setSelected] = useState(null);
     const [updating, setUpdating] = useState(false);
     const [deleting, setDeleting] = useState(false);
@@ -65,7 +66,8 @@ export default function AdminComplaints() {
         const matchSearch = !search || c.title.toLowerCase().includes(search.toLowerCase()) || c.student?.name?.toLowerCase().includes(search.toLowerCase());
         const matchStatus = statusFilter === 'All' || c.status === statusFilter;
         const matchCat = catFilter === 'All' || c.category === catFilter;
-        return matchSearch && matchStatus && matchCat;
+        const matchReview = !reviewOnly || c.aiNeedsReview;
+        return matchSearch && matchStatus && matchCat && matchReview;
     });
 
     return (
@@ -114,8 +116,17 @@ export default function AdminComplaints() {
                                             {CATEGORIES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
                                         </SelectContent>
                                     </Select>
-                                    {(search || statusFilter !== 'All' || catFilter !== 'All') && (
-                                        <Button variant="ghost" onClick={() => { setSearch(''); setStatusFilter('All'); setCatFilter('All'); }} className="h-11 px-3 text-muted-foreground hover:text-foreground hover:bg-secondary/80">
+                                    <Button
+                                        type="button"
+                                        variant={reviewOnly ? 'default' : 'outline'}
+                                        aria-pressed={reviewOnly}
+                                        onClick={() => setReviewOnly(v => !v)}
+                                        className="h-11 px-4 whitespace-nowrap"
+                                    >
+                                        Needs review ({complaints.filter(c => c.aiNeedsReview).length})
+                                    </Button>
+                                    {(search || statusFilter !== 'All' || catFilter !== 'All' || reviewOnly) && (
+                                        <Button variant="ghost" onClick={() => { setSearch(''); setStatusFilter('All'); setCatFilter('All'); setReviewOnly(false); }} className="h-11 px-3 text-muted-foreground hover:text-foreground hover:bg-secondary/80">
                                             <X className="h-4 w-4 mr-2" /> Clear Fields
                                         </Button>
                                     )}

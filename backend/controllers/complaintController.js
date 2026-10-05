@@ -2,6 +2,7 @@ const Complaint = require('../models/Complaint');
 const ComplaintHistory = require('../models/ComplaintHistory');
 const complaintService = require('../services/complaintService');
 const { analyzeComplaint } = require('../services/aiService');
+const { assessComplaint } = require('../services/aiAssessment');
 const asyncHandler = require('../utils/asyncHandler');
 
 // @route POST /api/complaints
@@ -16,7 +17,7 @@ exports.createComplaint = asyncHandler(async (req, res) => {
 
 // @route GET /api/complaints
 exports.getComplaints = asyncHandler(async (req, res) => {
-    const { status, category, priority, page = 1, limit = 10, search } = req.query;
+    const { status, category, priority, page = 1, limit = 10, search, needsReview } = req.query;
     const filter = {};
 
     if (req.user.role === 'student') filter.student = req.user._id;
@@ -24,6 +25,7 @@ exports.getComplaints = asyncHandler(async (req, res) => {
     if (status) filter.status = status;
     if (category) filter.category = category;
     if (priority) filter.priority = priority;
+    if (needsReview === 'true' && req.user.role !== 'student') filter.aiNeedsReview = true; // triage queue for staff
     if (search) filter.$or = [
         { title: { $regex: search, $options: 'i' } },
         { description: { $regex: search, $options: 'i' } },
@@ -131,5 +133,17 @@ exports.aiSuggest = asyncHandler(async (req, res) => {
     ).sort({ createdAt: -1 }).limit(50).lean();
 
     const result = analyzeComplaint(title || '', description || '', existingComplaints);
-    res.json({ success: true, ai: result });
+    // Extra fields are additive: existing clients ignore them.
+    const assessment = assessComplaint({ title: title || '', description: description || '', category: req.body.category, priority: req.body.priority });
+    res.json({
+        success: true,
+        ai: {
+            ...result,
+            confidence: assessment.confidence,
+            needsReview: assessment.needsReview,
+            safetyFlag: assessment.safetyFlag,
+            suggestedPriority: assessment.priority,
+            aiEnabled: assessment.enabled,
+        },
+    });
 });

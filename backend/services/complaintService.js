@@ -2,7 +2,8 @@ const Complaint = require('../models/Complaint');
 const ComplaintHistory = require('../models/ComplaintHistory');
 const notificationService = require('./notificationService');
 const logger = require('../utils/logger');
-const { autoCategorizeComplaint, autoPrioritizeComplaint, analyzeSentiment, estimateResolutionTime, detectDuplicates } = require('./aiService');
+const { estimateResolutionTime, detectDuplicates } = require('./aiService');
+const { assessComplaint } = require('./aiAssessment');
 const sendEmail = require('../utils/sendEmail');
 
 // ─── Create a new complaint + fire creation event ──────────────────────────
@@ -10,17 +11,20 @@ const createComplaint = async (data, student) => {
     // 1. Fetch recent complaints for duplicate detection (last 50 open)
     const recent = await Complaint.find({ status: { $ne: 'Resolved' } }).limit(50).sort({ createdAt: -1 });
 
-    // AI: auto-categorize based on title + description
-    const predictedCategory = autoCategorizeComplaint(data.title, data.description);
-
-    // AI: auto-prioritize based on urgency keywords
-    const predictedPriority = autoPrioritizeComplaint(data.title, data.description);
-
-    // AI: sentiment analysis
-    const { sentiment } = analyzeSentiment(data.title, data.description);
+    // AI safety net: suggestions + confidence + deterministic safety rules.
+    // Never throws. The final priority can only be raised above what the student chose.
+    const assessment = assessComplaint({
+        title: data.title,
+        description: data.description,
+        category: data.category,
+        priority: data.priority,
+    });
+    const predictedCategory = assessment.aiCategory;
+    const predictedPriority = assessment.priority;
+    const sentiment = assessment.aiSentiment;
 
     // AI: estimated resolution time
-    const eta = estimateResolutionTime(predictedCategory, predictedPriority);
+    const eta = estimateResolutionTime(predictedCategory || data.category || 'Other', predictedPriority);
 
     // AI: duplicate detection
     const { isDuplicate, highestScore } = detectDuplicates(`${data.title} ${data.description}`, recent);
@@ -30,8 +34,13 @@ const createComplaint = async (data, student) => {
         student: student._id,
         aiCategory: predictedCategory,
         priority: predictedPriority,
-        aiPriority: predictedPriority,
+        aiPriority: assessment.aiPriority,
         aiSentiment: sentiment,
+        aiConfidence: assessment.confidence,
+        aiSentimentBasis: assessment.sentimentBasis,
+        aiNeedsReview: assessment.needsReview,
+        aiReviewReasons: assessment.reviewReasons,
+        aiSafetyFlag: assessment.safetyFlag,
         aiEstimatedTime: eta,
         aiIsDuplicate: isDuplicate,
         aiDuplicateMatch: highestScore,
