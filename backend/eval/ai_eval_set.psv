@@ -1,0 +1,192 @@
+Electricity|Medium|Neutral|Fan in room 204 is not working
+Electricity|Medium|Neutral|Tube light in the corridor of block B is fused
+Electricity|High|Frustrated|No power in our wing since yesterday evening and nobody has come to check. This is unacceptable
+Electricity|Critical|Urgent|Sparking from the switchboard near my bed, smell of burning plastic, please send someone now
+Electricity|Medium|Polite|Kindly request you to replace the broken socket in room 118 when possible
+Electricity|Low|Neutral|Bulb in the study room flickers sometimes
+Electricity|High|Urgent|Power cut during exams tomorrow, the inverter is dead, need it fixed today
+Electricity|Medium|Frustrated|AC has stopped cooling for the third time this month, I am fed up with repeated promises
+Electricity|Critical|Urgent|Student got an electric shock from the geyser switch in bathroom 3, urgent
+Electricity|Medium|Neutral|Voltage fluctuation damages my laptop charger every evening
+Electricity|Low|Polite|It would be nice if the corridor lights were brighter, just a suggestion
+Electricity|Medium|Neutral|The extension board in the common room has a loose plug
+Electricity|Medium|Frustrated|Room light kept going off all night, worst sleep ever
+Electricity|Medium|Neutral|Bijli nahi aa rahi room 305 mein subah se
+Electricity|High|Frustrated|Pura floor mein light nahi hai do din se, bahut bekaar service hai
+Electricity|Medium|Neutral|The fan regulator is stuck at full speed
+Electricity|Low|Neutral|The LED strip outside the lift is slightly dim
+Electricity|Critical|Urgent|Wire hanging loose and touching water pipe in washroom, risk of electrocution
+Electricity|Medium|Polite|Please check the charging point near my desk, it stopped working
+Electricity|Medium|Neutral|The fan is not working but the light is fine
+Water|Medium|Neutral|Tap in bathroom 2 is leaking continuously
+Water|High|Frustrated|No water supply on the third floor for two days, this is terrible
+Water|Medium|Polite|Kindly fix the water cooler on the ground floor, thank you
+Water|High|Urgent|Burst pipe flooding the corridor of block C, water is entering rooms
+Water|Medium|Neutral|Geyser is not heating water in the morning
+Water|Low|Neutral|Slow drip from the tap in the wash area, minor
+Water|High|Neutral|Drinking water from the RO tastes bad and smells, several students have stomach pain
+Water|Medium|Frustrated|Flush in toilet 4 is broken again, I am tired of reporting this
+Water|Medium|Neutral|The tap is not leaking anymore after the repair
+Water|Medium|Neutral|Drain in the bathroom is clogged and water is not going down
+Water|Medium|Neutral|Pani nahi aa raha subah se tank khali hai
+Water|High|Frustrated|Paani ki bahut dikkat hai hostel mein, roz same problem hai
+Water|Medium|Polite|Could you please look at the overhead tank, it overflows at night
+Water|High|Urgent|Sewage water coming out of the drain near the mess entrance, health hazard
+Water|Low|Neutral|Water pressure is slightly low in the evening
+Water|Medium|Neutral|Water cooler on floor 2 is not cooling
+Water|Medium|Neutral|Shower head is broken in bathroom 1
+Water|Medium|Frustrated|Hot water never comes, completely useless geyser
+Water|Medium|Neutral|There is water on the floor near the washing machine
+Water|High|Frustrated|Dirty brown water from taps since three days, unacceptable
+Cleanliness|Medium|Neutral|Dustbins in the corridor are overflowing
+Cleanliness|Medium|Frustrated|Bathrooms are not cleaned for days and the smell is disgusting
+Cleanliness|Medium|Polite|Kindly arrange cleaning of the common room, thanks in advance
+Cleanliness|High|Neutral|Cockroaches are all over my room and the kitchen corridor
+Cleanliness|Medium|Neutral|Mosquitoes in the hostel at night, request fogging
+Cleanliness|Low|Neutral|Floor of the lobby is slightly dusty
+Cleanliness|High|Urgent|Rats found in the mess store room, food safety risk, needs action today
+Cleanliness|Medium|Neutral|The cleaning staff did not come to sweep the corridor today
+Cleanliness|Medium|Frustrated|Garbage outside the gate is not picked up for a week, pathetic
+Cleanliness|Medium|Neutral|Toilet on floor 1 smells and is unclean
+Cleanliness|Medium|Neutral|Kamre mein safai nahi hui hai teen din se
+Cleanliness|Medium|Frustrated|Washroom itna ganda hai ki use karna mushkil hai, bekaar management
+Cleanliness|Low|Neutral|A few cobwebs on the ceiling of the study hall
+Cleanliness|Medium|Polite|Please arrange pest control for the third floor when convenient
+Cleanliness|Medium|Neutral|The bathroom is not dirty anymore, just wet
+Cleanliness|Medium|Neutral|Litter near the sports ground bin
+Cleanliness|Medium|Frustrated|I am not happy with the cleaning of the hostel
+Cleanliness|Medium|Neutral|Sewage smell coming from the bathroom drain
+Cleanliness|Low|Polite|Suggest placing one more dustbin near the stairs
+Cleanliness|Medium|Neutral|Insects in the wardrobe
+Maintenance|Medium|Neutral|Door lock of room 410 is broken
+Maintenance|Medium|Neutral|Window glass is cracked in room 112
+Maintenance|High|Urgent|Ceiling plaster fell near my bed, the roof looks unsafe
+Maintenance|Medium|Polite|Please repair the broken chair in the reading room, thank you
+Maintenance|Low|Neutral|Paint is peeling on the corridor wall, cosmetic
+Maintenance|Medium|Frustrated|The door hinge is broken for the fourth time, fed up of this poor repair work
+Maintenance|Medium|Neutral|Cupboard door will not close properly
+Maintenance|Medium|Neutral|Bed frame is wobbly and creaks
+Maintenance|Critical|Urgent|Balcony railing has come loose on the fourth floor, someone may fall
+Maintenance|Medium|Neutral|Window latch is missing so it does not lock
+Maintenance|Medium|Neutral|Darwaza band nahi hota hai room 220 ka
+Maintenance|Medium|Frustrated|Almirah toot gaya hai aur koi sunta nahi hai
+Maintenance|Low|Polite|It would be nice to have a mirror in the common washroom
+Maintenance|Medium|Neutral|Study table has a broken drawer
+Maintenance|Medium|Neutral|The door is not broken, only the handle is loose
+Maintenance|High|Neutral|Wall crack in the stairwell is widening after the rain
+Maintenance|Medium|Neutral|Lift button panel is not responding on block A
+Maintenance|Medium|Neutral|Mattress is torn and needs replacement
+Maintenance|Low|Neutral|A small scratch on the table top
+Maintenance|Medium|Polite|Kindly fix the loose shelf in my room
+Internet|Medium|Neutral|Wifi is not connecting in room 301
+Internet|High|Frustrated|Internet has been down for three days and our assignments are due, this is ridiculous
+Internet|Medium|Polite|Please look into the slow wifi on the second floor, thank you
+Internet|Medium|Neutral|Network drops every few minutes in the evening
+Internet|Low|Neutral|Wifi signal is slightly weak in the corner room
+Internet|High|Urgent|No internet during the online exam tomorrow morning, needs fixing tonight
+Internet|Medium|Frustrated|Hostel wifi sucks, it never works when I need it
+Internet|Medium|Neutral|LAN port in room 214 is dead
+Internet|Medium|Neutral|Router in the corridor is blinking red
+Internet|Medium|Neutral|Wifi nahi chal raha hai kal se
+Internet|Medium|Frustrated|Internet bahut slow hai, kuch bhi download nahi hota, bekaar
+Internet|Medium|Neutral|Cannot access the college portal from the hostel network
+Internet|Low|Polite|Suggest adding another access point in the library when possible
+Internet|Medium|Neutral|The internet is not slow now but the login page keeps failing
+Internet|Medium|Neutral|Hotspot zone near the cafeteria is not reachable
+Internet|Medium|Frustrated|Wifi speed is terrible during evenings
+Internet|Medium|Neutral|DNS errors appear on every site since morning
+Internet|Medium|Neutral|Wifi password change request has not been processed
+Internet|Medium|Neutral|Network is unavailable on the fourth floor
+Internet|Medium|Polite|Could you please restore the wifi in block D, many thanks
+Security|High|Urgent|Someone entered the girls hostel at night without permission, immediate action needed
+Security|High|Neutral|My laptop was stolen from my room while the door was open
+Security|High|Frustrated|Ragging by seniors continues every night and the warden does nothing, unacceptable
+Security|Medium|Neutral|CCTV camera at the main gate is not working
+Security|Medium|Polite|Please ask the guard to check visitor entries at the gate, thank you
+Security|Medium|Neutral|Outsiders were seen loitering near the back gate
+Security|Low|Neutral|The guard cabin light is dim
+Security|High|Neutral|Harassment from a group near the hostel gate in the evenings
+Security|Medium|Neutral|Gate register is not maintained by the guard
+Security|Critical|Urgent|A fight broke out in the corridor and a student is injured, help needed now
+Security|Medium|Neutral|Suspicious person was following students near the lane
+Security|Medium|Neutral|Chori ho gayi hai mere room se phone gaya
+Security|High|Frustrated|Raat ko guard so jata hai aur koi gate par nahi hota, bahut galat hai
+Security|Medium|Neutral|Lock of the main gate is not secure
+Security|Low|Polite|Suggest installing a mirror at the corner of the parking lot
+Security|Medium|Neutral|The camera is not broken but the monitor is off
+Security|Medium|Neutral|Bicycle stolen from the hostel stand
+Security|Medium|Neutral|Unauthorized vehicles park inside the hostel premises
+Security|High|Frustrated|I do not feel safe walking back at night, the street light is out and nobody cares
+Security|Medium|Neutral|Visitors are entering without ID check
+Food|Medium|Neutral|Dal in the mess today was very watery
+Food|High|Urgent|Several students have vomiting after dinner, possible food poisoning, medical help needed
+Food|Medium|Frustrated|The mess food is terrible and repeated every single day
+Food|Medium|Polite|Kindly add more vegetarian options to the menu, thank you
+Food|Medium|Neutral|Stale chapatis were served at breakfast
+Food|Low|Neutral|The mess opens five minutes late sometimes
+Food|Medium|Neutral|The mess food is not bad at all, just add more salt
+Food|High|Neutral|Hair found in the food and a worm in the salad yesterday
+Food|Medium|Neutral|Canteen prices increased without notice
+Food|Medium|Neutral|Khana bahut kharab tha aaj mess mein
+Food|Medium|Frustrated|Roz wahi sabzi, bahut bekaar khana hai
+Food|Medium|Neutral|Water jugs in the mess are not clean
+Food|Low|Polite|It would be nice to have fruit twice a week, just a suggestion
+Food|Medium|Neutral|Dinner was served cold
+Food|Medium|Neutral|Mess staff are rude when asked for a second serving
+Food|High|Frustrated|Raw rice was served and we complained last week as well, disgusting
+Food|Medium|Neutral|Menu board is not updated
+Food|Medium|Neutral|The kitchen floor is wet and slippery during serving
+Food|Low|Neutral|Tea is slightly lukewarm in the morning
+Food|Medium|Neutral|Breakfast timing needs to change for early classes
+Other|Low|Polite|Thanks, the fan got fixed yesterday
+Other|Low|Polite|Thank you to the technician for fixing the tap so quickly
+Other|Low|Neutral|Need a bonafide certificate for a bank account
+Other|Medium|Neutral|Want to change my room because of my roommate conflict
+Other|Low|Polite|Please let me know the hostel fee payment deadline
+Other|Medium|Frustrated|The warden office never answers calls, extremely rude staff
+Other|Low|Neutral|Library timings should be extended during exams
+Other|Medium|Neutral|Laundry service lost two of my shirts
+Other|Low|Neutral|Parking space is not enough for bikes
+Other|Medium|Neutral|Gym equipment is broken and the treadmill makes noise
+Other|Low|Polite|Suggest a notice board for events in the common room
+Other|Medium|Neutral|Noise from the construction next door disturbs studying
+Other|Medium|Frustrated|Loud music till 2 am every night, I am tired of asking them to stop
+Other|Low|Neutral|Need a duplicate hostel ID card
+Other|Medium|Neutral|Sports room keys are not available in the evening
+Other|Low|Neutral|Request a form for outpass renewal
+Other|Medium|Neutral|Washing machine coin slot is jammed
+Other|Medium|Neutral|Courier packages are delivered late by the hostel office
+Other|Medium|Neutral|Shuttle bus schedule does not match the class timings
+Other|Low|Polite|Good morning, I wanted to appreciate the new study room
+Electricity|Medium|Neutral|Lift is not working because of power failure in block B
+Electricity|Medium|Frustrated|Generator never starts during power cuts, useless backup
+Electricity|High|Neutral|Burning smell from the fan in room 310
+Electricity|Low|Neutral|One light in the parking lot is off
+Electricity|Medium|Neutral|Room heater trips the main switch repeatedly
+Electricity|Medium|Neutral|Mobile charging point near bed has no supply
+Water|Critical|Urgent|Gas leak smell near the kitchen and water heater, evacuate and check immediately
+Water|Medium|Neutral|Pipe under the washbasin is dripping
+Water|Low|Polite|The water cooler could be cleaned when possible, thank you
+Water|Medium|Neutral|Toilet cistern is running all day
+Water|Medium|Neutral|Water in the tank looks green and has algae
+Cleanliness|Medium|Neutral|Common room carpet has stains and a smell
+Cleanliness|High|Neutral|Bed bugs in my mattress and bites all over my arms
+Cleanliness|Medium|Frustrated|Dustbin outside my room is never emptied, I am sick of this
+Cleanliness|Medium|Neutral|Mosquito net on the window is torn
+Maintenance|Medium|Neutral|Gate of the hostel squeaks loudly
+Maintenance|Medium|Neutral|Tiles in the bathroom are loose and slippery
+Maintenance|Critical|Urgent|Ceiling fan fell from the roof in room 206 and nearly hit a student
+Maintenance|Low|Neutral|Curtain rod is bent
+Internet|High|Neutral|Entire campus network is down since morning, no one can access any site
+Internet|Medium|Neutral|Video calls keep freezing on the wifi
+Internet|Medium|Polite|Please increase the bandwidth for the hostel if possible
+Security|Medium|Neutral|Door of the common room does not lock at night
+Security|High|Urgent|Student missing since last night and not reachable, please inform the warden immediately
+Security|Medium|Neutral|Fire alarm panel shows a fault light
+Security|Critical|Urgent|Fire in the pantry on the second floor, smoke is spreading
+Food|Medium|Neutral|Expired milk packets were found in the mess fridge
+Food|Medium|Neutral|Servings are too small for the fee we pay
+Food|Medium|Polite|Please check the rice quality in the mess, thanks
+Other|Medium|Neutral|Common room television remote is missing
+Other|Low|Neutral|Need information about the hostel curfew timings
+Other|Medium|Frustrated|My complaints are ignored every time, nobody takes any action, worst system
